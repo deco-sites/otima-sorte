@@ -103,11 +103,13 @@ const DEFAULT_PROPS = {
     },
   ],
   bannertop: {
-    src: "https://fakeimg.pl/509x161/686868/ffffff?text=BANNER+PRODUTO+PROMOCIONAL",
+    src:
+      "https://fakeimg.pl/509x161/686868/ffffff?text=BANNER+PRODUTO+PROMOCIONAL",
     alt: "",
   },
   bannerbottom: {
-    src: "https://fakeimg.pl/509x161/686868/ffffff?text=BANNER+PRODUTO+PROMOCIONAL",
+    src:
+      "https://fakeimg.pl/509x161/686868/ffffff?text=BANNER+PRODUTO+PROMOCIONAL",
     alt: "",
   },
 };
@@ -219,13 +221,13 @@ const MenuDesktop = (props: Props) => {
                     ))}
                   {category.subcategories?.length &&
                     category.subcategories?.length > 9 && (
-                      <a
-                        href={category.url}
-                        class="text-[#686868] text-sm leading-normal font-bold underline"
-                      >
-                        VER TODOS
-                      </a>
-                    )}
+                    <a
+                      href={category.url}
+                      class="text-[#686868] text-sm leading-normal font-bold underline"
+                    >
+                      VER TODOS
+                    </a>
+                  )}
                 </div>
               </div>
             ))}
