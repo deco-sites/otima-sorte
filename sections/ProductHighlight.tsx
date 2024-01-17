@@ -4,8 +4,8 @@ import type { ImageWidget } from "apps/admin/widgets.ts";
 export interface Props {
   id: string;
   token: string;
-  banner: ImageWidget;
-  link: string;
+  banner?: ImageWidget;
+  link?: string;
 }
 
 const DEFAULT_PROPS = {
@@ -28,7 +28,7 @@ export async function loader(props: Props, _req: Request) {
 
   const { product } = await fetch(
     `https://904137.myshopify.com/admin/api/2024-01/products/${id}.json`,
-    options
+    options,
   ).then((response) => response.json());
 
   return { product, banner, link };
@@ -51,8 +51,8 @@ export default function DogFacts({
   const originalPrice = product?.variants[0].compare_at_price;
 
   return (
-    <div class="bg-[#2E385F] px-[15px] pt-[13px]">
-      <div class="flex flex-col items-center lg:flex-row lg:gap-[31px] max-w-[1174px] mx-auto lg:items-start">
+    <div class="bg-[#2E385F] px-[15px] pt-[13px] pb-[50px] lg:pt-[50px] lg:pb-[78px]">
+      <div class="flex flex-col items-center lg:flex-row lg:gap-[31px] max-w-[1270px] mx-auto lg:items-start">
         <img src={banner} alt="" class="rounded-2xl mb-[18px] lg:mb-0" />
         <div class="flex flex-col items-center lg:items-start">
           <div class="border border-[#6DC04B] rounded-[5px] h-[28px] w-fit px-3 mb-[10px] flex items-center justify-center">
