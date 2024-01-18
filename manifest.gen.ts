@@ -48,6 +48,7 @@ import * as $$$$$$40 from "./sections/Social/InstagramPosts.tsx";
 import * as $$$$$$41 from "./sections/Social/WhatsApp.tsx";
 import * as $$$$$$42 from "./sections/Steps.tsx";
 import * as $$$$$$43 from "./sections/Theme/Theme.tsx";
+import * as $$$$$$44 from "./sections/WinnersSection.tsx";
 import * as $$$$$$$$$$$0 from "./apps/decohub.ts";
 import * as $$$$$$$$$$$1 from "./apps/site.ts";
 
@@ -102,6 +103,7 @@ const manifest = {
     "deco-sites/otima-sorte/sections/Social/WhatsApp.tsx": $$$$$$41,
     "deco-sites/otima-sorte/sections/Steps.tsx": $$$$$$42,
     "deco-sites/otima-sorte/sections/Theme/Theme.tsx": $$$$$$43,
+    "deco-sites/otima-sorte/sections/WinnersSection.tsx": $$$$$$44,
   },
   "apps": {
     "deco-sites/otima-sorte/apps/decohub.ts": $$$$$$$$$$$0,
