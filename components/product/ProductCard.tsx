@@ -58,17 +58,15 @@ interface Props {
 const WIDTH = 200;
 const HEIGHT = 279;
 
-function ProductCard(
-  { product, preload, itemListName, layout, platform, index }: Props,
-) {
-  const {
-    url,
-    productID,
-    name,
-    image: images,
-    offers,
-    isVariantOf,
-  } = product;
+function ProductCard({
+  product,
+  preload,
+  itemListName,
+  layout,
+  platform,
+  index,
+}: Props) {
+  const { url, productID, name, image: images, offers, isVariantOf } = product;
   const id = `product-card-${productID}`;
   const hasVariant = isVariantOf?.hasVariant ?? [];
   const productGroupID = isVariantOf?.productGroupID;
@@ -90,26 +88,19 @@ function ProductCard(
       <li>
         <a href={relativeLink}>
           <Avatar
-            variant={relativeLink === relativeUrl
-              ? "active"
-              : relativeLink
-              ? "default"
-              : "disabled"}
+            variant={
+              relativeLink === relativeUrl
+                ? "active"
+                : relativeLink
+                ? "default"
+                : "disabled"
+            }
             content={value}
           />
         </a>
       </li>
     );
   });
-  const cta = (
-    <a
-      href={url && relative(url)}
-      aria-label="view product"
-      class="btn btn-block"
-    >
-      {l?.basics?.ctaText || "Ver produto"}
-    </a>
-  );
 
   return (
     <div
@@ -118,9 +109,9 @@ function ProductCard(
         align === "center" ? "text-center" : "text-start"
       } ${l?.onMouseOver?.showCardShadow ? "lg:hover:card-bordered" : ""}
         ${
-        l?.onMouseOver?.card === "Move up" &&
-        "duration-500 transition-translate ease-in-out lg:hover:-translate-y-2"
-      }
+          l?.onMouseOver?.card === "Move up" &&
+          "duration-500 transition-translate ease-in-out lg:hover:-translate-y-2"
+        }
       `}
       data-deco="view-product"
     >
@@ -145,43 +136,6 @@ function ProductCard(
         class="relative overflow-hidden"
         style={{ aspectRatio: `${WIDTH} / ${HEIGHT}` }}
       >
-        {/* Wishlist button */}
-
-        <div
-          class={`absolute top-2 z-10 flex items-center
-            ${
-            l?.elementsPositions?.favoriteIcon === "Top left"
-              ? "left-2"
-              : "right-2"
-          }
-            
-          `}
-        >
-          <div
-            class={`${l?.hide?.favoriteIcon ? "hidden" : "block"} ${
-              l?.onMouseOver?.showFavoriteIcon ? "lg:group-hover:block" : ""
-            }`}
-          >
-            {platform === "vtex" && (
-              <WishlistButton
-                productGroupID={productGroupID}
-                productID={productID}
-              />
-            )}
-          </div>
-          {/* Discount % */}
-          {!l?.hide?.discount && (
-            <div class="text-sm bg-base-100 p-[10px]">
-              <span class="text-base-content font-bold">
-                {listPrice && price
-                  ? `${Math.round((listPrice - price) / listPrice * 100)}% `
-                  : ""}
-              </span>
-              OFF
-            </div>
-          )}
-        </div>
-
         {/* Product Images */}
         <a
           href={url && relative(url)}
@@ -193,7 +147,7 @@ function ProductCard(
             alt={front.alternateName}
             width={WIDTH}
             height={HEIGHT}
-            class={`bg-base-100 col-span-full row-span-full rounded w-full ${
+            class={`bg-base-100 col-span-full row-span-full w-full ${
               l?.onMouseOver?.image == "Zoom image"
                 ? "duration-100 transition-scale scale-100 lg:group-hover:scale-125"
                 : ""
@@ -217,114 +171,41 @@ function ProductCard(
             />
           )}
         </a>
-        <figcaption
-          class={`
-          absolute bottom-1 left-0 w-full flex flex-col gap-3 p-2 ${
-            l?.onMouseOver?.showSkuSelector || l?.onMouseOver?.showCta
-              ? "transition-opacity opacity-0 lg:group-hover:opacity-100"
-              : "lg:hidden"
-          }`}
-        >
-          {/* SKU Selector */}
-          {l?.onMouseOver?.showSkuSelector && (
-            <ul class="flex justify-center items-center gap-2 w-full">
-              {skuSelector}
-            </ul>
-          )}
-          {l?.onMouseOver?.showCta && cta}
-        </figcaption>
       </figure>
       {/* Prices & Name */}
-      <div class="flex-auto flex flex-col p-2 gap-3 lg:gap-2">
-        {/* SKU Selector */}
-        {(!l?.elementsPositions?.skuSelector ||
-          l?.elementsPositions?.skuSelector === "Top") && (
-          <>
-            {l?.hide?.skuSelector ? "" : (
-              <ul
-                class={`flex items-center gap-2 w-full overflow-auto p-3 ${
-                  align === "center" ? "justify-center" : "justify-start"
-                } ${l?.onMouseOver?.showSkuSelector ? "lg:hidden" : ""}`}
-              >
-                {skuSelector}
-              </ul>
-            )}
-          </>
-        )}
+      <div class="flex-auto flex flex-col pt-[9px] lg:pt-[14px]">
+        {/* Name % */}
+        <p class="text-[#444] text-center text-sm leading-normal mb-[10px] lg:text-base">
+          eBook - {isVariantOf?.name}
+        </p>
 
-        {l?.hide?.productName && l?.hide?.productDescription
-          ? ""
-          : (
-            <div class="flex flex-col gap-0">
-              {l?.hide?.productName ? "" : (
-                <h2
-                  class="truncate text-base lg:text-lg text-base-content uppercase font-normal"
-                  dangerouslySetInnerHTML={{ __html: name ?? "" }}
-                />
-              )}
-              {l?.hide?.productDescription ? "" : (
-                <div
-                  class="truncate text-sm lg:text-sm text-neutral"
-                  dangerouslySetInnerHTML={{ __html: description ?? "" }}
-                />
-              )}
-            </div>
-          )}
-        {l?.hide?.allPrices ? "" : (
-          <div class="flex flex-col gap-2">
-            <div
-              class={`flex flex-col gap-0 ${
-                l?.basics?.oldPriceSize === "Normal"
-                  ? "lg:flex-row-reverse lg:gap-2"
-                  : ""
-              } ${align === "center" ? "justify-center" : "justify-end"}`}
-            >
-              <div
-                class={`line-through text-base-300 text-xs font-light ${
-                  l?.basics?.oldPriceSize === "Normal" ? "lg:text-sm" : ""
-                }`}
-              >
-                {formatPrice(listPrice, offers?.priceCurrency)}
-              </div>
-              <div class="text-base-content lg:text-sm font-light">
-                {formatPrice(price, offers?.priceCurrency)}
-              </div>
-            </div>
+        {/* Discount % */}
+        <div class="text-[#6DC04B] text-[13px] font-bold tracking-[0.65px] leading-normal w-full max-w-[93px] h-[28px] mx-auto flex justify-center items-center border border-[#6DC04B] rounded-[5px] mb-[13px]">
+          {listPrice && price
+            ? `${Math.round(((listPrice - price) / listPrice) * 100)}% `
+            : ""}
+          OFF
+        </div>
+
+        {/* Price */}
+        <div class="flex justify-center items-center gap-4 mb-[10px]">
+          <div class="text-[#686868] text-[11px] leading-normal line-through lg:text-[13px]">
+            {formatPrice(listPrice, offers?.priceCurrency)}
           </div>
-        )}
+          <div class="text-[#2E385F] text-[15px] leading-normal font-bold lg:text-[17px]">
+            {formatPrice(price, offers?.priceCurrency)}
+          </div>
+        </div>
 
-        {/* SKU Selector */}
-        {l?.elementsPositions?.skuSelector === "Bottom" && (
-          <>
-            <ul
-              class={`flex items-center gap-2 w-full ${
-                align === "center" ? "justify-center" : "justify-between"
-              } ${l?.onMouseOver?.showSkuSelector ? "lg:hidden" : ""}`}
-            >
-              {l?.hide?.installments
-                ? ""
-                : (
-                  <div class="text-base-300 font-light text-sm truncate">
-                    ou {installments}
-                  </div>
-                )}
-              {l?.hide?.skuSelector
-                ? ""
-                : <div class="flex items-center gap-2">{skuSelector}</div>}
-            </ul>
-          </>
-        )}
-        {!l?.hide?.cta
-          ? (
-            <div
-              class={`flex-auto flex items-end ${
-                l?.onMouseOver?.showCta ? "lg:hidden" : ""
-              }`}
-            >
-              {cta}
-            </div>
-          )
-          : ""}
+        <a
+          href={url && relative(url)}
+          aria-label="view product"
+          class="w-full bg-[#6DC04B] max-w-[276px] h-[45px] mx-auto flex justify-center items-center rounded-lg"
+        >
+          <span class="text-white text-[15px] font-bold leading-normal">
+            SAIBA MAIS
+          </span>
+        </a>
       </div>
     </div>
   );

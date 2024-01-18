@@ -1,93 +1,18 @@
+import type { Product } from "apps/commerce/types.ts";
+import ProductCard, {
+  Layout as cardLayout,
+} from "$store/components/product/ProductCard.tsx";
 import { useEffect, useState } from "preact/hooks";
-import type { ImageWidget } from "apps/admin/widgets.ts";
-
-export interface Banner {
-  /** @description Image */
-  image: ImageWidget;
-  /** @description Image's alt text */
-  alt: string;
-  /** @description Image's alt text */
-  link: string;
-}
+import type { Platform } from "$store/apps/site.ts";
 
 export interface Props {
-  images?: Banner[];
-  /**
-   * @description Check this option when this banner is the biggest image on the screen for image optimizations
-   */
+  products: Product[] | null;
+  title?: string;
+  cardLayout?: cardLayout;
+  platform: Platform;
 }
 
-const DEFAULT_PROPS = {
-  images: [
-    {
-      image: "https://fakeimg.pl/300x339",
-      alt: "",
-      link: "/",
-    },
-    {
-      image: "https://fakeimg.pl/300x339",
-      alt: "",
-      link: "/",
-    },
-    {
-      image: "https://fakeimg.pl/300x339",
-      alt: "",
-      link: "/",
-    },
-    {
-      image: "https://fakeimg.pl/300x339",
-      alt: "",
-      link: "/",
-    },
-    {
-      image: "https://fakeimg.pl/300x339",
-      alt: "",
-      link: "/",
-    },
-    {
-      image: "https://fakeimg.pl/300x339",
-      alt: "",
-      link: "/",
-    },
-    {
-      image: "https://fakeimg.pl/300x339",
-      alt: "",
-      link: "/",
-    },
-    {
-      image: "https://fakeimg.pl/300x339",
-      alt: "",
-      link: "/",
-    },
-    {
-      image: "https://fakeimg.pl/300x339",
-      alt: "",
-      link: "/",
-    },
-    {
-      image: "https://fakeimg.pl/300x339",
-      alt: "",
-      link: "/",
-    },
-    {
-      image: "https://fakeimg.pl/300x339",
-      alt: "",
-      link: "/",
-    },
-    {
-      image: "https://fakeimg.pl/300x339",
-      alt: "",
-      link: "/",
-    },
-  ],
-};
-
-const BannersCarousel = (props: Props) => {
-  const { images } = {
-    ...DEFAULT_PROPS,
-    ...props,
-  };
-
+const SwiperShelf = ({ products, title, cardLayout, platform }: Props) => {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -102,7 +27,7 @@ const BannersCarousel = (props: Props) => {
     };
   }, []);
 
-  let slidesNumber = 1;
+  let slidesNumber = 2;
 
   if (windowSize >= 1024) {
     slidesNumber = 4;
@@ -117,7 +42,7 @@ const BannersCarousel = (props: Props) => {
         dangerouslySetInnerHTML={{
           __html: `
             swiper-container::part(container) {
-              padding-inline: 23px;
+              padding-inline: 21px;
               padding-bottom: 62px;
               width: auto;
             }
@@ -161,34 +86,32 @@ const BannersCarousel = (props: Props) => {
           `,
         }}
       />
-      <div
-        style={{ background: "linear-gradient(360deg, #fff 65%, #2E385F 0%)" }}
+      {/* @ts-ignore */}
+      <swiper-container
+        slides-per-view={`${slidesNumber}`}
+        slides-per-group={`${slidesNumber}`}
+        loop="true"
+        navigation="true"
+        pagination="true"
+        space-between="21"
       >
-        <div class="max-w-[1313px] mx-auto">
-          {/* @ts-ignore */}
-          <swiper-container
-            slides-per-view={`${slidesNumber}`}
-            slides-per-group={`${slidesNumber}`}
-            loop="true"
-            navigation="true"
-            pagination="true"
-            space-between="23"
-          >
-            {images.map((image, index) => (
-              /* @ts-ignore */
-              <swiper-slide key={index}>
-                <a href={image.link} class="flex justify-center">
-                  <img src={image.image} alt={image.alt} class="rounded-2xl" />
-                </a>
-                {/* @ts-ignore */}
-              </swiper-slide>
-            ))}
+        {products?.map((product, index) => (
+          /* @ts-ignore */
+          <swiper-slide key={index}>
+            <ProductCard
+              product={product}
+              itemListName={title}
+              layout={cardLayout}
+              platform={platform}
+              index={index}
+            />
             {/* @ts-ignore */}
-          </swiper-container>
-        </div>
-      </div>
+          </swiper-slide>
+        ))}
+        {/* @ts-ignore */}
+      </swiper-container>
     </>
   );
 };
 
-export default BannersCarousel;
+export default SwiperShelf;
