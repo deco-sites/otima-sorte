@@ -88,13 +88,11 @@ function ProductCard({
       <li>
         <a href={relativeLink}>
           <Avatar
-            variant={
-              relativeLink === relativeUrl
-                ? "active"
-                : relativeLink
-                ? "default"
-                : "disabled"
-            }
+            variant={relativeLink === relativeUrl
+              ? "active"
+              : relativeLink
+              ? "default"
+              : "disabled"}
             content={value}
           />
         </a>
@@ -109,9 +107,9 @@ function ProductCard({
         align === "center" ? "text-center" : "text-start"
       } ${l?.onMouseOver?.showCardShadow ? "lg:hover:card-bordered" : ""}
         ${
-          l?.onMouseOver?.card === "Move up" &&
-          "duration-500 transition-translate ease-in-out lg:hover:-translate-y-2"
-        }
+        l?.onMouseOver?.card === "Move up" &&
+        "duration-500 transition-translate ease-in-out lg:hover:-translate-y-2"
+      }
       `}
       data-deco="view-product"
     >
