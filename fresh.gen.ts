@@ -21,6 +21,7 @@ import * as $Header_Drawers from "./islands/Header/Drawers.tsx";
 import * as $Header_MenuDesktop from "./islands/Header/MenuDesktop.tsx";
 import * as $Header_MenuMobile from "./islands/Header/MenuMobile.tsx";
 import * as $Header_Searchbar from "./islands/Header/Searchbar.tsx";
+import * as $InstitucionalBanners from "./islands/InstitucionalBanners.tsx";
 import * as $Newsletter from "./islands/Newsletter.tsx";
 import * as $OutOfStock from "./islands/OutOfStock.tsx";
 import * as $ProductImageZoom from "./islands/ProductImageZoom.tsx";
@@ -55,6 +56,7 @@ const manifest = {
     "./islands/Header/MenuDesktop.tsx": $Header_MenuDesktop,
     "./islands/Header/MenuMobile.tsx": $Header_MenuMobile,
     "./islands/Header/Searchbar.tsx": $Header_Searchbar,
+    "./islands/InstitucionalBanners.tsx": $InstitucionalBanners,
     "./islands/Newsletter.tsx": $Newsletter,
     "./islands/OutOfStock.tsx": $OutOfStock,
     "./islands/ProductImageZoom.tsx": $ProductImageZoom,
