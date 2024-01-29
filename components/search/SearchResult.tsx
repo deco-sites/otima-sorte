@@ -1,6 +1,6 @@
 import { SendEventOnView } from "$store/components/Analytics.tsx";
 import { Layout as CardLayout } from "$store/components/product/ProductCard.tsx";
-import Filters from "$store/components/search/Filters.tsx";
+import Filters from "$store/islands/Filters.tsx";
 import Icon from "$store/components/ui/Icon.tsx";
 import SearchControls from "$store/islands/SearchControls.tsx";
 import { useId } from "$store/sdk/useId.ts";
@@ -8,6 +8,9 @@ import { useOffer } from "$store/sdk/useOffer.ts";
 import type { ProductListingPage } from "apps/commerce/types.ts";
 import { mapProductToAnalyticsItem } from "apps/commerce/utils/productToAnalyticsItem.ts";
 import ProductGallery, { Columns } from "../product/ProductGallery.tsx";
+import SearchTerm from "$store/islands/SearchTerm.tsx";
+import Breadcrumb from "$store/components/ui/Breadcrumb.tsx";
+import Sort from "$store/components/search/Sort.tsx";
 
 export interface Layout {
   /**
@@ -23,6 +26,7 @@ export interface Layout {
 export interface Props {
   /** @title Integration */
   page: ProductListingPage | null;
+  perPage: number;
   layout?: Layout;
   cardLayout?: CardLayout;
 
@@ -40,65 +44,146 @@ function NotFound() {
 
 function Result({
   page,
+  perPage = 3,
   layout,
   cardLayout,
   startingPage = 0,
 }: Omit<Props, "page"> & { page: ProductListingPage }) {
   const { products, filters, breadcrumb, pageInfo, sortOptions } = page;
-  const perPage = pageInfo.recordPerPage || products.length;
 
   const id = useId();
 
   const zeroIndexedOffsetPage = pageInfo.currentPage - startingPage;
   const offset = zeroIndexedOffsetPage * perPage;
 
+  /* total pages */
+  /* console.log("total pages", Math.ceil(pageInfo.records / perPage)); */
+
   return (
     <>
-      <div class="container px-4 sm:py-10">
-        <SearchControls
-          sortOptions={sortOptions}
-          filters={filters}
-          breadcrumb={breadcrumb}
-          displayFilter={layout?.variant === "drawer"}
-        />
+      <div class="px-[10px]">
+        <div class="max-w-[1270px] mx-auto">
+          <SearchTerm />
+          <Breadcrumb itemListElement={breadcrumb?.itemListElement} />
 
-        <div class="flex flex-row">
-          {layout?.variant === "aside" && filters.length > 0 && (
-            <aside class="hidden sm:block w-min min-w-[250px]">
-              <Filters filters={filters} />
-            </aside>
-          )}
-          <div class="flex-grow" id={id}>
-            <ProductGallery
-              products={products}
-              offset={offset}
-              layout={{ card: cardLayout, columns: layout?.columns }}
+          <div class="lg:hidden">
+            <SearchControls
+              sortOptions={sortOptions}
+              filters={filters}
+              breadcrumb={breadcrumb}
+              displayFilter={layout?.variant === "drawer"}
             />
           </div>
-        </div>
 
-        <div class="flex justify-center my-4">
-          <div class="join">
-            <a
-              aria-label="previous page link"
-              rel="prev"
-              href={pageInfo.previousPage ?? "#"}
-              class="btn btn-ghost join-item"
-            >
-              <Icon id="ChevronLeft" size={24} strokeWidth={2} />
-            </a>
-            <span class="btn btn-ghost join-item">
-              Page {zeroIndexedOffsetPage + 1}
-            </span>
-            <a
-              aria-label="next page link"
-              rel="next"
-              href={pageInfo.nextPage ?? "#"}
-              class="btn btn-ghost join-item"
-            >
-              <Icon id="ChevronRight" size={24} strokeWidth={2} />
-            </a>
+          {pageInfo.records && (
+            <p class="text-[#9DA6BA] text-sm leading-normal text-center mb-[30px] lg:hidden">
+              {pageInfo.records} {pageInfo.records > 1 ? "produtos" : "produto"}
+            </p>
+          )}
+
+          <div class="flex flex-row gap-[33px] mb-[73px] lg:mb-[108px]">
+            {layout?.variant === "aside" && filters.length > 0 && (
+              <aside class="hidden lg:block w-full max-w-[292px]">
+                <Filters filters={filters} />
+              </aside>
+            )}
+            <div class="flex-1" id={id}>
+              <div class="hidden lg:flex items-center justify-between mb-[25px]">
+                {pageInfo.records && (
+                  <p class="text-[#9DA6BA] text-sm leading-normal">
+                    {pageInfo.records}{" "}
+                    {pageInfo.records > 1 ? "produtos" : "produto"}
+                  </p>
+                )}
+                {sortOptions.length > 0 && <Sort sortOptions={sortOptions} />}
+              </div>
+              <ProductGallery
+                products={products}
+                offset={offset}
+                layout={{ card: cardLayout, columns: layout?.columns }}
+              />
+              <div class="flex justify-center mt-[68px] mb-[73px] lg:mt-[117px] lg:mb-[108px]">
+                <div class="join">
+                  <a
+                    aria-label="previous page link"
+                    rel="prev"
+                    href={pageInfo.previousPage ?? "#"}
+                    class="btn btn-ghost join-item"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="31"
+                      height="30"
+                      viewBox="0 0 31 30"
+                      fill="none"
+                    >
+                      <rect
+                        x="0.674805"
+                        y="0.5"
+                        width="29"
+                        height="29"
+                        rx="4.5"
+                        fill="#2E385F"
+                        stroke="white"
+                      />
+                      <path
+                        d="M18.0034 20.6568L12.3466 15L18.0034 9.34314"
+                        stroke="white"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
+                  <span class="btn btn-ghost join-item">
+                    Página {zeroIndexedOffsetPage + 1} de{" "}
+                    {pageInfo.records && Math.ceil(pageInfo.records / perPage)}
+                  </span>
+                  <a
+                    aria-label="next page link"
+                    rel="next"
+                    href={pageInfo.nextPage ?? "#"}
+                    class="btn btn-ghost join-item"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="31"
+                      height="30"
+                      viewBox="0 0 31 30"
+                      fill="none"
+                    >
+                      <rect
+                        x="-0.5"
+                        y="0.5"
+                        width="29"
+                        height="29"
+                        rx="4.5"
+                        transform="matrix(-1 0 0 1 29.1748 0)"
+                        fill="#2E385F"
+                        stroke="white"
+                      />
+                      <path
+                        d="M12.3462 20.6568L18.003 15L12.3462 9.34314"
+                        stroke="white"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
+          <p class="text-center text-[#444] text-sm leading-5 mb-[127px] lg:mb-[181px]">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Duis aute irure dolor in reprehenderit in voluptate velit
+            esse cillum dolore eu fugiat nulla pariatur.
+          </p>
         </div>
       </div>
       <SendEventOnView
@@ -111,7 +196,7 @@ function Result({
             item_list_id: breadcrumb.itemListElement?.at(-1)?.item,
             items: page.products?.map((product, index) =>
               mapProductToAnalyticsItem({
-                ...(useOffer(product.offers)),
+                ...useOffer(product.offers),
                 index: offset + index,
                 product,
                 breadcrumbList: page.breadcrumb,
