@@ -34,7 +34,7 @@ export async function loader(props: Props, _req: Request) {
 
   const { variant } = await fetch(
     `https://904137.myshopify.com/admin/api/2024-01/variants/${maybeSkuId}.json`,
-    options
+    options,
   ).then((response) => response.json());
 
   const metafieldsUrl =
@@ -47,7 +47,7 @@ export async function loader(props: Props, _req: Request) {
 
   const { metafields } = await fetch(
     `${metafieldsUrl}?${queryString}`,
-    options
+    options,
   ).then((response) => response.json());
 
   return { metafields };

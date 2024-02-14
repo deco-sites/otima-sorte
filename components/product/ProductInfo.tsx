@@ -111,24 +111,24 @@ function ProductInfo({ page, layout }: Props) {
             </div>
 
             {/* Add to Cart and Favorites button */}
-            {availability === "https://schema.org/InStock" ? (
-              <>
-                {platform === "shopify" && (
-                  <div class="flex lg:flex-col gap-[10px] lg:mb-5">
-                    <AddToCartButtonShopify
-                      eventParams={{ items: [eventItem] }}
-                      productID={productID}
-                    />
-                    <AddToCartButtonShopify
-                      eventParams={{ items: [eventItem] }}
-                      productID={productID}
-                    />
-                  </div>
-                )}
-              </>
-            ) : (
-              <OutOfStock productID={productID} />
-            )}
+            {availability === "https://schema.org/InStock"
+              ? (
+                <>
+                  {platform === "shopify" && (
+                    <div class="flex lg:flex-col gap-[10px] lg:mb-5">
+                      <AddToCartButtonShopify
+                        eventParams={{ items: [eventItem] }}
+                        productID={productID}
+                      />
+                      <AddToCartButtonShopify
+                        eventParams={{ items: [eventItem] }}
+                        productID={productID}
+                      />
+                    </div>
+                  )}
+                </>
+              )
+              : <OutOfStock productID={productID} />}
           </div>
         </div>
 
