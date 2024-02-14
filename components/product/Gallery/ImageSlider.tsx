@@ -1,6 +1,5 @@
 import Icon from "$store/components/ui/Icon.tsx";
 import Slider from "$store/components/ui/Slider.tsx";
-import ProductImageZoom from "$store/islands/ProductImageZoom.tsx";
 import SliderJS from "$store/islands/SliderJS.tsx";
 import { useId } from "$store/sdk/useId.ts";
 import { ProductDetailsPage } from "apps/commerce/types.ts";
@@ -14,6 +13,12 @@ export interface Props {
     width: number;
     height: number;
   };
+}
+
+interface Image {
+  "@type": string;
+  alternateName: string;
+  url: string;
 }
 
 /**
@@ -30,29 +35,107 @@ export default function GallerySlider(props: Props) {
   }
 
   const {
-    page: { product: { image: images = [] } },
+    page: {
+      product: {
+        /* @ts-ignore */
+        isVariantOf: { image: images = [] },
+      },
+    },
     layout: { width, height },
   } = props;
   const aspectRatio = `${width} / ${height}`;
 
   return (
-    <div id={id} class="grid grid-flow-row sm:grid-flow-col">
-      {/* Image Slider */}
-      <div class="relative order-1 sm:order-2">
-        <Slider class="carousel carousel-center gap-6 w-screen sm:w-[40vw]">
-          {images.map((img, index) => (
-            <Slider.Item
-              index={index}
-              class="carousel-item w-full"
-            >
+    <>
+      <div class="lg:hidden" id="pdp-swiper">
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+            swiper-container::part(container) {
+              padding-bottom: 64px;
+            }
+            swiper-container::part(button-prev),
+            swiper-container::part(button-next) {
+              width: 0;
+              height: 0;
+              overflow: visible;
+            }
+            swiper-container::part(button-prev) {
+              left: 35px;
+            }
+            swiper-container::part(button-next) {
+              right: 35px;
+            }
+            swiper-container::part(button-prev)::before,
+            swiper-container::part(button-next)::before {
+              content: "";
+              min-width: 50px;
+              min-height: 50px;
+            }
+            swiper-container::part(button-prev)::before {
+              background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51" fill="none"><rect x="0.944336" y="1.00366" width="49" height="49" rx="4.5" fill="%232E385F" stroke="white"/><path d="M30.1584 34.9317L20.7304 25.5036L30.1584 16.0756" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+            }
+            swiper-container::part(button-next)::before {
+              background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51" fill="none"><rect x="-0.5" y="0.5" width="49" height="49" rx="4.5" transform="matrix(-1 0 0 1 49.4141 0.503662)" fill="%232E385F" stroke="white"/><path d="M20.7 34.9317L30.128 25.5036L20.7 16.0756" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+            }
+            swiper-container::part(pagination) {
+              bottom: 26px;
+            }
+            swiper-container::part(bullet) {
+              width: 13px;
+              height: 13px;
+              background: rgba(160, 160, 160, 0.5);
+            }
+            swiper-container::part(bullet-active) {
+              width: 13px;
+              height: 13px;
+              background: #2e385f;
+            }                                     
+          `,
+          }}
+        />
+        {/* @ts-ignore */}
+        <swiper-container
+          slides-per-view={1}
+          slides-per-group={1}
+          loop="true"
+          navigation="true"
+          pagination="true"
+          space-between="0"
+        >
+          {images?.map((img: Image, index: number) => (
+            /* @ts-ignore */
+            <swiper-slide key={index}>
+              <div class="px-[78px]">
+                <img src={img.url} alt={img.alternateName} class="mx-auto" />
+              </div>
+              {/* @ts-ignore */}
+            </swiper-slide>
+          ))}
+          {/* @ts-ignore */}
+        </swiper-container>
+      </div>
+
+      <div id={id} class="max-w-[497px] hidden lg:flex">
+        {/* Dots */}
+        <ul class="flex flex-col gap-3 mr-5">
+          {images.map((img: Image, index: number) => (
+            <li class="w-[87px] h-[131px]">
+              <Slider.Dot index={index}>
+                <Image width={87} src={img.url!} alt={img.alternateName} />
+              </Slider.Dot>
+            </li>
+          ))}
+        </ul>
+
+        {/* Image Slider */}
+        <Slider class="carousel carousel-center">
+          {images.map((img: Image, index: number) => (
+            <Slider.Item index={index} class="carousel-item w-full">
               <Image
-                class="w-full"
-                sizes="(max-width: 640px) 100vw, 40vw"
-                style={{ aspectRatio }}
+                width={390}
                 src={img.url!}
                 alt={img.alternateName}
-                width={width}
-                height={height}
                 // Preload LCP image for better web vitals
                 preload={index === 0}
                 loading={index === 0 ? "eager" : "lazy"}
@@ -61,48 +144,8 @@ export default function GallerySlider(props: Props) {
           ))}
         </Slider>
 
-        <Slider.PrevButton
-          class="no-animation absolute left-2 top-1/2 btn btn-circle btn-outline"
-          disabled
-        >
-          <Icon size={24} id="ChevronLeft" strokeWidth={3} />
-        </Slider.PrevButton>
-
-        <Slider.NextButton
-          class="no-animation absolute right-2 top-1/2 btn btn-circle btn-outline"
-          disabled={images.length < 2}
-        >
-          <Icon size={24} id="ChevronRight" strokeWidth={3} />
-        </Slider.NextButton>
-
-        <div class="absolute top-2 right-2 bg-base-100 rounded-full">
-          <ProductImageZoom
-            images={images}
-            width={700}
-            height={Math.trunc(700 * height / width)}
-          />
-        </div>
+        <SliderJS rootId={id} />
       </div>
-
-      {/* Dots */}
-      <ul class="carousel carousel-center gap-1 px-4 sm:px-0 sm:flex-col order-2 sm:order-1">
-        {images.map((img, index) => (
-          <li class="carousel-item min-w-[63px] sm:min-w-[100px]">
-            <Slider.Dot index={index}>
-              <Image
-                style={{ aspectRatio }}
-                class="group-disabled:border-base-300 border rounded "
-                width={63}
-                height={87.5}
-                src={img.url!}
-                alt={img.alternateName}
-              />
-            </Slider.Dot>
-          </li>
-        ))}
-      </ul>
-
-      <SliderJS rootId={id} />
-    </div>
+    </>
   );
 }
