@@ -1,6 +1,4 @@
-import type { Props as MenuProps } from "$store/components/header/Menu.tsx";
 import Cart from "$store/components/minicart/Cart.tsx";
-import type { Props as SearchbarProps } from "$store/components/search/Searchbar.tsx";
 import Button from "$store/components/ui/Button.tsx";
 import Drawer from "$store/components/ui/Drawer.tsx";
 import Icon from "$store/components/ui/Icon.tsx";
@@ -9,12 +7,7 @@ import { usePlatform } from "$store/sdk/usePlatform.tsx";
 import type { ComponentChildren } from "preact";
 import { lazy, Suspense } from "preact/compat";
 
-const Menu = lazy(() => import("$store/components/header/Menu.tsx"));
-const Searchbar = lazy(() => import("$store/components/search/Searchbar.tsx"));
-
 export interface Props {
-  menu: MenuProps;
-  searchbar?: SearchbarProps;
   /**
    * @ignore_gen true
    */
@@ -22,24 +15,13 @@ export interface Props {
   platform: ReturnType<typeof usePlatform>;
 }
 
-const Aside = (
-  { title, onClose, children }: {
-    title: string;
-    onClose?: () => void;
-    children: ComponentChildren;
-  },
-) => (
-  <div class="bg-base-100 grid grid-rows-[auto_1fr] h-full divide-y max-w-[100vw]">
-    <div class="flex justify-between items-center">
-      <h1 class="px-4 py-3">
-        <span class="font-medium text-2xl">{title}</span>
-      </h1>
-      {onClose && (
-        <Button class="btn btn-ghost" onClick={onClose}>
-          <Icon id="XMark" size={24} strokeWidth={2} />
-        </Button>
-      )}
-    </div>
+const Aside = ({
+  children,
+}: {
+  onClose?: () => void;
+  children: ComponentChildren;
+}) => (
+  <div class="bg-white h-full w-[calc(100vw-20px)] max-w-[400px] flex flex-col">
     <Suspense
       fallback={
         <div class="w-screen flex items-center justify-center">
@@ -52,49 +34,36 @@ const Aside = (
   </div>
 );
 
-function Drawers({ menu, searchbar, children, platform }: Props) {
-  const { displayCart, displayMenu, displaySearchDrawer } = useUI();
+function Drawers({ children, platform }: Props) {
+  const { displayCart, displayLogin } = useUI();
 
   return (
-    <Drawer // left drawer
-      open={displayMenu.value || displaySearchDrawer.value}
-      onClose={() => {
-        displayMenu.value = false;
-        displaySearchDrawer.value = false;
-      }}
-      aside={
-        <Aside
-          onClose={() => {
-            displayMenu.value = false;
-            displaySearchDrawer.value = false;
-          }}
-          title={displayMenu.value ? "Menu" : "Buscar"}
-        >
-          {displayMenu.value && <Menu {...menu} />}
-          {searchbar && displaySearchDrawer.value && (
-            <div class="w-screen">
-              <Searchbar {...searchbar} />
-            </div>
-          )}
-        </Aside>
-      }
-    >
-      <Drawer // right drawer
+    <>
+      <Drawer
+        class="drawer-end"
+        open={displayLogin.value !== false}
+        onClose={() => (displayLogin.value = false)}
+        aside={
+          <Aside>
+            <h1>LOGIN</h1>
+          </Aside>
+        }
+      >
+        {children}
+      </Drawer>
+      <Drawer
         class="drawer-end"
         open={displayCart.value !== false}
-        onClose={() => displayCart.value = false}
+        onClose={() => (displayCart.value = false)}
         aside={
-          <Aside
-            title="Minha sacola"
-            onClose={() => displayCart.value = false}
-          >
+          <Aside>
             <Cart platform={platform} />
           </Aside>
         }
       >
         {children}
       </Drawer>
-    </Drawer>
+    </>
   );
 }
 

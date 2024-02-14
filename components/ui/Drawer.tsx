@@ -49,11 +49,9 @@ function Drawer(props: Props) {
         onChange={(e) => e.currentTarget.checked === false && onClose?.()}
       />
 
-      <div class="drawer-content">
-        {children}
-      </div>
+      <div class="drawer-content">{children}</div>
 
-      <aside class="drawer-side h-full z-50">
+      <aside class="drawer-side h-full z-50 overflow-hidden">
         <label for={id} class="drawer-overlay" />
         {!lazy.value && aside}
       </aside>

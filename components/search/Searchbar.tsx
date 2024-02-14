@@ -53,7 +53,7 @@ export interface Props {
 }
 
 function Searchbar({
-  placeholder = "What are you looking for?",
+  placeholder = "Busque seus produtos aqui",
   action = "/s",
   name = "q",
   loader,
@@ -74,26 +74,12 @@ function Searchbar({
   }, [displaySearchPopup.value]);
 
   return (
-    <div
-      class="w-full grid gap-8 px-4 py-6 overflow-y-hidden"
-      style={{ gridTemplateRows: "min-content auto" }}
-    >
-      <form id={id} action={action} class="join">
-        <Button
-          type="submit"
-          class="join-item btn-square"
-          aria-label="Search"
-          for={id}
-          tabIndex={-1}
-        >
-          {loading.value
-            ? <span class="loading loading-spinner loading-xs" />
-            : <Icon id="MagnifyingGlass" size={24} strokeWidth={0.01} />}
-        </Button>
+    <div class="w-full max-w-[1270px] mx-auto">
+      <form id={id} action={action} class="flex">
         <input
           ref={searchInputRef}
           id="search-input"
-          class="input input-bordered join-item flex-grow"
+          class="flex-grow px-[16px] focus:outline-none text-[#868686] text-[15px] leading-normal"
           name={name}
           onInput={(e) => {
             const value = e.currentTarget.value;
@@ -112,25 +98,43 @@ function Searchbar({
           aria-controls="search-suggestion"
           autocomplete="off"
         />
-        <Button
+        <button
           type="button"
-          class="join-item btn-ghost btn-square hidden sm:inline-flex"
-          onClick={() => displaySearchPopup.value = false}
+          class="bg-white w-[46px] h-[46px] flex items-center justify-center"
+          onClick={() => (displaySearchPopup.value = false)}
         >
-          <Icon id="XMark" size={24} strokeWidth={2} />
-        </Button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="26"
+            height="26"
+            viewBox="0 0 26 26"
+            fill="none"
+          >
+            <path
+              d="M20.345 5.23132L5.25879 20.3175"
+              stroke="#9DA6BA"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M5.25879 5.23132L20.345 20.3175"
+              stroke="#9DA6BA"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
       </form>
 
-      <div
+      {
+        /* <div
         class={`overflow-y-scroll ${!hasProducts && !hasTerms ? "hidden" : ""}`}
       >
         <div class="gap-4 grid grid-cols-1 sm:grid-rows-1 sm:grid-cols-[150px_1fr]">
           <div class="flex flex-col gap-6">
-            <span
-              class="font-medium text-xl"
-              role="heading"
-              aria-level={3}
-            >
+            <span class="font-medium text-xl" role="heading" aria-level={3}>
               Sugestões
             </span>
             <ul id="search-suggestion" class="flex flex-col gap-6">
@@ -138,11 +142,7 @@ function Searchbar({
                 <li>
                   <a href={`/s?q=${term}`} class="flex gap-4 items-center">
                     <span>
-                      <Icon
-                        id="MagnifyingGlass"
-                        size={24}
-                        strokeWidth={0.01}
-                      />
+                      <Icon id="MagnifyingGlass" size={24} strokeWidth={0.01} />
                     </span>
                     <span dangerouslySetInnerHTML={{ __html: term }} />
                   </a>
@@ -151,11 +151,7 @@ function Searchbar({
             </ul>
           </div>
           <div class="flex flex-col pt-6 md:pt-0 gap-6 overflow-x-hidden">
-            <span
-              class="font-medium text-xl"
-              role="heading"
-              aria-level={3}
-            >
+            <span class="font-medium text-xl" role="heading" aria-level={3}>
               Produtos sugeridos
             </span>
             <Slider class="carousel">
@@ -175,7 +171,8 @@ function Searchbar({
             </Slider>
           </div>
         </div>
-      </div>
+      </div> */
+      }
     </div>
   );
 }
