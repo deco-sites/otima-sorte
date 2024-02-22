@@ -33,12 +33,12 @@ export async function loader(props: Props, _req: Request) {
   };
 
   const { variant } = await fetch(
-    `https://904137.myshopify.com/admin/api/2024-01/variants/${maybeSkuId}.json`,
+    `https://StoreName.myshopify.com/admin/api/2024-01/variants/${maybeSkuId}.json`,
     options,
   ).then((response) => response.json());
 
   const metafieldsUrl =
-    "https://904137.myshopify.com/admin/api/2024-01/metafields.json";
+    "https://StoreName.myshopify.com/admin/api/2024-01/metafields.json";
   const metafieldsParams = {
     "metafield[owner_id]": `${variant.product_id}`,
     "metafield[owner_resource]": "product",

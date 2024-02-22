@@ -27,7 +27,7 @@ export async function loader(props: Props, _req: Request) {
   };
 
   const { product } = await fetch(
-    `https://904137.myshopify.com/admin/api/2024-01/products/${id}.json`,
+    `https://StoreName.myshopify.com/admin/api/2024-01/products/${id}.json`,
     options,
   ).then((response) => response.json());
 

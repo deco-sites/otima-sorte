@@ -6,6 +6,7 @@ import { useUI } from "$store/sdk/useUI.ts";
 import { usePlatform } from "$store/sdk/usePlatform.tsx";
 import type { ComponentChildren } from "preact";
 import { lazy, Suspense } from "preact/compat";
+import LoginForm from "$store/islands/LoginForm.tsx";
 
 export interface Props {
   /**
@@ -45,7 +46,7 @@ function Drawers({ children, platform }: Props) {
         onClose={() => (displayLogin.value = false)}
         aside={
           <Aside>
-            <h1>LOGIN</h1>
+            <LoginForm />
           </Aside>
         }
       >
