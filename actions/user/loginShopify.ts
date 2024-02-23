@@ -1,5 +1,6 @@
 import { setCustomerAccessToken } from "$store/utils/user.ts";
 import { mkStoreFrontFetcher } from "$store/utils/storeFront.ts";
+import { AppContext } from "apps/shopify/mod.ts";
 
 export interface Props {
   email: string;
@@ -9,10 +10,12 @@ export interface Props {
 const action = async (
   props: Props,
   _req: Request,
-  // deno-lint-ignore no-explicit-any
-  ctx: any,
+  ctx: AppContext,
 ): Promise<string | undefined> => {
-  const fetcher = mkStoreFrontFetcher("StoreName", "TokenAccess");
+  const fetcher = mkStoreFrontFetcher(
+    ctx.storeNameCustom,
+    ctx.tokenAccessCustom,
+  );
 
   const data = await fetcher(`mutation customerAccessTokenCreate {
     customerAccessTokenCreate(input: {

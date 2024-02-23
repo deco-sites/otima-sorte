@@ -4,6 +4,7 @@ import { extractUserInfo } from "$store/utils/shopifyUserInfo.ts";
 import { mkAdminFetcher } from "$store/utils/storeFront.ts";
 import { UserOrders } from "$store/types.ts";
 import OrdersTable from "$store/islands/OrdersTable.tsx";
+import { AppContext } from "apps/shopify/mod.ts";
 
 //deno-lint-ignore no-explicit-any
 function parseOrders(orders: any[]): UserOrders {
@@ -20,13 +21,17 @@ function parseOrders(orders: any[]): UserOrders {
   });
 }
 
-async function getCustomerOrders(customerId?: string | null) {
+async function getCustomerOrders(
+  customerId: string,
+  storeName: string,
+  tokenAdmin: string,
+) {
   if (!customerId) {
     return null;
   }
 
   try {
-    const fetcher = mkAdminFetcher("StoreName", "TokenAdmin");
+    const fetcher = mkAdminFetcher(storeName, tokenAdmin);
     const data = await fetcher(
       `customers/${customerId}/orders.json?status=any`,
     );
@@ -39,13 +44,17 @@ async function getCustomerOrders(customerId?: string | null) {
   }
 }
 
-async function getCustomerAddresses(customerId?: string | null) {
+async function getCustomerAddresses(
+  customerId: string,
+  storeName: string,
+  tokenAdmin: string,
+) {
   if (!customerId) {
     return null;
   }
 
   try {
-    const fetcher = mkAdminFetcher("StoreName", "TokenAdmin");
+    const fetcher = mkAdminFetcher(storeName, tokenAdmin);
     const data = await fetcher(`customers/${customerId}/addresses.json`);
     return data?.addresses;
   } catch (err) {
@@ -54,11 +63,22 @@ async function getCustomerAddresses(customerId?: string | null) {
 }
 
 //deno-lint-ignore no-explicit-any
-export async function loader(_: any, _req: Request) {
+export async function loader(_: any, _req: Request, ctx: AppContext) {
+  const storeName = ctx.storeNameCustom;
+  const tokenAccess = ctx.tokenAccessCustom;
+  const tokenAdmin = ctx.tokenAdminCustom.get();
   const token = getCustomerAccessToken(_req.headers);
-  const userInfo = await extractUserInfo(token);
-  const orders = await getCustomerOrders(userInfo?.customerId);
-  const addresses = await getCustomerAddresses(userInfo?.customerId);
+  const userInfo = await extractUserInfo(token, storeName, tokenAccess);
+  const orders = await getCustomerOrders(
+    userInfo?.customerId,
+    storeName,
+    tokenAdmin,
+  );
+  const addresses = await getCustomerAddresses(
+    userInfo?.customerId,
+    storeName,
+    tokenAdmin,
+  );
   const defaultAddress = addresses?.find((address) => address.default);
   return { userInfo, orders, defaultAddress, addresses };
 }

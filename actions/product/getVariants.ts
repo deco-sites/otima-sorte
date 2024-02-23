@@ -1,4 +1,5 @@
 import { fetchSafe } from "apps/utils/fetch.ts";
+import { AppContext } from "apps/shopify/mod.ts";
 
 export interface Props {
   id: string;
@@ -7,14 +8,13 @@ export interface Props {
 const action = async (
   props: Props,
   _req: Request,
+  ctx: AppContext,
 ): Promise<string | undefined> => {
-  console.log("props id", props.id);
-
   const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "X-Shopify-Access-Token": "TokenAdmin",
+      "X-Shopify-Access-Token": ctx.tokenAdminCustom.get(),
     },
     body: JSON.stringify({
       query: `
@@ -41,7 +41,7 @@ const action = async (
   };
 
   const response = await fetchSafe(
-    "https://StoreName.myshopify.com/admin/api/2024-01/graphql.json",
+    `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/graphql.json`,
     options,
   );
 

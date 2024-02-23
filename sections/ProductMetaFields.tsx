@@ -1,8 +1,8 @@
 import type { RequestURLParam } from "apps/website/functions/requestToParam.ts";
 import type { SectionProps } from "deco/mod.ts";
+import { AppContext } from "apps/shopify/mod.ts";
 
 export interface Props {
-  token: string;
   slug: RequestURLParam;
 }
 
@@ -20,25 +20,25 @@ interface Metafild {
   admin_graphql_api_id: string;
 }
 
-export async function loader(props: Props, _req: Request) {
-  const { token, slug } = props;
+export async function loader(props: Props, _req: Request, ctx: AppContext) {
+  const { slug } = props;
   const splitted = slug?.split("-");
   const maybeSkuId = Number(splitted[splitted.length - 1]);
 
   const options = {
     method: "GET",
     headers: {
-      "X-Shopify-Access-Token": token,
+      "X-Shopify-Access-Token": ctx.tokenAdminCustom.get(),
     },
   };
 
   const { variant } = await fetch(
-    `https://StoreName.myshopify.com/admin/api/2024-01/variants/${maybeSkuId}.json`,
+    `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/variants/${maybeSkuId}.json`,
     options,
   ).then((response) => response.json());
 
   const metafieldsUrl =
-    "https://StoreName.myshopify.com/admin/api/2024-01/metafields.json";
+    `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/metafields.json`;
   const metafieldsParams = {
     "metafield[owner_id]": `${variant.product_id}`,
     "metafield[owner_resource]": "product",

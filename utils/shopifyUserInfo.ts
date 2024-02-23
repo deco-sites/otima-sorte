@@ -1,12 +1,16 @@
 import { mkStoreFrontFetcher } from "./storeFront.ts";
 
-export async function extractUserInfo(token?: string | null) {
+export async function extractUserInfo(
+  token: string,
+  storeName: string,
+  tokenAccess: string,
+) {
   if (!token) {
     return null;
   }
 
   try {
-    const fetcher = mkStoreFrontFetcher("StoreName", "TokenAccess");
+    const fetcher = mkStoreFrontFetcher(storeName, tokenAccess);
 
     const data = await fetcher(`query {
       customer(customerAccessToken: "${token}") {

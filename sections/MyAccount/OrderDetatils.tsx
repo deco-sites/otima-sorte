@@ -4,14 +4,19 @@ import { getCustomerAccessToken } from "$store/utils/user.ts";
 import { extractUserInfo } from "$store/utils/shopifyUserInfo.ts";
 import { mkAdminFetcher } from "$store/utils/storeFront.ts";
 import { UserOrders } from "$store/types.ts";
+import { AppContext } from "apps/shopify/mod.ts";
 
 export interface Props {
   slug: RequestURLParam;
 }
 
-async function getProduct(productId: number) {
+async function getProduct(
+  productId: number,
+  storeName: string,
+  tokenAdmin: string,
+) {
   try {
-    const fetcher = mkAdminFetcher("StoreName", "TokenAdmin");
+    const fetcher = mkAdminFetcher(storeName, tokenAdmin);
     const data = await fetcher(`/products/${productId}.json`);
     return data.product.image;
   } catch (err) {
@@ -21,10 +26,14 @@ async function getProduct(productId: number) {
 }
 
 //deno-lint-ignore no-explicit-any
-async function parseOrders(orders: any[]): UserOrders {
+async function parseOrders(
+  orders: any[],
+  storeName: string,
+  tokenAdmin: string,
+) {
   //deno-lint-ignore no-explicit-any
   async function getProductWithImage(product: any): Promise<any> {
-    const image = await getProduct(product.product_id);
+    const image = await getProduct(product.product_id, storeName, tokenAdmin);
     return { ...product, image };
   }
 
@@ -55,18 +64,22 @@ async function parseOrders(orders: any[]): UserOrders {
   return parsedOrders;
 }
 
-async function getCustomerOrders(customerId?: string | null) {
+async function getCustomerOrders(
+  customerId: string,
+  storeName: string,
+  tokenAdmin: string,
+) {
   if (!customerId) {
     return null;
   }
 
   try {
-    const fetcher = mkAdminFetcher("StoreName", "TokenAdmin");
+    const fetcher = mkAdminFetcher(storeName, tokenAdmin);
     const data = await fetcher(
       `customers/${customerId}/orders.json?status=any`,
     );
 
-    const parsedOrders = parseOrders(data.orders);
+    const parsedOrders = parseOrders(data.orders, storeName, tokenAdmin);
     return parsedOrders;
   } catch (err) {
     console.log("err", err);
@@ -74,10 +87,17 @@ async function getCustomerOrders(customerId?: string | null) {
   }
 }
 
-export async function loader(props: Props, _req: Request) {
+export async function loader(props: Props, _req: Request, ctx: AppContext) {
+  const storeName = ctx.storeNameCustom;
+  const tokenAccess = ctx.tokenAccessCustom;
+  const tokenAdmin = ctx.tokenAdminCustom.get();
   const token = getCustomerAccessToken(_req.headers);
-  const userInfo = await extractUserInfo(token);
-  const orders = await getCustomerOrders(userInfo?.customerId);
+  const userInfo = await extractUserInfo(token, storeName, tokenAccess);
+  const orders = await getCustomerOrders(
+    userInfo?.customerId,
+    storeName,
+    tokenAdmin,
+  );
   const { slug } = props;
   const orderName = `#${slug}`;
 
@@ -104,8 +124,8 @@ const OrderDetatils = ({ currentOrder }: SectionProps<typeof loader>) => {
               <div class="flex flex-col gap-5 lg:flex-row lg:justify-between lg:items-center">
                 <div class="flex gap-[23px] lg:items-center">
                   <img
-                    src={product.image.src}
-                    alt={product.image.alt}
+                    src={product.image?.src}
+                    alt={product.image?.alt}
                     class="max-w-[62px] lg:max-w-[78px]"
                   />
                   <div class="flex flex-col gap-[13px] lg:gap-[14px]">

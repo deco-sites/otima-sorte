@@ -1,4 +1,5 @@
 import { mkStoreFrontFetcher } from "$store/utils/storeFront.ts";
+import { AppContext } from "apps/shopify/mod.ts";
 
 export interface Props {
   firstName: string;
@@ -8,8 +9,15 @@ export interface Props {
 }
 
 //deno-lint-ignore no-explicit-any
-const action = async (props: Props, _req: Request): Promise<any> => {
-  const fetcher = mkStoreFrontFetcher("StoreName", "TokenAccess");
+const action = async (
+  props: Props,
+  _req: Request,
+  ctx: AppContext,
+): Promise<any> => {
+  const fetcher = mkStoreFrontFetcher(
+    ctx.storeNameCustom,
+    ctx.tokenAccessCustom,
+  );
 
   const data = await fetcher(`mutation customerCreate { 
     customerCreate(input: {
