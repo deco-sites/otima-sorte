@@ -22,12 +22,12 @@ const LoginForm = () => {
       setIsLoading(false);
       /* TODO: ERROR HANDLE*/
       if (token) {
-        /* location.href = "/my-account"; */
+        location.href = "/my-account";
       } else {
         setHasError(true);
       }
     },
-    [],
+    []
   );
 
   const createCustomer = useCallback(
@@ -63,7 +63,7 @@ const LoginForm = () => {
         setHasError(true);
       }
     },
-    [],
+    []
   );
 
   const title = (step: string) => {
