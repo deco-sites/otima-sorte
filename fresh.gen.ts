@@ -23,9 +23,15 @@ import * as $Header_MenuDesktop from "./islands/Header/MenuDesktop.tsx";
 import * as $Header_MenuMobile from "./islands/Header/MenuMobile.tsx";
 import * as $Header_Searchbar from "./islands/Header/Searchbar.tsx";
 import * as $InstitucionalBanners from "./islands/InstitucionalBanners.tsx";
+import * as $LoginForm from "./islands/LoginForm.tsx";
 import * as $Newsletter from "./islands/Newsletter.tsx";
+import * as $NewsletterShopify from "./islands/NewsletterShopify.tsx";
+import * as $OrdersTable from "./islands/OrdersTable.tsx";
 import * as $OutOfStock from "./islands/OutOfStock.tsx";
+import * as $PreCheckout from "./islands/PreCheckout.tsx";
 import * as $ProductImageZoom from "./islands/ProductImageZoom.tsx";
+import * as $PromoPage_PrizeSlider from "./islands/PromoPage/PrizeSlider.tsx";
+import * as $Questions from "./islands/Questions.tsx";
 import * as $SearchControls from "./islands/SearchControls.tsx";
 import * as $SearchTerm from "./islands/SearchTerm.tsx";
 import * as $ShippingSimulation from "./islands/ShippingSimulation.tsx";
@@ -60,9 +66,15 @@ const manifest = {
     "./islands/Header/MenuMobile.tsx": $Header_MenuMobile,
     "./islands/Header/Searchbar.tsx": $Header_Searchbar,
     "./islands/InstitucionalBanners.tsx": $InstitucionalBanners,
+    "./islands/LoginForm.tsx": $LoginForm,
     "./islands/Newsletter.tsx": $Newsletter,
+    "./islands/NewsletterShopify.tsx": $NewsletterShopify,
+    "./islands/OrdersTable.tsx": $OrdersTable,
     "./islands/OutOfStock.tsx": $OutOfStock,
+    "./islands/PreCheckout.tsx": $PreCheckout,
     "./islands/ProductImageZoom.tsx": $ProductImageZoom,
+    "./islands/PromoPage/PrizeSlider.tsx": $PromoPage_PrizeSlider,
+    "./islands/Questions.tsx": $Questions,
     "./islands/SearchControls.tsx": $SearchControls,
     "./islands/SearchTerm.tsx": $SearchTerm,
     "./islands/ShippingSimulation.tsx": $ShippingSimulation,

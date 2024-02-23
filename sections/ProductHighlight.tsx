@@ -1,9 +1,9 @@
 import type { SectionProps } from "deco/mod.ts";
 import type { ImageWidget } from "apps/admin/widgets.ts";
+import { AppContext } from "apps/shopify/mod.ts";
 
 export interface Props {
   id: string;
-  token: string;
   banner?: ImageWidget;
   link?: string;
 }
@@ -13,8 +13,8 @@ const DEFAULT_PROPS = {
   link: "/",
 };
 
-export async function loader(props: Props, _req: Request) {
-  const { id, token, banner, link } = {
+export async function loader(props: Props, _req: Request, ctx: AppContext) {
+  const { id, banner, link } = {
     ...DEFAULT_PROPS,
     ...props,
   };
@@ -22,12 +22,12 @@ export async function loader(props: Props, _req: Request) {
   const options = {
     method: "GET",
     headers: {
-      "X-Shopify-Access-Token": token,
+      "X-Shopify-Access-Token": ctx.tokenAdminCustom.get(),
     },
   };
 
   const { product } = await fetch(
-    `https://904137.myshopify.com/admin/api/2024-01/products/${id}.json`,
+    `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/products/${id}.json`,
     options,
   ).then((response) => response.json());
 

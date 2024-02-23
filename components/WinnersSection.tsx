@@ -157,7 +157,7 @@ const WinnersSection = (props: Props) => {
         }}
       />
       <div
-        class="bg-[#2E385F] px-[15px] pt-[30px] pb-12 lg:pt-[64px] lg:pb-[50px]"
+        class="bg-[#2E385F] px-[15px] pt-[30px] pb-12 lg:pt-[64px] lg:pb-[50px] mb-[18px] lg:mb-[27px]"
         id="winners-section"
       >
         <h1 class="text-white text-center text-xl font-extrabold leading-normal lg:text-[27px] mb-[30px] lg:mb-[36px]">

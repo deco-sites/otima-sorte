@@ -35,7 +35,7 @@ const InfoCards = (props: Props) => {
   const { cards } = { ...DEFAULT_PROPS, ...props };
 
   return (
-    <div class="px-[15px]">
+    <div class="px-[15px] mb-6 lg:mb-[57px]">
       <div class="flex flex-col gap-[14px] lg:flex-row lg:justify-between max-w-[1270px] mx-auto">
         {cards.map((card, index) => (
           <div
