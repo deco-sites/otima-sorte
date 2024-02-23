@@ -30,6 +30,8 @@ import * as $OrdersTable from "./islands/OrdersTable.tsx";
 import * as $OutOfStock from "./islands/OutOfStock.tsx";
 import * as $PreCheckout from "./islands/PreCheckout.tsx";
 import * as $ProductImageZoom from "./islands/ProductImageZoom.tsx";
+import * as $PromoPage_PrizeSlider from "./islands/PromoPage/PrizeSlider.tsx";
+import * as $Questions from "./islands/Questions.tsx";
 import * as $SearchControls from "./islands/SearchControls.tsx";
 import * as $SearchTerm from "./islands/SearchTerm.tsx";
 import * as $ShippingSimulation from "./islands/ShippingSimulation.tsx";
@@ -71,6 +73,8 @@ const manifest = {
     "./islands/OutOfStock.tsx": $OutOfStock,
     "./islands/PreCheckout.tsx": $PreCheckout,
     "./islands/ProductImageZoom.tsx": $ProductImageZoom,
+    "./islands/PromoPage/PrizeSlider.tsx": $PromoPage_PrizeSlider,
+    "./islands/Questions.tsx": $Questions,
     "./islands/SearchControls.tsx": $SearchControls,
     "./islands/SearchTerm.tsx": $SearchTerm,
     "./islands/ShippingSimulation.tsx": $ShippingSimulation,
