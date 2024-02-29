@@ -21,6 +21,9 @@ import { Suggestion } from "apps/commerce/types.ts";
 import { Resolved } from "deco/engine/core/resolver.ts";
 import { useEffect, useRef } from "preact/compat";
 import type { Platform } from "$store/apps/site.ts";
+import SearchPreview from "$store/islands/SearchPreview.tsx";
+import { useState } from "preact/hooks";
+import { useSignal } from "@preact/signals";
 
 // Editable props
 export interface Props {
@@ -62,10 +65,7 @@ function Searchbar({
   const id = useId();
   const { displaySearchPopup } = useUI();
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const { setQuery, payload, loading } = useSuggestions(loader);
-  const { products = [], searches = [] } = payload.value ?? {};
-  const hasProducts = Boolean(products.length);
-  const hasTerms = Boolean(searches.length);
+  const query = useSignal("");
 
   useEffect(() => {
     if (displaySearchPopup.value === true) {
@@ -75,61 +75,75 @@ function Searchbar({
 
   return (
     <div class="w-full max-w-[1270px] mx-auto">
-      <form id={id} action={action} class="flex">
-        <input
-          ref={searchInputRef}
-          id="search-input"
-          class="flex-grow px-[16px] focus:outline-none text-[#868686] text-[15px] leading-normal"
-          name={name}
-          onInput={(e) => {
-            const value = e.currentTarget.value;
+      <form id={id} action={action}>
+        <div class="flex">
+          <input
+            ref={searchInputRef}
+            id="search-input"
+            class="flex-grow px-[16px] focus:outline-none text-[#868686] text-[15px] leading-normal"
+            name={name}
+            onInput={(e) => {
+              const value = e.currentTarget.value;
 
-            if (value) {
-              sendEvent({
-                name: "search",
-                params: { search_term: value },
-              });
-            }
+              if (value) {
+                sendEvent({
+                  name: "search",
+                  params: { search_term: value },
+                });
+              }
 
-            setQuery(value);
-          }}
-          placeholder={placeholder}
-          role="combobox"
-          aria-controls="search-suggestion"
-          autocomplete="off"
-        />
-        <button
-          type="button"
-          class="bg-white w-[46px] h-[46px] flex items-center justify-center"
-          onClick={() => (displaySearchPopup.value = false)}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="26"
-            height="26"
-            viewBox="0 0 26 26"
-            fill="none"
+              query.value = value;
+            }}
+            placeholder={placeholder}
+            role="combobox"
+            aria-controls="search-suggestion"
+            autocomplete="off"
+          />
+          <button
+            type="button"
+            class="bg-white w-[46px] h-[46px] flex items-center justify-center"
+            onClick={() => (displaySearchPopup.value = false)}
           >
-            <path
-              d="M20.345 5.23132L5.25879 20.3175"
-              stroke="#9DA6BA"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-            <path
-              d="M5.25879 5.23132L20.345 20.3175"
-              stroke="#9DA6BA"
-              stroke-width="3"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="26"
+              height="26"
+              viewBox="0 0 26 26"
+              fill="none"
+            >
+              <path
+                d="M20.345 5.23132L5.25879 20.3175"
+                stroke="#9DA6BA"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M5.25879 5.23132L20.345 20.3175"
+                stroke="#9DA6BA"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="bg-white flex flex-col lg:flex-row">
+          <div>
+            <h1>COLEÇÕES</h1>
+            <ul>
+              <li>Coleção exemplo</li>
+              <li>Coleção exemplo</li>
+              <li>Coleção exemplo</li>
+              <li>Coleção exemplo</li>
+            </ul>
+            <button type="submit">VER TODOS OS RESULTADOS</button>
+          </div>
+          <SearchPreview query={query} />
+        </div>
       </form>
 
-      {
-        /* <div
+      {/* <div
         class={`overflow-y-scroll ${!hasProducts && !hasTerms ? "hidden" : ""}`}
       >
         <div class="gap-4 grid grid-cols-1 sm:grid-rows-1 sm:grid-cols-[150px_1fr]">
@@ -171,8 +185,7 @@ function Searchbar({
             </Slider>
           </div>
         </div>
-      </div> */
-      }
+      </div> */}
     </div>
   );
 }

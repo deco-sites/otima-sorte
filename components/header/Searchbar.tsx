@@ -21,7 +21,7 @@ function SearchbarModal({ searchbar }: Props) {
       open={displaySearchPopup.value}
       onClose={() => (displaySearchPopup.value = false)}
     >
-      <div class="absolute top-[144px] w-full px-[10px]">
+      <div class="absolute top-[98.5px] lg:top-[144px] w-full px-[10px]">
         <Searchbar {...searchbar} />
       </div>
     </Modal>
