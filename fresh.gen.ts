@@ -24,8 +24,9 @@ import * as $Header_MenuMobile from "./islands/Header/MenuMobile.tsx";
 import * as $Header_Searchbar from "./islands/Header/Searchbar.tsx";
 import * as $InstitucionalBanners from "./islands/InstitucionalBanners.tsx";
 import * as $LoginForm from "./islands/LoginForm.tsx";
+import * as $MenuMobileAccordeon from "./islands/MenuMobileAccordeon.tsx";
 import * as $Newsletter from "./islands/Newsletter.tsx";
-import * as $NewsletterShopify from "./islands/NewsletterShopify.tsx";
+import * as $NewsletterShopifyForm from "./islands/NewsletterShopifyForm.tsx";
 import * as $OrdersTable from "./islands/OrdersTable.tsx";
 import * as $OutOfStock from "./islands/OutOfStock.tsx";
 import * as $PreCheckout from "./islands/PreCheckout.tsx";
@@ -33,6 +34,7 @@ import * as $ProductImageZoom from "./islands/ProductImageZoom.tsx";
 import * as $PromoPage_PrizeSlider from "./islands/PromoPage/PrizeSlider.tsx";
 import * as $Questions from "./islands/Questions.tsx";
 import * as $SearchControls from "./islands/SearchControls.tsx";
+import * as $SearchPreview from "./islands/SearchPreview.tsx";
 import * as $SearchTerm from "./islands/SearchTerm.tsx";
 import * as $ShippingSimulation from "./islands/ShippingSimulation.tsx";
 import * as $SliderJS from "./islands/SliderJS.tsx";
@@ -67,8 +69,9 @@ const manifest = {
     "./islands/Header/Searchbar.tsx": $Header_Searchbar,
     "./islands/InstitucionalBanners.tsx": $InstitucionalBanners,
     "./islands/LoginForm.tsx": $LoginForm,
+    "./islands/MenuMobileAccordeon.tsx": $MenuMobileAccordeon,
     "./islands/Newsletter.tsx": $Newsletter,
-    "./islands/NewsletterShopify.tsx": $NewsletterShopify,
+    "./islands/NewsletterShopifyForm.tsx": $NewsletterShopifyForm,
     "./islands/OrdersTable.tsx": $OrdersTable,
     "./islands/OutOfStock.tsx": $OutOfStock,
     "./islands/PreCheckout.tsx": $PreCheckout,
@@ -76,6 +79,7 @@ const manifest = {
     "./islands/PromoPage/PrizeSlider.tsx": $PromoPage_PrizeSlider,
     "./islands/Questions.tsx": $Questions,
     "./islands/SearchControls.tsx": $SearchControls,
+    "./islands/SearchPreview.tsx": $SearchPreview,
     "./islands/SearchTerm.tsx": $SearchTerm,
     "./islands/ShippingSimulation.tsx": $ShippingSimulation,
     "./islands/SliderJS.tsx": $SliderJS,

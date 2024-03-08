@@ -1,4 +1,21 @@
-const NewsletterShopify = () => {
+import { useCallback } from "preact/hooks";
+import { invoke } from "../runtime.ts";
+
+const NewsletterShopifyForm = ({ customerId }) => {
+  const subscribeNewsletter = useCallback(
+    async (name: string, email: string) => {
+      const data = await invoke[
+        "deco-sites/otima-sorte"
+      ].actions.user.subscribeNewsletter({
+        name,
+        email,
+      });
+
+      console.log("data", data);
+    },
+    []
+  );
+
   return (
     <div class="bg-[#1E274A] py-[22px] px-[34px] lg:pt-[63px] lg:pb-[75px]">
       <div class="max-w-[1270px] mx-auto lg:flex lg:justify-between lg:items-center">
@@ -13,6 +30,11 @@ const NewsletterShopify = () => {
               if (!e.target) {
                 return;
               }
+              // deno-lint-ignore no-explicit-any
+              const name = (e.target as any).name.value;
+              // deno-lint-ignore no-explicit-any
+              const email = (e.target as any).email.value;
+              subscribeNewsletter(name, email);
             }}
           >
             <input
@@ -27,7 +49,10 @@ const NewsletterShopify = () => {
               placeholder="Seu melhor e-mail"
               class="bg-white rounded-lg w-full h-[45px] text-[#676767] text-[13px] leading-normal text-center lg:text-left px-[22px]"
             />
-            <button class="w-full h-[45px] border-2 border-white rounded-lg flex items-center justify-center text-white text-base font-semibold leading-normal lg:max-w-[190px]">
+            <button
+              class="w-full h-[45px] border-2 border-white rounded-lg flex items-center justify-center text-white text-base font-semibold leading-normal lg:max-w-[190px]"
+              type="submit"
+            >
               CADASTRAR
             </button>
           </form>
@@ -48,4 +73,4 @@ const NewsletterShopify = () => {
   );
 };
 
-export default NewsletterShopify;
+export default NewsletterShopifyForm;

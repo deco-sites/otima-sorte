@@ -277,6 +277,52 @@ const LoginForm = () => {
           </div>
         </div>
       )}
+      {step === "recover" && (
+        <div>
+          <form
+            class="flex flex-col gap-[15px] mb-5"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (!e.target) {
+                return;
+              }
+              // deno-lint-ignore no-explicit-any
+              const email = (e.target as any).email.value;
+              console.log(email);
+            }}
+          >
+            <div class="w-full flex flex-col gap-2">
+              <label
+                htmlFor="login_email"
+                class="text-[#444] text-base font-bold leading-normal"
+              >
+                Email
+              </label>
+              <input
+                id="login_email"
+                name="email"
+                class="rounded-[5px] border border-[#E7E7E7] bg-[#F6F6F6] h-[45px] px-[19px]"
+                placeholder="Digite seu email aqui"
+              />
+            </div>
+            <button
+              class="rounded-lg bg-[#2E385F] text-white text-[15px] font-bold leading-normal h-[45px] flex items-center justify-center disabled:cursor-not-allowed"
+              type="submit"
+              disabled={isLoading}
+            >
+              {isLoading ? "Carregando..." : "Enviar"}
+            </button>
+          </form>
+          <div class="flex flex-col items-center gap-4">
+            <p
+              class="text-[#444] text-center w-fit text-sm font-bold leading-normal underline cursor-pointer"
+              onClick={() => setStep("login")}
+            >
+              Login
+            </p>
+          </div>
+        </div>
+      )}
       {hasError && (
         <div class="w-full text-red-700 text-sm text-center mt-5">
           Algo de errado aconteceu, tente novamente.

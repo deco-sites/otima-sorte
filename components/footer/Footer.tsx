@@ -12,7 +12,6 @@ import Newsletter from "$store/islands/Newsletter.tsx";
 import type { ImageWidget } from "apps/admin/widgets.ts";
 import PoweredByDeco from "apps/website/components/PoweredByDeco.tsx";
 import RichText from "$store/sections/Content/RichText.tsx";
-import NewsletterShopify from "$store/islands/NewsletterShopify.tsx";
 
 export type Item = {
   label: string;
@@ -267,7 +266,6 @@ function Footer(props: Props) {
 
   return (
     <footer>
-      <NewsletterShopify />
       <div class="">
         <div class="bg-[#2E385F] pt-[17px] pb-5 lg:px-5">
           <div class="max-w-[1270px] mx-auto flex flex-col px-5 lg:flex-row lg:px-0 lg:mb-11">

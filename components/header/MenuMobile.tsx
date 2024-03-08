@@ -1,4 +1,10 @@
 import { useState } from "preact/hooks";
+import MenuMobileAccordeon from "$store/islands/MenuMobileAccordeon.tsx";
+
+export interface Link {
+  text: string;
+  url: string;
+}
 
 export interface Subcategory {
   name: string;
@@ -8,87 +14,76 @@ export interface Subcategory {
 export interface Category {
   name: string;
   url: string;
+  displayShowAll?: boolean;
   subcategories?: Subcategory[];
 }
 
-export interface Link {
-  text: string;
+interface MenuItem {
+  name: string;
   url: string;
+  categories?: Category[];
 }
 
 export interface Props {
-  categories?: Category[];
+  menuItems?: MenuItem[];
   links?: Link[];
 }
 
 const DEFAULT_PROPS = {
-  categories: [
+  menuItems: [
     {
-      name: "Ebooks",
+      name: "NOSSOS PRODUTOS",
       url: "/",
-      subcategories: [
+      categories: [
         {
-          name: "Subcategoria exemplo",
+          name: "Ebooks",
           url: "/",
-        },
-        {
-          name: "Subcategoria exemplo",
-          url: "/",
-        },
-        {
-          name: "Subcategoria exemplo",
-          url: "/",
-        },
-        {
-          name: "Subcategoria exemplo",
-          url: "/",
-        },
-        {
-          name: "Subcategoria exemplo",
-          url: "/",
-        },
-        {
-          name: "Subcategoria exemplo",
-          url: "/",
-        },
-        {
-          name: "Subcategoria exemplo",
-          url: "/",
-        },
-        {
-          name: "Subcategoria exemplo",
-          url: "/",
-        },
-        {
-          name: "Subcategoria exemplo",
-          url: "/",
-        },
-        {
-          name: "Subcategoria exemplo",
-          url: "/",
-        },
-        {
-          name: "Subcategoria exemplo",
-          url: "/",
-        },
-        {
-          name: "Subcategoria exemplo",
-          url: "/",
+          displayShowAll: true,
+          subcategories: [
+            {
+              name: "Subcategoria exemplo",
+              url: "/",
+            },
+            {
+              name: "Subcategoria exemplo",
+              url: "/",
+            },
+            {
+              name: "Subcategoria exemplo",
+              url: "/",
+            },
+            {
+              name: "Subcategoria exemplo",
+              url: "/",
+            },
+            {
+              name: "Subcategoria exemplo",
+              url: "/",
+            },
+          ],
         },
       ],
+    },
+    {
+      name: "LANÇAMENTOS",
+      url: "/lancamentos",
+    },
+    {
+      name: "PROMOÇÕES",
+      url: "/promocoes",
     },
   ],
   links: [
     {
-      text: "LANÇAMENTOS",
+      text: "sobre nós",
       url: "/",
     },
     {
-      text: "PROMOÇÕES",
+      text: "depoimentos",
       url: "/",
     },
     {
-      text: "SOBRE NÓS",
+      text: "perguntas frequentes",
       url: "/",
     },
   ],
@@ -97,7 +92,7 @@ const DEFAULT_PROPS = {
 const MenuMobileButton = (props: Props) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { categories, links } = {
+  const { menuItems, links } = {
     ...DEFAULT_PROPS,
     ...props,
   };
@@ -142,7 +137,7 @@ const MenuMobileButton = (props: Props) => {
       <MenuMobileDrawer
         isOpen={isOpen}
         setIsOpen={setIsOpen}
-        categories={categories}
+        menuItems={menuItems}
         links={links}
       />
     </>
@@ -152,14 +147,14 @@ const MenuMobileButton = (props: Props) => {
 interface MenuMobileDrawerProps {
   isOpen: boolean;
   setIsOpen: (value: boolean | ((prev: boolean) => boolean)) => void;
-  categories?: Category[];
+  menuItems?: MenuItem[];
   links?: Link[];
 }
 
 const MenuMobileDrawer = ({
   isOpen,
   setIsOpen,
-  categories,
+  menuItems,
   links,
 }: MenuMobileDrawerProps) => {
   return (
@@ -208,66 +203,35 @@ const MenuMobileDrawer = ({
           </div>
           <img src="https://fakeimg.pl/154x40" alt="" />
         </div>
-        <div class="bg-white flex-1">
-          <div>
-            <div class="flex items-center justify-between bg-[#2E385F] px-[30px] border-b border-white">
-              <p class="text-white text-[15px] font-medium leading-normal">
-                NOSSOS PRODUTOS
-              </p>
-              <span class="text-white text-[26px] font-semibold leading-normal">
-                +
-              </span>
-            </div>
-            <div class="pt-5 pb-[50px] px-[56px] hidden">
-              {categories?.map((category, index) => (
-                <div key={index}>
-                  <a
-                    href={category.url}
-                    class="text-[#686868] text-base font-bold leading-normal mb-5 block"
-                  >
-                    {category.name}
-                  </a>
-                  <div class="flex flex-col gap-[25px]">
-                    {category.subcategories?.map((subcategory, index) => (
-                      <a
-                        href={subcategory.url}
-                        key={index}
-                        class="text-[#686868] text-[15px] leading-[25px]"
-                      >
-                        {subcategory.name}
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div class="bg-[#2E385F] pb-[30px]">
-            {links?.map((link, index) => (
+        <div class="bg-white flex-1 overflow-y-scroll">
+          {menuItems?.map((item, index) => {
+            return item.categories?.length ? (
+              <MenuMobileAccordeon categories={item.categories} key={index} />
+            ) : (
               <div
                 key={index}
                 class="bg-[#2E385F] py-5 px-[30px] border-b border-b-white"
               >
                 <a
-                  href={link.url}
+                  href={item.url}
                   class="text-white text-[15px] font-medium leading-normal"
                 >
-                  {link.text}
+                  {item.name}
                 </a>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
         <div class="bg-[#1E274A] py-[50px] pl-[30px] flex flex-col gap-5">
-          <a href="/" class="text-white text-xs leading-normal uppercase">
-            sobre nós
-          </a>
-          <a href="/" class="text-white text-xs leading-normal uppercase">
-            depoimentos
-          </a>
-          <a href="/" class="text-white text-xs leading-normal uppercase">
-            perguntas frequentes
-          </a>
+          {links?.map((link, index) => (
+            <a
+              href={link.url}
+              class="text-white text-xs leading-normal uppercase"
+              key={index}
+            >
+              {link.text}
+            </a>
+          ))}
         </div>
       </div>
     </>
