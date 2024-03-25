@@ -66,6 +66,30 @@ const LoginForm = () => {
     []
   );
 
+  const recoverPassword = useCallback(async ({ email }: { email: string }) => {
+    console.log("recover start");
+
+    setIsLoading(true);
+    setHasError(false);
+
+    const data = await invoke[
+      "deco-sites/otima-sorte"
+    ].actions.user.recoverShopify({
+      email,
+    });
+
+    setIsLoading(false);
+
+    console.log("recover data", data);
+
+    /* TODO: ERROR HANDLE*/
+    /*     if (data?.customerCreate) {
+      console.log(data?.customerCreate);
+    } else {
+      setHasError(true);
+    } */
+  }, []);
+
   const title = (step: string) => {
     switch (step) {
       case "login":
@@ -288,7 +312,7 @@ const LoginForm = () => {
               }
               // deno-lint-ignore no-explicit-any
               const email = (e.target as any).email.value;
-              console.log(email);
+              recoverPassword({ email });
             }}
           >
             <div class="w-full flex flex-col gap-2">

@@ -9,6 +9,7 @@ import * as $AddToCartButton_shopify from "./islands/AddToCartButton/shopify.tsx
 import * as $AddToCartButton_vnda from "./islands/AddToCartButton/vnda.tsx";
 import * as $AddToCartButton_vtex from "./islands/AddToCartButton/vtex.tsx";
 import * as $AddToCartButton_wake from "./islands/AddToCartButton/wake.tsx";
+import * as $AddressCard from "./islands/AddressCard.tsx";
 import * as $BannersCarousel from "./islands/BannersCarousel.tsx";
 import * as $Filters from "./islands/Filters.tsx";
 import * as $Header_Buttons from "./islands/Header/Buttons.tsx";
@@ -54,6 +55,7 @@ const manifest = {
     "./islands/AddToCartButton/vnda.tsx": $AddToCartButton_vnda,
     "./islands/AddToCartButton/vtex.tsx": $AddToCartButton_vtex,
     "./islands/AddToCartButton/wake.tsx": $AddToCartButton_wake,
+    "./islands/AddressCard.tsx": $AddressCard,
     "./islands/BannersCarousel.tsx": $BannersCarousel,
     "./islands/Filters.tsx": $Filters,
     "./islands/Header/Buttons.tsx": $Header_Buttons,

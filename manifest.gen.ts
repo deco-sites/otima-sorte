@@ -41,51 +41,52 @@ import * as $$$$$$33 from "./sections/Links/Shortcuts.tsx";
 import * as $$$$$$34 from "./sections/MainBanner.tsx";
 import * as $$$$$$35 from "./sections/Miscellaneous/CampaignTimer.tsx";
 import * as $$$$$$36 from "./sections/Miscellaneous/CookieConsent.tsx";
-import * as $$$$$$37 from "./sections/MyAccount/MyAccount.tsx";
-import * as $$$$$$38 from "./sections/MyAccount/OrderDetatils.tsx";
-import * as $$$$$$39 from "./sections/Newsletter/Newsletter.tsx";
-import * as $$$$$$40 from "./sections/NewsletterShopify.tsx";
-import * as $$$$$$41 from "./sections/OngPage/AboutOng.tsx";
-import * as $$$$$$42 from "./sections/OngPage/Banners.tsx";
-import * as $$$$$$43 from "./sections/OngPage/BannersBottom.tsx";
-import * as $$$$$$44 from "./sections/OngPage/Cards.tsx";
-import * as $$$$$$45 from "./sections/OngPage/Checks.tsx";
-import * as $$$$$$46 from "./sections/OngPage/Highlight.tsx";
-import * as $$$$$$47 from "./sections/OngPage/Video.tsx";
-import * as $$$$$$48 from "./sections/PageTitle.tsx";
-import * as $$$$$$49 from "./sections/PreCheckout/Footer.tsx";
-import * as $$$$$$50 from "./sections/PreCheckout/Header.tsx";
-import * as $$$$$$51 from "./sections/PreCheckout/PreCheckout.tsx";
-import * as $$$$$$52 from "./sections/PrivacyPolicy/Text.tsx";
-import * as $$$$$$53 from "./sections/Product/ImageGalleryFrontBack.tsx";
-import * as $$$$$$54 from "./sections/Product/ImageGallerySlider.tsx";
-import * as $$$$$$55 from "./sections/Product/NotFound.tsx";
-import * as $$$$$$56 from "./sections/Product/NotFoundChallenge.tsx";
-import * as $$$$$$57 from "./sections/Product/ProductDescription.tsx";
-import * as $$$$$$58 from "./sections/Product/ProductInfo.tsx";
-import * as $$$$$$59 from "./sections/Product/ProductShelf.tsx";
-import * as $$$$$$60 from "./sections/Product/ProductShelfTabbed.tsx";
-import * as $$$$$$61 from "./sections/Product/SearchResult.tsx";
-import * as $$$$$$62 from "./sections/Product/ShelfWithImage.tsx";
-import * as $$$$$$63 from "./sections/Product/Wishlist.tsx";
-import * as $$$$$$64 from "./sections/ProductHighlight.tsx";
-import * as $$$$$$65 from "./sections/ProductMetaFields.tsx";
-import * as $$$$$$66 from "./sections/ProductNameCode.tsx";
-import * as $$$$$$67 from "./sections/PromoCardPDP.tsx";
-import * as $$$$$$68 from "./sections/PromoPage/PrizeSlider.tsx";
-import * as $$$$$$69 from "./sections/PromoPage/PromoInfos.tsx";
-import * as $$$$$$70 from "./sections/PromoPage/PromoPrizeDescription.tsx";
-import * as $$$$$$71 from "./sections/PromoPage/PromoPrizeDescription2.tsx";
-import * as $$$$$$72 from "./sections/PromoPage/PromoPrizeFeatures.tsx";
-import * as $$$$$$73 from "./sections/PromoPage/PromoQuantitySelector.tsx";
-import * as $$$$$$74 from "./sections/PromoPage/PromoRaffleInfos.tsx";
-import * as $$$$$$75 from "./sections/PromotionInfosPDP.tsx";
-import * as $$$$$$76 from "./sections/Social/InstagramPosts.tsx";
-import * as $$$$$$77 from "./sections/Social/WhatsApp.tsx";
-import * as $$$$$$78 from "./sections/Steps.tsx";
-import * as $$$$$$79 from "./sections/Theme/Theme.tsx";
-import * as $$$$$$80 from "./sections/WinnersPage/CardsGrid.tsx";
-import * as $$$$$$81 from "./sections/WinnersSection.tsx";
+import * as $$$$$$37 from "./sections/MyAccount/Address.tsx";
+import * as $$$$$$38 from "./sections/MyAccount/MyAccount.tsx";
+import * as $$$$$$39 from "./sections/MyAccount/OrderDetatils.tsx";
+import * as $$$$$$40 from "./sections/Newsletter/Newsletter.tsx";
+import * as $$$$$$41 from "./sections/NewsletterShopify.tsx";
+import * as $$$$$$42 from "./sections/OngPage/AboutOng.tsx";
+import * as $$$$$$43 from "./sections/OngPage/Banners.tsx";
+import * as $$$$$$44 from "./sections/OngPage/BannersBottom.tsx";
+import * as $$$$$$45 from "./sections/OngPage/Cards.tsx";
+import * as $$$$$$46 from "./sections/OngPage/Checks.tsx";
+import * as $$$$$$47 from "./sections/OngPage/Highlight.tsx";
+import * as $$$$$$48 from "./sections/OngPage/Video.tsx";
+import * as $$$$$$49 from "./sections/PageTitle.tsx";
+import * as $$$$$$50 from "./sections/PreCheckout/Footer.tsx";
+import * as $$$$$$51 from "./sections/PreCheckout/Header.tsx";
+import * as $$$$$$52 from "./sections/PreCheckout/PreCheckout.tsx";
+import * as $$$$$$53 from "./sections/PrivacyPolicy/Text.tsx";
+import * as $$$$$$54 from "./sections/Product/ImageGalleryFrontBack.tsx";
+import * as $$$$$$55 from "./sections/Product/ImageGallerySlider.tsx";
+import * as $$$$$$56 from "./sections/Product/NotFound.tsx";
+import * as $$$$$$57 from "./sections/Product/NotFoundChallenge.tsx";
+import * as $$$$$$58 from "./sections/Product/ProductDescription.tsx";
+import * as $$$$$$59 from "./sections/Product/ProductInfo.tsx";
+import * as $$$$$$60 from "./sections/Product/ProductShelf.tsx";
+import * as $$$$$$61 from "./sections/Product/ProductShelfTabbed.tsx";
+import * as $$$$$$62 from "./sections/Product/SearchResult.tsx";
+import * as $$$$$$63 from "./sections/Product/ShelfWithImage.tsx";
+import * as $$$$$$64 from "./sections/Product/Wishlist.tsx";
+import * as $$$$$$65 from "./sections/ProductHighlight.tsx";
+import * as $$$$$$66 from "./sections/ProductMetaFields.tsx";
+import * as $$$$$$67 from "./sections/ProductNameCode.tsx";
+import * as $$$$$$68 from "./sections/PromoCardPDP.tsx";
+import * as $$$$$$69 from "./sections/PromoPage/PrizeSlider.tsx";
+import * as $$$$$$70 from "./sections/PromoPage/PromoInfos.tsx";
+import * as $$$$$$71 from "./sections/PromoPage/PromoPrizeDescription.tsx";
+import * as $$$$$$72 from "./sections/PromoPage/PromoPrizeDescription2.tsx";
+import * as $$$$$$73 from "./sections/PromoPage/PromoPrizeFeatures.tsx";
+import * as $$$$$$74 from "./sections/PromoPage/PromoQuantitySelector.tsx";
+import * as $$$$$$75 from "./sections/PromoPage/PromoRaffleInfos.tsx";
+import * as $$$$$$76 from "./sections/PromotionInfosPDP.tsx";
+import * as $$$$$$77 from "./sections/Social/InstagramPosts.tsx";
+import * as $$$$$$78 from "./sections/Social/WhatsApp.tsx";
+import * as $$$$$$79 from "./sections/Steps.tsx";
+import * as $$$$$$80 from "./sections/Theme/Theme.tsx";
+import * as $$$$$$81 from "./sections/WinnersPage/CardsGrid.tsx";
+import * as $$$$$$82 from "./sections/WinnersSection.tsx";
 import * as $$$$$$$$$0 from "./actions/product/getVariants.ts";
 import * as $$$$$$$$$1 from "./actions/product/searchPreview.ts";
 import * as $$$$$$$$$2 from "./actions/user/createShopify.ts";
@@ -137,56 +138,57 @@ const manifest = {
     "deco-sites/otima-sorte/sections/MainBanner.tsx": $$$$$$34,
     "deco-sites/otima-sorte/sections/Miscellaneous/CampaignTimer.tsx": $$$$$$35,
     "deco-sites/otima-sorte/sections/Miscellaneous/CookieConsent.tsx": $$$$$$36,
-    "deco-sites/otima-sorte/sections/MyAccount/MyAccount.tsx": $$$$$$37,
-    "deco-sites/otima-sorte/sections/MyAccount/OrderDetatils.tsx": $$$$$$38,
-    "deco-sites/otima-sorte/sections/Newsletter/Newsletter.tsx": $$$$$$39,
-    "deco-sites/otima-sorte/sections/NewsletterShopify.tsx": $$$$$$40,
-    "deco-sites/otima-sorte/sections/OngPage/AboutOng.tsx": $$$$$$41,
-    "deco-sites/otima-sorte/sections/OngPage/Banners.tsx": $$$$$$42,
-    "deco-sites/otima-sorte/sections/OngPage/BannersBottom.tsx": $$$$$$43,
-    "deco-sites/otima-sorte/sections/OngPage/Cards.tsx": $$$$$$44,
-    "deco-sites/otima-sorte/sections/OngPage/Checks.tsx": $$$$$$45,
-    "deco-sites/otima-sorte/sections/OngPage/Highlight.tsx": $$$$$$46,
-    "deco-sites/otima-sorte/sections/OngPage/Video.tsx": $$$$$$47,
-    "deco-sites/otima-sorte/sections/PageTitle.tsx": $$$$$$48,
-    "deco-sites/otima-sorte/sections/PreCheckout/Footer.tsx": $$$$$$49,
-    "deco-sites/otima-sorte/sections/PreCheckout/Header.tsx": $$$$$$50,
-    "deco-sites/otima-sorte/sections/PreCheckout/PreCheckout.tsx": $$$$$$51,
-    "deco-sites/otima-sorte/sections/PrivacyPolicy/Text.tsx": $$$$$$52,
+    "deco-sites/otima-sorte/sections/MyAccount/Address.tsx": $$$$$$37,
+    "deco-sites/otima-sorte/sections/MyAccount/MyAccount.tsx": $$$$$$38,
+    "deco-sites/otima-sorte/sections/MyAccount/OrderDetatils.tsx": $$$$$$39,
+    "deco-sites/otima-sorte/sections/Newsletter/Newsletter.tsx": $$$$$$40,
+    "deco-sites/otima-sorte/sections/NewsletterShopify.tsx": $$$$$$41,
+    "deco-sites/otima-sorte/sections/OngPage/AboutOng.tsx": $$$$$$42,
+    "deco-sites/otima-sorte/sections/OngPage/Banners.tsx": $$$$$$43,
+    "deco-sites/otima-sorte/sections/OngPage/BannersBottom.tsx": $$$$$$44,
+    "deco-sites/otima-sorte/sections/OngPage/Cards.tsx": $$$$$$45,
+    "deco-sites/otima-sorte/sections/OngPage/Checks.tsx": $$$$$$46,
+    "deco-sites/otima-sorte/sections/OngPage/Highlight.tsx": $$$$$$47,
+    "deco-sites/otima-sorte/sections/OngPage/Video.tsx": $$$$$$48,
+    "deco-sites/otima-sorte/sections/PageTitle.tsx": $$$$$$49,
+    "deco-sites/otima-sorte/sections/PreCheckout/Footer.tsx": $$$$$$50,
+    "deco-sites/otima-sorte/sections/PreCheckout/Header.tsx": $$$$$$51,
+    "deco-sites/otima-sorte/sections/PreCheckout/PreCheckout.tsx": $$$$$$52,
+    "deco-sites/otima-sorte/sections/PrivacyPolicy/Text.tsx": $$$$$$53,
     "deco-sites/otima-sorte/sections/Product/ImageGalleryFrontBack.tsx":
-      $$$$$$53,
-    "deco-sites/otima-sorte/sections/Product/ImageGallerySlider.tsx": $$$$$$54,
-    "deco-sites/otima-sorte/sections/Product/NotFound.tsx": $$$$$$55,
-    "deco-sites/otima-sorte/sections/Product/NotFoundChallenge.tsx": $$$$$$56,
-    "deco-sites/otima-sorte/sections/Product/ProductDescription.tsx": $$$$$$57,
-    "deco-sites/otima-sorte/sections/Product/ProductInfo.tsx": $$$$$$58,
-    "deco-sites/otima-sorte/sections/Product/ProductShelf.tsx": $$$$$$59,
-    "deco-sites/otima-sorte/sections/Product/ProductShelfTabbed.tsx": $$$$$$60,
-    "deco-sites/otima-sorte/sections/Product/SearchResult.tsx": $$$$$$61,
-    "deco-sites/otima-sorte/sections/Product/ShelfWithImage.tsx": $$$$$$62,
-    "deco-sites/otima-sorte/sections/Product/Wishlist.tsx": $$$$$$63,
-    "deco-sites/otima-sorte/sections/ProductHighlight.tsx": $$$$$$64,
-    "deco-sites/otima-sorte/sections/ProductMetaFields.tsx": $$$$$$65,
-    "deco-sites/otima-sorte/sections/ProductNameCode.tsx": $$$$$$66,
-    "deco-sites/otima-sorte/sections/PromoCardPDP.tsx": $$$$$$67,
-    "deco-sites/otima-sorte/sections/PromoPage/PrizeSlider.tsx": $$$$$$68,
-    "deco-sites/otima-sorte/sections/PromoPage/PromoInfos.tsx": $$$$$$69,
+      $$$$$$54,
+    "deco-sites/otima-sorte/sections/Product/ImageGallerySlider.tsx": $$$$$$55,
+    "deco-sites/otima-sorte/sections/Product/NotFound.tsx": $$$$$$56,
+    "deco-sites/otima-sorte/sections/Product/NotFoundChallenge.tsx": $$$$$$57,
+    "deco-sites/otima-sorte/sections/Product/ProductDescription.tsx": $$$$$$58,
+    "deco-sites/otima-sorte/sections/Product/ProductInfo.tsx": $$$$$$59,
+    "deco-sites/otima-sorte/sections/Product/ProductShelf.tsx": $$$$$$60,
+    "deco-sites/otima-sorte/sections/Product/ProductShelfTabbed.tsx": $$$$$$61,
+    "deco-sites/otima-sorte/sections/Product/SearchResult.tsx": $$$$$$62,
+    "deco-sites/otima-sorte/sections/Product/ShelfWithImage.tsx": $$$$$$63,
+    "deco-sites/otima-sorte/sections/Product/Wishlist.tsx": $$$$$$64,
+    "deco-sites/otima-sorte/sections/ProductHighlight.tsx": $$$$$$65,
+    "deco-sites/otima-sorte/sections/ProductMetaFields.tsx": $$$$$$66,
+    "deco-sites/otima-sorte/sections/ProductNameCode.tsx": $$$$$$67,
+    "deco-sites/otima-sorte/sections/PromoCardPDP.tsx": $$$$$$68,
+    "deco-sites/otima-sorte/sections/PromoPage/PrizeSlider.tsx": $$$$$$69,
+    "deco-sites/otima-sorte/sections/PromoPage/PromoInfos.tsx": $$$$$$70,
     "deco-sites/otima-sorte/sections/PromoPage/PromoPrizeDescription.tsx":
-      $$$$$$70,
-    "deco-sites/otima-sorte/sections/PromoPage/PromoPrizeDescription2.tsx":
       $$$$$$71,
-    "deco-sites/otima-sorte/sections/PromoPage/PromoPrizeFeatures.tsx":
+    "deco-sites/otima-sorte/sections/PromoPage/PromoPrizeDescription2.tsx":
       $$$$$$72,
-    "deco-sites/otima-sorte/sections/PromoPage/PromoQuantitySelector.tsx":
+    "deco-sites/otima-sorte/sections/PromoPage/PromoPrizeFeatures.tsx":
       $$$$$$73,
-    "deco-sites/otima-sorte/sections/PromoPage/PromoRaffleInfos.tsx": $$$$$$74,
-    "deco-sites/otima-sorte/sections/PromotionInfosPDP.tsx": $$$$$$75,
-    "deco-sites/otima-sorte/sections/Social/InstagramPosts.tsx": $$$$$$76,
-    "deco-sites/otima-sorte/sections/Social/WhatsApp.tsx": $$$$$$77,
-    "deco-sites/otima-sorte/sections/Steps.tsx": $$$$$$78,
-    "deco-sites/otima-sorte/sections/Theme/Theme.tsx": $$$$$$79,
-    "deco-sites/otima-sorte/sections/WinnersPage/CardsGrid.tsx": $$$$$$80,
-    "deco-sites/otima-sorte/sections/WinnersSection.tsx": $$$$$$81,
+    "deco-sites/otima-sorte/sections/PromoPage/PromoQuantitySelector.tsx":
+      $$$$$$74,
+    "deco-sites/otima-sorte/sections/PromoPage/PromoRaffleInfos.tsx": $$$$$$75,
+    "deco-sites/otima-sorte/sections/PromotionInfosPDP.tsx": $$$$$$76,
+    "deco-sites/otima-sorte/sections/Social/InstagramPosts.tsx": $$$$$$77,
+    "deco-sites/otima-sorte/sections/Social/WhatsApp.tsx": $$$$$$78,
+    "deco-sites/otima-sorte/sections/Steps.tsx": $$$$$$79,
+    "deco-sites/otima-sorte/sections/Theme/Theme.tsx": $$$$$$80,
+    "deco-sites/otima-sorte/sections/WinnersPage/CardsGrid.tsx": $$$$$$81,
+    "deco-sites/otima-sorte/sections/WinnersSection.tsx": $$$$$$82,
   },
   "actions": {
     "deco-sites/otima-sorte/actions/product/getVariants.ts": $$$$$$$$$0,
