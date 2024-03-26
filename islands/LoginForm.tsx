@@ -80,14 +80,15 @@ const LoginForm = () => {
 
     setIsLoading(false);
 
-    console.log("recover data", data);
-
-    /* TODO: ERROR HANDLE*/
-    /*     if (data?.customerCreate) {
-      console.log(data?.customerCreate);
+    if (data) {
+      window.alert(
+        "Você receberá um e-mail com um link para atualizar a senha."
+      );
     } else {
-      setHasError(true);
-    } */
+      window.alert(
+        "Ocorreu um erro na sua solicitação de recuperação de senha."
+      );
+    }
   }, []);
 
   const title = (step: string) => {
