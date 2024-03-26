@@ -122,7 +122,7 @@ function Searchbar({
             </svg>
           </button>
         </div>
-        <div class="bg-white flex flex-col lg:flex-row pt-[29px] pb-[38px] pl-[37px] pr-[26px] border-t border-[#9DA6BA]">
+        <div class="bg-white flex flex-col lg:flex-row pt-[29px] pb-[38px] pl-[37px] pr-[26px] border-t border-[#9DA6BA] lg:gap-x-[150px]">
           <div class="mb-10 lg:mb-0">
             <h1 class="mb-[21px] text-[15px] leading-[18px] font-semibold text-[#868686]">
               COLEÇÕES
