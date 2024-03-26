@@ -66,9 +66,98 @@ const action = async (
   );
 
   const { data } = await response.json();
-  const id = data.customerCreate.customer?.id;
 
-  return id;
+  if (
+    data.customerCreate.userErrors.find(
+      (err) => err.message === "Email is invalid"
+    )
+  ) {
+    return false;
+  }
+
+  if (
+    data.customerCreate.userErrors.find(
+      (err) => err.message === "Email has already been taken"
+    )
+  ) {
+    const query = `
+      query {
+        customers(query: "${props.email}", first: 1) {
+          nodes {
+            id
+            email
+          }
+        }
+      }
+    `;
+
+    const response = await fetchSafe(
+      `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/graphql.json`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Shopify-Access-Token": ctx.tokenAdminCustom.get(),
+        },
+        body: JSON.stringify({
+          query: query,
+        }),
+      }
+    );
+
+    const { data } = await response.json();
+    const customerId = data.customers.nodes[0].id;
+
+    if (customerId) {
+      const mutation = `
+        mutation customerEmailMarketingConsentUpdate($input: CustomerEmailMarketingConsentUpdateInput!) {
+          customerEmailMarketingConsentUpdate(input: $input) {
+            customer {
+              email
+            }
+            userErrors {
+              field
+              message
+            }
+          }
+        }
+    `;
+
+      const input = {
+        input: {
+          customerId: customerId,
+          emailMarketingConsent: {
+            marketingOptInLevel: "SINGLE_OPT_IN",
+            marketingState: "SUBSCRIBED",
+          },
+        },
+      };
+
+      const response = await fetchSafe(
+        `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/graphql.json`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Shopify-Access-Token": ctx.tokenAdminCustom.get(),
+          },
+          body: JSON.stringify({
+            query: mutation,
+            variables: input,
+          }),
+        }
+      );
+
+      const { data } = await response.json();
+      if (data.customerEmailMarketingConsentUpdate.customer) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  return true;
 };
 
 export default action;

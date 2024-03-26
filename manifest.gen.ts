@@ -91,7 +91,8 @@ import * as $$$$$$$$$0 from "./actions/product/getVariants.ts";
 import * as $$$$$$$$$1 from "./actions/product/searchPreview.ts";
 import * as $$$$$$$$$2 from "./actions/user/createShopify.ts";
 import * as $$$$$$$$$3 from "./actions/user/loginShopify.ts";
-import * as $$$$$$$$$4 from "./actions/user/subscribeNewsletter.ts";
+import * as $$$$$$$$$4 from "./actions/user/recoverShopify.ts";
+import * as $$$$$$$$$5 from "./actions/user/subscribeNewsletter.ts";
 import * as $$$$$$$$$$$0 from "./apps/decohub.ts";
 import * as $$$$$$$$$$$1 from "./apps/site.ts";
 
@@ -195,7 +196,8 @@ const manifest = {
     "deco-sites/otima-sorte/actions/product/searchPreview.ts": $$$$$$$$$1,
     "deco-sites/otima-sorte/actions/user/createShopify.ts": $$$$$$$$$2,
     "deco-sites/otima-sorte/actions/user/loginShopify.ts": $$$$$$$$$3,
-    "deco-sites/otima-sorte/actions/user/subscribeNewsletter.ts": $$$$$$$$$4,
+    "deco-sites/otima-sorte/actions/user/recoverShopify.ts": $$$$$$$$$4,
+    "deco-sites/otima-sorte/actions/user/subscribeNewsletter.ts": $$$$$$$$$5,
   },
   "apps": {
     "deco-sites/otima-sorte/apps/decohub.ts": $$$$$$$$$$$0,

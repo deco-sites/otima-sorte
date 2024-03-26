@@ -1,7 +1,7 @@
 import { useCallback } from "preact/hooks";
 import { invoke } from "../runtime.ts";
 
-const NewsletterShopifyForm = ({ customerId }) => {
+const NewsletterShopifyForm = () => {
   const subscribeNewsletter = useCallback(
     async (name: string, email: string) => {
       const data = await invoke[
@@ -12,6 +12,11 @@ const NewsletterShopifyForm = ({ customerId }) => {
       });
 
       console.log("data", data);
+      if (data) {
+        window.alert("Cadastro realizado com sucesso!");
+      } else {
+        window.alert("Erro ao realizar cadastro");
+      }
     },
     []
   );
