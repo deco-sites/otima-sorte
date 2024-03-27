@@ -67,8 +67,6 @@ const LoginForm = () => {
   );
 
   const recoverPassword = useCallback(async ({ email }: { email: string }) => {
-    console.log("recover start");
-
     setIsLoading(true);
     setHasError(false);
 

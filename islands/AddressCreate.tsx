@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, useRef } from "preact/hooks";
+import { useCallback, useState } from "preact/hooks";
 import { invoke } from "../runtime.ts";
 
 interface Address {
@@ -21,53 +21,11 @@ interface Address {
   default: boolean;
 }
 
-const AddressCard = ({
-  address,
-  token,
-}: {
-  address: Address;
-  token: string;
-}) => {
+const AddressCreate = ({ token }: { token: string }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const [isEditOpen, setIsEditOpen] = useState(false);
-  const [provinces, setProvinces] = useState<string[]>([]);
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState<string>("");
-  const selectedCountryRef = useRef(null);
-  const id = address.id;
-
-  useEffect(() => {
-    setSelectedCountry(address.country_name);
-    const selectedCountryData =
-      selectedCountryRef.current.selectedOptions[0]?.getAttribute(
-        "data-provinces"
-      );
-
-    if (selectedCountryData) {
-      setProvinces(JSON.parse(selectedCountryData));
-    } else {
-      setProvinces([]);
-    }
-  }, [isEditOpen]);
-
-  const deletAddress = useCallback(async () => {
-    setIsLoading(true);
-
-    const data = await invoke[
-      "deco-sites/otima-sorte"
-    ].actions.user.addressDelete({
-      token,
-      id,
-    });
-
-    setIsLoading(false);
-
-    if (data) {
-      window.alert("Endereço excluído com sucesso!");
-      window.location.reload();
-    } else {
-      window.alert("Ocorreu um erro ao excluir endereço.");
-    }
-  }, []);
+  const [provinces, setProvinces] = useState<string[]>([]);
 
   const handleCountryChange = (event: any) => {
     const country = event.target.value;
@@ -110,53 +68,34 @@ const AddressCard = ({
 
     const data = await invoke[
       "deco-sites/otima-sorte"
-    ].actions.user.addressUpdate({
+    ].actions.user.addressCreate({
       address,
       token,
-      id,
       isDefault,
     });
 
     setIsLoading(false);
 
     if (data) {
-      window.alert("Endereço atualizado com sucesso!");
+      window.alert("Endereço adicionado com sucesso!");
       window.location.reload();
     } else {
-      window.alert("Ocorreu um erro ao atualizar endereço.");
+      window.alert("Ocorreu um erro ao adicionar endereço.");
     }
   };
 
   return (
-    <li>
-      {address.default && <h2 class="text-center text-xl mb-3">Padrão</h2>}
-      <p class="text-center mb-3">
-        {address.first_name} {address.last_name}
-        <br />
-        {address.address1}
-        <br />
-        {address.city}
-        <br />
-        {address.zip}
-        <br />
-        {address.country === "Brazil" ? "Brasil" : address.country}
-      </p>
-      <div class="flex items-center justify-center gap-4">
-        <button
-          class="bg-[#2E385F] w-full max-w-[186px] h-[35px] rounded-lg flex items-center justify-center text-white text-[13px] font-medium leading-normal"
-          onClick={() => setIsEditOpen(true)}
-        >
-          Editar
-        </button>
-        <button
-          class="bg-[#2E385F] w-full max-w-[186px] h-[35px] rounded-lg flex items-center justify-center text-white text-[13px] font-medium leading-normal"
-          onClick={() => deletAddress()}
-        >
-          Excluir
-        </button>
-      </div>
-      <div class={`hidden ${isEditOpen && "!block"}`}>
-        <h2 class="text-center text-xl mb-3 mt-3">Editar endereço</h2>
+    <div>
+      <button
+        class="mb-[9px] lg:mb-5 bg-[#2E385F] w-full max-w-[210px] h-[35px] rounded-lg flex items-center justify-center text-white text-[13px] font-medium leading-normal"
+        onClick={() => setIsOpen(true)}
+      >
+        Adicionar um novo endereço
+      </button>
+      <div class={`hidden ${isOpen && "!block"}`}>
+        <h2 class="text-center text-xl mb-3 mt-3">
+          Adicionar um novo endereço
+        </h2>
         <form class="flex flex-col gap-3" onSubmit={(e) => handleSubmit(e)}>
           <div class="flex items-center justify-between gap-5">
             <div class="w-full flex flex-col gap-2">
@@ -170,7 +109,6 @@ const AddressCard = ({
                 id="address_first_name"
                 name="address_first_name"
                 class="rounded-[5px] border border-[#E7E7E7] bg-[#F6F6F6] h-[45px] px-[19px]"
-                value={address.first_name}
               />
             </div>
             <div class="w-full flex flex-col gap-2">
@@ -184,7 +122,6 @@ const AddressCard = ({
                 id="address_last_name"
                 name="address_last_name"
                 class="rounded-[5px] border border-[#E7E7E7] bg-[#F6F6F6] h-[45px] px-[19px]"
-                value={address.last_name}
               />
             </div>
           </div>
@@ -199,7 +136,6 @@ const AddressCard = ({
               id="address_company"
               name="address_company"
               class="rounded-[5px] border border-[#E7E7E7] bg-[#F6F6F6] h-[45px] px-[19px]"
-              value={address.company}
             />
           </div>
           <div class="w-full flex flex-col gap-2">
@@ -213,7 +149,6 @@ const AddressCard = ({
               id="address_address1"
               name="address_address1"
               class="rounded-[5px] border border-[#E7E7E7] bg-[#F6F6F6] h-[45px] px-[19px]"
-              value={address.address1}
             />
           </div>
           <div class="w-full flex flex-col gap-2">
@@ -227,7 +162,6 @@ const AddressCard = ({
               id="address_address2"
               name="address_address2"
               class="rounded-[5px] border border-[#E7E7E7] bg-[#F6F6F6] h-[45px] px-[19px]"
-              value={address.address2}
             />
           </div>
           <div class="w-full flex flex-col gap-2">
@@ -241,7 +175,6 @@ const AddressCard = ({
               id="address_city"
               name="address_city"
               class="rounded-[5px] border border-[#E7E7E7] bg-[#F6F6F6] h-[45px] px-[19px]"
-              value={address.city}
             />
           </div>
           <div class="w-full flex flex-col gap-2">
@@ -257,7 +190,6 @@ const AddressCard = ({
               class="rounded-[5px] border border-[#E7E7E7] bg-[#F6F6F6] h-[45px] px-[19px]"
               onChange={handleCountryChange}
               value={selectedCountry}
-              ref={selectedCountryRef}
             >
               <option value="Afghanistan" data-provinces="[]">
                 Afeganistão
@@ -1113,7 +1045,6 @@ const AddressCard = ({
                 id="address_province"
                 name="address_province"
                 className="rounded-[5px] border border-[#E7E7E7] bg-[#F6F6F6] h-[45px] px-[19px]"
-                value={address.province}
               >
                 {provinces.map((province, index) => (
                   <option key={index} value={province[0]}>
@@ -1134,7 +1065,6 @@ const AddressCard = ({
               id="address_zip"
               name="address_zip"
               class="rounded-[5px] border border-[#E7E7E7] bg-[#F6F6F6] h-[45px] px-[19px]"
-              value={address.zip}
             />
           </div>
           <div class="w-full flex flex-col gap-2">
@@ -1148,7 +1078,6 @@ const AddressCard = ({
               id="address_phone"
               name="address_phone"
               class="rounded-[5px] border border-[#E7E7E7] bg-[#F6F6F6] h-[45px] px-[19px]"
-              value={address.phone}
             />
           </div>
           <div class="flex items-center gap-3">
@@ -1156,7 +1085,6 @@ const AddressCard = ({
               type="checkbox"
               id="address_default"
               name="address_default"
-              checked={address.default}
             />
             <label
               htmlFor="address_default"
@@ -1167,19 +1095,19 @@ const AddressCard = ({
           </div>
           <div class="flex items-center gap-4">
             <button class="bg-[#2E385F] w-full max-w-[186px] h-[35px] rounded-lg flex items-center justify-center text-white text-[13px] font-medium leading-normal">
-              Atualizar endereço
+              Adicionar endereço
             </button>
             <button
               class="bg-[#2E385F] w-full max-w-[186px] h-[35px] rounded-lg flex items-center justify-center text-white text-[13px] font-medium leading-normal"
-              onClick={() => setIsEditOpen(false)}
+              onClick={() => setIsOpen(false)}
             >
               Cancelar
             </button>
           </div>
         </form>
       </div>
-    </li>
+    </div>
   );
 };
 
-export default AddressCard;
+export default AddressCreate;

@@ -89,10 +89,13 @@ import * as $$$$$$81 from "./sections/WinnersPage/CardsGrid.tsx";
 import * as $$$$$$82 from "./sections/WinnersSection.tsx";
 import * as $$$$$$$$$0 from "./actions/product/getVariants.ts";
 import * as $$$$$$$$$1 from "./actions/product/searchPreview.ts";
-import * as $$$$$$$$$2 from "./actions/user/createShopify.ts";
-import * as $$$$$$$$$3 from "./actions/user/loginShopify.ts";
-import * as $$$$$$$$$4 from "./actions/user/recoverShopify.ts";
-import * as $$$$$$$$$5 from "./actions/user/subscribeNewsletter.ts";
+import * as $$$$$$$$$2 from "./actions/user/addressCreate.ts";
+import * as $$$$$$$$$3 from "./actions/user/addressDelete.ts";
+import * as $$$$$$$$$4 from "./actions/user/addressUpdate.ts";
+import * as $$$$$$$$$5 from "./actions/user/createShopify.ts";
+import * as $$$$$$$$$6 from "./actions/user/loginShopify.ts";
+import * as $$$$$$$$$7 from "./actions/user/recoverShopify.ts";
+import * as $$$$$$$$$8 from "./actions/user/subscribeNewsletter.ts";
 import * as $$$$$$$$$$$0 from "./apps/decohub.ts";
 import * as $$$$$$$$$$$1 from "./apps/site.ts";
 
@@ -194,10 +197,13 @@ const manifest = {
   "actions": {
     "deco-sites/otima-sorte/actions/product/getVariants.ts": $$$$$$$$$0,
     "deco-sites/otima-sorte/actions/product/searchPreview.ts": $$$$$$$$$1,
-    "deco-sites/otima-sorte/actions/user/createShopify.ts": $$$$$$$$$2,
-    "deco-sites/otima-sorte/actions/user/loginShopify.ts": $$$$$$$$$3,
-    "deco-sites/otima-sorte/actions/user/recoverShopify.ts": $$$$$$$$$4,
-    "deco-sites/otima-sorte/actions/user/subscribeNewsletter.ts": $$$$$$$$$5,
+    "deco-sites/otima-sorte/actions/user/addressCreate.ts": $$$$$$$$$2,
+    "deco-sites/otima-sorte/actions/user/addressDelete.ts": $$$$$$$$$3,
+    "deco-sites/otima-sorte/actions/user/addressUpdate.ts": $$$$$$$$$4,
+    "deco-sites/otima-sorte/actions/user/createShopify.ts": $$$$$$$$$5,
+    "deco-sites/otima-sorte/actions/user/loginShopify.ts": $$$$$$$$$6,
+    "deco-sites/otima-sorte/actions/user/recoverShopify.ts": $$$$$$$$$7,
+    "deco-sites/otima-sorte/actions/user/subscribeNewsletter.ts": $$$$$$$$$8,
   },
   "apps": {
     "deco-sites/otima-sorte/apps/decohub.ts": $$$$$$$$$$$0,

@@ -3,6 +3,7 @@ import { getCustomerAccessToken } from "$store/utils/user.ts";
 import { extractUserInfo } from "$store/utils/shopifyUserInfo.ts";
 import { mkAdminFetcher } from "$store/utils/storeFront.ts";
 import { AppContext } from "apps/shopify/mod.ts";
+import AddressCreate from "../../islands/AddressCreate.tsx";
 import AddressCard from "../../islands/AddressCard.tsx";
 
 interface Address {
@@ -55,12 +56,14 @@ export async function loader(_: any, _req: Request, ctx: AppContext) {
     storeName,
     tokenAdmin
   );
-  return { addresses };
+  return { addresses, token };
 }
 
 function Address({
   addresses,
+  token,
 }: SectionProps<Awaited<ReturnType<typeof loader>>>) {
+  console.log("token", token);
   console.log(addresses);
 
   return (
@@ -75,12 +78,10 @@ function Address({
         >
           Retornar às Informações da conta
         </a>
-        <button class="mb-[9px] lg:mb-5 bg-[#2E385F] w-full max-w-[210px] h-[35px] rounded-lg flex items-center justify-center text-white text-[13px] font-medium leading-normal">
-          Adicionar um novo endereço
-        </button>
+        <AddressCreate token={token} />
         <ul class="flex flex-col gap-8">
           {addresses.map((address: Address, index: number) => (
-            <AddressCard address={address} />
+            <AddressCard address={address} token={token} />
           ))}
         </ul>
       </div>

@@ -2,24 +2,20 @@ import { AppContext } from "apps/shopify/mod.ts";
 import { fetchSafe } from "apps/utils/fetch.ts";
 
 export interface Props {
-  email: string;
+  token: string;
+  id: string;
 }
 
-//deno-lint-ignore no-explicit-any
 const action = async (
   props: Props,
   _req: Request,
   ctx: AppContext
 ): Promise<any> => {
   const mutation = `
-    mutation customerRecover { 
-      customerRecover(email: "${props.email}") { 
-        customerUserErrors {
-          code
-          field
-          message
-        } 
-      } 
+    mutation {
+      customerAddressDelete(customerAccessToken: "${props.token}", id: "gid://shopify/MailingAddress/${props.id}?model_name=CustomerAddress") {
+        deletedCustomerAddressId
+      }
     }
   `;
 
@@ -38,12 +34,11 @@ const action = async (
   );
 
   const { data } = await response.json();
-
-  if (data.customerRecover?.customerUserErrors.length > 0) {
-    return false;
-  } else {
+  if (data.customerAddressDelete?.deletedCustomerAddressId) {
     return true;
   }
+
+  return false;
 };
 
 export default action;
