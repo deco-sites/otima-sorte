@@ -2,20 +2,21 @@ import { useCallback, useEffect, useState } from "preact/hooks";
 import { invoke } from "../runtime.ts";
 import { useSignal } from "@preact/signals";
 
+//@ts-ignore ignore
 const SearchPreview = ({ query }) => {
   const products = useSignal([]);
   const activeProducts = useSignal([]);
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [windowWidth, setWindowWidth] = useState(globalThis.innerWidth);
 
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+      setWindowWidth(globalThis.innerWidth);
     };
 
-    window.addEventListener("resize", handleResize);
+    globalThis.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      globalThis.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -27,9 +28,10 @@ const SearchPreview = ({ query }) => {
 
       return data;
     },
-    []
+    [],
   );
 
+  //@ts-ignore ignore
   useEffect(async () => {
     const queryText = query.value;
     const previewProducts = await getProducts({ queryText });
@@ -39,7 +41,8 @@ const SearchPreview = ({ query }) => {
   useEffect(() => {
     if (products.value.length) {
       activeProducts.value = products.value.filter(
-        (product) => product.status === "ACTIVE"
+        //@ts-ignore ignore
+        (product) => product.status === "ACTIVE",
       );
     }
   }, [products.value]);
@@ -61,9 +64,10 @@ const SearchPreview = ({ query }) => {
   );
 };
 
+//@ts-ignore ignore
 const ProductCard = ({ product }) => {
   const extractId = (gid: string) => {
-    var numbers = gid.match(/\d+/g);
+    const numbers = gid.match(/\d+/g);
     return numbers?.join("");
   };
 
@@ -71,9 +75,11 @@ const ProductCard = ({ product }) => {
     <div
       class="flex gap-[18px]"
       onClick={() => {
-        location.href = `/products/${product.handle}-${extractId(
-          product.variants.nodes[0].id
-        )}`;
+        location.href = `/products/${product.handle}-${
+          extractId(
+            product.variants.nodes[0].id,
+          )
+        }`;
       }}
     >
       <img

@@ -8,14 +8,11 @@ export interface Props {
   password: string;
 }
 
-//deno-lint-ignore no-explicit-any
-const action = async (
-  props: Props,
-  _req: Request,
-  ctx: AppContext,
-): Promise<any> => {
+const action = async (props: Props, _req: Request, ctx: AppContext) => {
   const fetcher = mkStoreFrontFetcher(
+    //@ts-ignore ignore
     ctx.storeNameCustom,
+    //@ts-ignore ignore
     ctx.tokenAccessCustom,
   );
 

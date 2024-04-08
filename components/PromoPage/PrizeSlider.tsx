@@ -87,11 +87,11 @@ const PrizeSlider = (props: Props) => {
     ...props,
   };
 
-  const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const [windowSize, setWindowSize] = useState(globalThis.innerWidth);
 
   useEffect(() => {
     const handleWindowResize = () => {
-      setWindowSize(window.innerWidth);
+      setWindowSize(globalThis.innerWidth);
     };
 
     addEventListener("resize", handleWindowResize);

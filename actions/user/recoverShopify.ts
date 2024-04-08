@@ -5,12 +5,7 @@ export interface Props {
   email: string;
 }
 
-//deno-lint-ignore no-explicit-any
-const action = async (
-  props: Props,
-  _req: Request,
-  ctx: AppContext
-): Promise<any> => {
+const action = async (props: Props, _req: Request, ctx: AppContext) => {
   const mutation = `
     mutation customerRecover { 
       customerRecover(email: "${props.email}") { 
@@ -24,17 +19,19 @@ const action = async (
   `;
 
   const response = await fetchSafe(
+    //@ts-ignore ignore
     `https://${ctx.storeNameCustom}.myshopify.com/api/2024-01/graphql.json`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        //@ts-ignore ignore
         "X-Shopify-Storefront-Access-Token": ctx.tokenAccessCustom,
       },
       body: JSON.stringify({
         query: mutation,
       }),
-    }
+    },
   );
 
   const { data } = await response.json();

@@ -4,7 +4,7 @@ const SearchTerm = () => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    const url = window.location.href;
+    const url = globalThis.location.href;
     const searchParams = new URLSearchParams(new URL(url).search);
     const termFromParams = searchParams.get("q") ?? "";
     setSearchTerm(termFromParams);

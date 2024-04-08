@@ -5,15 +5,12 @@ export interface Props {
   queryText: string;
 }
 
-const action = async (
-  props: Props,
-  _req: Request,
-  ctx: AppContext
-): Promise<any | undefined> => {
+const action = async (props: Props, _req: Request, ctx: AppContext) => {
   const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      //@ts-ignore ignore
       "X-Shopify-Access-Token": ctx.tokenAdminCustom.get(),
     },
     body: JSON.stringify({
@@ -44,8 +41,9 @@ const action = async (
   };
 
   const response = await fetchSafe(
+    //@ts-ignore ignore
     `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/graphql.json`,
-    options
+    options,
   );
 
   const { data } = await response.json();

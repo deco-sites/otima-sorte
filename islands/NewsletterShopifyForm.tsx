@@ -13,12 +13,12 @@ const NewsletterShopifyForm = () => {
 
       console.log("data", data);
       if (data) {
-        window.alert("Cadastro realizado com sucesso!");
+        globalThis.alert("Cadastro realizado com sucesso!");
       } else {
-        window.alert("Erro ao realizar cadastro");
+        globalThis.alert("Erro ao realizar cadastro");
       }
     },
-    []
+    [],
   );
 
   return (

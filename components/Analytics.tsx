@@ -4,7 +4,10 @@ import { scriptAsDataURI } from "apps/utils/dataURI.ts";
 /**
  * This function is usefull for sending events on click. Works with both Server and Islands components
  */
-export const SendEventOnClick = <E extends AnalyticsEvent>({ event, id }: {
+export const SendEventOnClick = <E extends AnalyticsEvent>({
+  event,
+  id,
+}: {
   event: E;
   id: string;
 }) => (
@@ -21,7 +24,8 @@ export const SendEventOnClick = <E extends AnalyticsEvent>({ event, id }: {
         }
 
         elem.addEventListener("click", () => {
-          window.DECO.events.dispatch(event);
+          //@ts-ignore ignore
+          globalThis.DECO.events.dispatch(event);
         });
       },
       id,
@@ -30,9 +34,13 @@ export const SendEventOnClick = <E extends AnalyticsEvent>({ event, id }: {
   />
 );
 
-export const SendEventOnView = <E extends AnalyticsEvent>(
-  { event, id }: { event: E; id: string },
-) => (
+export const SendEventOnView = <E extends AnalyticsEvent>({
+  event,
+  id,
+}: {
+  event: E;
+  id: string;
+}) => (
   <script
     defer
     src={scriptAsDataURI(
@@ -49,7 +57,8 @@ export const SendEventOnView = <E extends AnalyticsEvent>(
           for (const item of items) {
             if (!item.isIntersecting) continue;
 
-            window.DECO.events.dispatch(event);
+            //@ts-ignore ignore
+            globalThis.DECO.events.dispatch(event);
             observer.unobserve(elem);
           }
         });

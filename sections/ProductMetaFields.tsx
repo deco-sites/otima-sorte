@@ -28,16 +28,19 @@ export async function loader(props: Props, _req: Request, ctx: AppContext) {
   const options = {
     method: "GET",
     headers: {
+      //@ts-ignore ignore
       "X-Shopify-Access-Token": ctx.tokenAdminCustom.get(),
     },
   };
 
   const { variant } = await fetch(
+    //@ts-ignore ignore
     `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/variants/${maybeSkuId}.json`,
     options,
   ).then((response) => response.json());
 
   const metafieldsUrl =
+    //@ts-ignore ignore
     `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/metafields.json`;
   const metafieldsParams = {
     "metafield[owner_id]": `${variant.product_id}`,

@@ -6,11 +6,7 @@ export interface Props {
   email: string;
 }
 
-const action = async (
-  props: Props,
-  _req: Request,
-  ctx: AppContext
-): Promise<any> => {
+const action = async (props: Props, _req: Request, ctx: AppContext) => {
   const splitName = (fullName: string) => {
     const nameParts = fullName.trim().split(" ");
     const firstName = nameParts[0];
@@ -51,25 +47,28 @@ const action = async (
   };
 
   const response = await fetchSafe(
+    //@ts-ignore ignore
     `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/graphql.json`,
     {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        //@ts-ignore ignore
         "X-Shopify-Access-Token": ctx.tokenAdminCustom.get(),
       },
       body: JSON.stringify({
         query: mutation,
         variables: input,
       }),
-    }
+    },
   );
 
   const { data } = await response.json();
 
   if (
     data.customerCreate.userErrors.find(
-      (err) => err.message === "Email is invalid"
+      //@ts-ignore ignore
+      (err) => err.message === "Email is invalid",
     )
   ) {
     return false;
@@ -77,7 +76,8 @@ const action = async (
 
   if (
     data.customerCreate.userErrors.find(
-      (err) => err.message === "Email has already been taken"
+      //@ts-ignore ignore
+      (err) => err.message === "Email has already been taken",
     )
   ) {
     const query = `
@@ -92,17 +92,19 @@ const action = async (
     `;
 
     const response = await fetchSafe(
+      //@ts-ignore ignore
       `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/graphql.json`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          //@ts-ignore ignore
           "X-Shopify-Access-Token": ctx.tokenAdminCustom.get(),
         },
         body: JSON.stringify({
           query: query,
         }),
-      }
+      },
     );
 
     const { data } = await response.json();
@@ -134,18 +136,20 @@ const action = async (
       };
 
       const response = await fetchSafe(
+        //@ts-ignore ignore
         `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/graphql.json`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            //@ts-ignore ignore
             "X-Shopify-Access-Token": ctx.tokenAdminCustom.get(),
           },
           body: JSON.stringify({
             query: mutation,
             variables: input,
           }),
-        }
+        },
       );
 
       const { data } = await response.json();

@@ -30,11 +30,11 @@ const DEFAULT_PROPS = {
 const InstitucionalBanners = (props: Props) => {
   const { banners } = { ...DEFAULT_PROPS, ...props };
 
-  const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const [windowSize, setWindowSize] = useState(globalThis.innerWidth);
 
   useEffect(() => {
     const handleWindowResize = () => {
-      setWindowSize(window.innerWidth);
+      setWindowSize(globalThis.innerWidth);
     };
 
     addEventListener("resize", handleWindowResize);

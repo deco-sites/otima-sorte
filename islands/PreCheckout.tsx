@@ -7,6 +7,8 @@ import { sendEvent } from "$store/sdk/analytics.tsx";
 import { AnalyticsItem } from "apps/commerce/types.ts";
 
 const PreCheckot = () => {
+  const [idToRemove, setIdToRemove] = useState(undefined);
+  const [removed, setRemoved] = useState(true);
   const [products, setProducts] = useState([]);
   const { cart, loading, updateItems, addItems } = useCart();
   const items = cart.value?.lines?.nodes ?? [];
@@ -33,26 +35,51 @@ const PreCheckot = () => {
     return data;
   }, []);
 
-  useEffect(() => {
-    const updateProducts = async () => {
-      if (items.length) {
-        const updatedItems = await Promise.all(
-          items.map(async (item) => {
-            const id = item.merchandise.id;
-            const productVariant = await getVariants({ id });
-            item.variants = productVariant?.product.variants.nodes;
-            item.sku = productVariant.sku;
-            return item;
-          })
-        );
+  //@ts-ignore ignore
+  useEffect(async () => {
+    if (idToRemove && !removed) {
+      updateQuantity(0, idToRemove);
+      setRemoved(true);
+    }
 
-        setProducts(updatedItems);
+    if (removed) {
+      const updatedItems = await Promise.all(
+        items.map(async (item) => {
+          const id = item.merchandise.id;
+          const productVariant = await getVariants({ id });
+          //@ts-ignore ignore
+          item.variants = productVariant?.product.variants.nodes;
+          //@ts-ignore ignore
+          item.sku = productVariant.sku;
+          return item;
+        })
+      );
+
+      const indexToRemove = updatedItems.findIndex(
+        (item) => item.id === idToRemove
+      );
+
+      if (
+        indexToRemove !== undefined &&
+        indexToRemove >= 0 &&
+        indexToRemove < updatedItems.length - 1
+      ) {
+        const temp = updatedItems[indexToRemove];
+        updatedItems[indexToRemove] = updatedItems[updatedItems.length - 1];
+        updatedItems[updatedItems.length - 1] = temp;
+
+        updatedItems.pop();
       }
-    };
 
-    updateProducts();
+      console.log("items", items);
+      console.log("updatedItems", updatedItems);
+
+      //@ts-ignore ignore
+      setProducts(updatedItems);
+    }
   }, [items]);
 
+  //@ts-ignore ignore
   const addItem = (id) =>
     addItems({
       lines: {
@@ -60,17 +87,20 @@ const PreCheckot = () => {
       },
     });
 
-  const updateQuantity = (quantity, index) =>
+  //@ts-ignore ignore
+  const updateQuantity = (quantity, id) =>
     updateItems({
       lines: [
         {
-          id: items[index].id,
+          id: id,
           quantity: quantity,
         },
       ],
     });
 
+  //@ts-ignore ignore
   const handleItemToAnalyticsItem = (index) => {
+    //@ts-ignore ignore
     const item = items[index];
 
     return item && itemToAnalyticsItem(item, index);
@@ -91,6 +121,7 @@ const PreCheckot = () => {
                 <div class="bg-[#F6F6F6] border border-[#E8E8E8] rounded-[15px] pt-[13px] pb-[35px] px-2">
                   <div class="flex items-start justify-between gap-[16px] lg:items-center mb-[14px] lg:justify-start lg:gap-[26px]">
                     <img
+                      //@ts-ignore ignore
                       src={item.merchandise.image?.url}
                       alt=""
                       class="max-w-[66px]"
@@ -98,6 +129,7 @@ const PreCheckot = () => {
                     <div class="max-w-[188px] lg:w-full lg:max-w-[678px] lg:flex lg:justify-between">
                       <div class="">
                         <p class="text-[13px] leading-[15px] text-[#444444] mb-[9px]">
+                          {/* @ts-ignore ignore */}
                           {item.merchandise.product.title} {item.sku}
                         </p>
                         <p class="text-[10px] leading-3 font-bold text-[#444444] mb-[11px]">
@@ -106,6 +138,7 @@ const PreCheckot = () => {
                       </div>
                       <div>
                         <p class="hidden lg:block text-[11px] leading-[13px] text-[#444444]">
+                          {/* @ts-ignore ignore */}
                           Qtd.: {item.quantity}
                         </p>
                         <p class="text-xs leading-[14px] text-[#F2970E] font-semibold mb-[10px]">
@@ -114,17 +147,20 @@ const PreCheckot = () => {
                       </div>
                       <div class="flex items-center gap-[10px] lg:flex-col">
                         <p class="text-xs leading-[14px] text-[#686868] line-through">
-                          {item.cost.compareAtAmountPerQuantity.amount}
+                          {/* @ts-ignore ignore */}
+                          {item.cost.compareAtAmountPerQuantity?.amount}
                         </p>
                         <p class="text-[17px] leading-5 font-bold text-[#2E385F]">
-                          {item.cost.amountPerQuantity.amount}
+                          {/* @ts-ignore ignore */}
+                          {item.cost.amountPerQuantity?.amount}
                         </p>
                       </div>
                     </div>
                     <button
                       class="lg:ml-auto"
                       onClick={() => {
-                        updateQuantity(0, index);
+                        //@ts-ignore ignore
+                        updateQuantity(0, item.id);
                       }}
                     >
                       <svg
@@ -177,14 +213,19 @@ const PreCheckot = () => {
                   </div>
 
                   <div class="grid grid-cols-1 lg:grid-cols-3 gap-[18px] lg:gap-5 mb-[47px]">
+                    {/* @ts-ignore ignore */}
                     {item.variants.map((variant) => (
                       <button
                         class={`rounded-[15px] pt-[13px] pb-[30px] px-[17px] flex items-start justify-between relative bg-white ${
+                          //@ts-ignore ignore
                           variant.id === item.merchandise.id
                             ? "border-2 border-[#2E385F]"
                             : "border-2 border-[#E0E0E0]"
                         }`}
                         onClick={() => {
+                          //@ts-ignore ignore
+                          setIdToRemove(item.id);
+                          setRemoved(false);
                           addItem(variant.id);
                         }}
                       >
@@ -193,6 +234,7 @@ const PreCheckot = () => {
                             <div class="border border-[#B5B5B5] rounded-lg flex items-center justify-center w-[24px] h-[24px]">
                               <div
                                 class={`bg-[#2E385F] rounded-[6px] w-[16px] h-[16px] ${
+                                  //@ts-ignore ignore
                                   variant.id === item.merchandise.id
                                     ? "block"
                                     : "hidden"
@@ -200,8 +242,10 @@ const PreCheckot = () => {
                               />
                             </div>
                             <p class="text-sm leading-4 font-bold text-[#686868]">
-                              {variant.metafield.value}{" "}
-                              {variant.metafield.value > 1 ? "eBooks" : "eBook"}
+                              {variant.metafield?.value}{" "}
+                              {variant.metafield?.value > 1
+                                ? "eBooks"
+                                : "eBook"}
                             </p>
                           </div>
                           <div class="flex items-center gap-[10px] mb-[7px]">
@@ -222,8 +266,10 @@ const PreCheckot = () => {
                         />
                         <div class="absolute bottom-[-14px] bg-[#F2970E] w-full max-w-[208px] h-[28px] flex items-center justify-center rounded-[5px]">
                           <p class="text-white text-[11px] leading-[13px] font-semibold">
-                            GANHE {variant.metafield.value}{" "}
-                            {variant.metafield.value > 1 ? "NÚMEROS" : "NÚMERO"}{" "}
+                            GANHE {variant.metafield?.value}{" "}
+                            {variant.metafield?.value > 1
+                              ? "NÚMEROS"
+                              : "NÚMERO"}{" "}
                             DA SORTE
                           </p>
                         </div>

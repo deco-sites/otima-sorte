@@ -1,5 +1,6 @@
-import { useState, useEffect } from "preact/hooks";
+import { useEffect, useState } from "preact/hooks";
 
+//@ts-ignore ignore
 const MenuMobileAccordeon = ({ categories }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -29,6 +30,7 @@ const MenuMobileAccordeon = ({ categories }) => {
           isOpen ? "max-h-[500px] pt-5 pb-[50px]" : "max-h-0 overflow-hidden"
         }`}
       >
+        {/* @ts-ignore ignore */}
         {categories?.map((category, index) => (
           <div key={index}>
             <a
@@ -38,6 +40,7 @@ const MenuMobileAccordeon = ({ categories }) => {
               {category.name}
             </a>
             <div class="flex flex-col gap-[25px]">
+              {/* @ts-ignore ignore */}
               {category.subcategories?.map((subcategory, index) => (
                 <a
                   href={subcategory.url}

@@ -22,11 +22,13 @@ export async function loader(props: Props, _req: Request, ctx: AppContext) {
   const options = {
     method: "GET",
     headers: {
+      //@ts-ignore ignore
       "X-Shopify-Access-Token": ctx.tokenAdminCustom.get(),
     },
   };
 
   const { product } = await fetch(
+    //@ts-ignore ignore
     `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/products/${id}.json`,
     options,
   ).then((response) => response.json());

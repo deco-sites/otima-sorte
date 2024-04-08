@@ -61,8 +61,8 @@ const OrdersTable = ({ orders }: { orders: any }) => {
           </p>
         </div>
         <div class="flex flex-col gap-5">
-          {/* deno-lint-ignore no-explicit-any */}
-          {orders?.map((order: any) => (
+          {/* @ts-ignore */}
+          {orders?.map((order) => (
             <div class="pb-5 border-b border-[#E5E5E5]">
               <p class="text-[#2E385F] text-[15px] leading-normal underline mb-5">
                 {order.name}
@@ -155,8 +155,8 @@ const OrdersTable = ({ orders }: { orders: any }) => {
             <th>Status do pedido</th>
             <th>Total</th>
           </tr>
-          {/* deno-lint-ignore no-explicit-any */}
-          {orders?.map((order: any) => {
+          {/* @ts-ignore */}
+          {orders?.map((order) => {
             return (
               <tr
                 class="w-full h-[66px] border-b border-[#E5E5E5] text-[#686868] text-[15px] leading-normal hover:bg-[#E5E5E5] cursor-pointer"

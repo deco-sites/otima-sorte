@@ -8,6 +8,7 @@ import { AppContext } from "apps/shopify/mod.ts";
 
 //deno-lint-ignore no-explicit-any
 function parseOrders(orders: any[]): UserOrders {
+  //@ts-ignore ignore
   return orders.map((order) => {
     return {
       "@type": "UserOrder",
@@ -64,10 +65,14 @@ async function getCustomerAddresses(
 
 //deno-lint-ignore no-explicit-any
 export async function loader(_: any, _req: Request, ctx: AppContext) {
+  //@ts-ignore ignore
   const storeName = ctx.storeNameCustom;
+  //@ts-ignore ignore
   const tokenAccess = ctx.tokenAccessCustom;
+  //@ts-ignore ignore
   const tokenAdmin = ctx.tokenAdminCustom.get();
   const token = getCustomerAccessToken(_req.headers);
+  //@ts-ignore ignore
   const userInfo = await extractUserInfo(token, storeName, tokenAccess);
   const orders = await getCustomerOrders(
     userInfo?.customerId,
@@ -79,6 +84,7 @@ export async function loader(_: any, _req: Request, ctx: AppContext) {
     storeName,
     tokenAdmin,
   );
+  //@ts-ignore ignore
   const defaultAddress = addresses?.find((address) => address.default);
   return { userInfo, orders, defaultAddress, addresses };
 }

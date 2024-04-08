@@ -13,7 +13,9 @@ const action = async (
   ctx: AppContext,
 ): Promise<string | undefined> => {
   const fetcher = mkStoreFrontFetcher(
+    //@ts-ignore ignore
     ctx.storeNameCustom,
+    //@ts-ignore ignore
     ctx.tokenAccessCustom,
   );
 

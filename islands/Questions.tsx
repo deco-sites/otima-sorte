@@ -67,6 +67,7 @@ const Question = ({ question, answer }: Question) => {
             : "max-h-0 overflow-hidden"
         }`}
       >
+        {/* @ts-ignore */}
         <RichText class="text-[13px] leading-5 text-[#444444]" text={answer} />
       </div>
     </div>

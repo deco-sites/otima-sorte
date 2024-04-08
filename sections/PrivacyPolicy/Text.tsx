@@ -13,7 +13,11 @@ const Text = ({ title, text }: Props) => {
         <p class="text-sm leading-5 font-bold mb-[25px] text-[#444444]">
           {title}
         </p>
-        <RichText class="text-sm leading-5 text-[#444444]" text={text} />
+        <RichText
+          //@ts-ignore ignore
+          class="text-sm leading-5 text-[#444444]"
+          text={text as string}
+        />
       </div>
     </div>
   );

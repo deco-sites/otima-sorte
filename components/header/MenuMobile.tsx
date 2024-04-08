@@ -205,21 +205,21 @@ const MenuMobileDrawer = ({
         </div>
         <div class="bg-white flex-1 overflow-y-scroll">
           {menuItems?.map((item, index) => {
-            return item.categories?.length ? (
-              <MenuMobileAccordeon categories={item.categories} key={index} />
-            ) : (
-              <div
-                key={index}
-                class="bg-[#2E385F] py-5 px-[30px] border-b border-b-white"
-              >
-                <a
-                  href={item.url}
-                  class="text-white text-[15px] font-medium leading-normal"
+            return item.categories?.length
+              ? <MenuMobileAccordeon categories={item.categories} key={index} />
+              : (
+                <div
+                  key={index}
+                  class="bg-[#2E385F] py-5 px-[30px] border-b border-b-white"
                 >
-                  {item.name}
-                </a>
-              </div>
-            );
+                  <a
+                    href={item.url}
+                    class="text-white text-[15px] font-medium leading-normal"
+                  >
+                    {item.name}
+                  </a>
+                </div>
+              );
           })}
         </div>
         <div class="bg-[#1E274A] py-[50px] pl-[30px] flex flex-col gap-5">

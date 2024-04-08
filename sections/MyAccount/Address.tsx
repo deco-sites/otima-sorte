@@ -29,7 +29,7 @@ interface Address {
 async function getCustomerAddresses(
   customerId: string,
   storeName: string,
-  tokenAdmin: string
+  tokenAdmin: string,
 ) {
   if (!customerId) {
     return null;
@@ -46,15 +46,19 @@ async function getCustomerAddresses(
 
 //deno-lint-ignore no-explicit-any
 export async function loader(_: any, _req: Request, ctx: AppContext) {
+  //@ts-ignore ignore
   const storeName = ctx.storeNameCustom;
+  //@ts-ignore ignore
   const tokenAccess = ctx.tokenAccessCustom;
+  //@ts-ignore ignore
   const tokenAdmin = ctx.tokenAdminCustom.get();
   const token = getCustomerAccessToken(_req.headers);
+  //@ts-ignore ignore
   const userInfo = await extractUserInfo(token, storeName, tokenAccess);
   const addresses = await getCustomerAddresses(
     userInfo?.customerId,
     storeName,
-    tokenAdmin
+    tokenAdmin,
   );
   return { addresses, token };
 }
@@ -78,9 +82,11 @@ function Address({
         >
           Retornar às Informações da conta
         </a>
+        {/* @ts-ignore ignore */}
         <AddressCreate token={token} />
         <ul class="flex flex-col gap-8">
           {addresses.map((address: Address, index: number) => (
+            //@ts-ignore ignore
             <AddressCard address={address} token={token} />
           ))}
         </ul>

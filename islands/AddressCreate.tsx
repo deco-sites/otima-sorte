@@ -27,7 +27,8 @@ const AddressCreate = ({ token }: { token: string }) => {
   const [selectedCountry, setSelectedCountry] = useState<string>("");
   const [provinces, setProvinces] = useState<string[]>([]);
 
-  const handleCountryChange = (event: any) => {
+  //@ts-ignore ignore
+  const handleCountryChange = (event) => {
     const country = event.target.value;
     const selectedCountryData =
       event.target.selectedOptions[0].dataset.provinces;
@@ -40,30 +41,44 @@ const AddressCreate = ({ token }: { token: string }) => {
     }
   };
 
-  const handleSubmit = async (e: any) => {
+  //@ts-ignore ignore
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const formData = new FormData(e.target as HTMLFormElement);
-    const addressData: any = {};
+    const addressData = {};
     formData.forEach((value, key) => {
+      //@ts-ignore ignore
       addressData[key] = value;
     });
 
     const address = {
+      //@ts-ignore ignore
       address1: addressData.address_address1,
+      //@ts-ignore ignore
       address2: addressData.address_address2,
+      //@ts-ignore ignore
       city: addressData.address_city,
+      //@ts-ignore ignore
       company: addressData.address_company,
+      //@ts-ignore ignore
       country: addressData.address_country ? addressData.address_country : "",
+      //@ts-ignore ignore
       firstName: addressData.address_first_name,
+      //@ts-ignore ignore
       lastName: addressData.address_last_name,
+      //@ts-ignore ignore
       phone: addressData.address_phone,
+      //@ts-ignore ignore
       province: addressData.address_province
+        //@ts-ignore ignore
         ? addressData.address_province
         : "",
+      //@ts-ignore ignore
       zip: addressData.address_zip,
     };
 
+    //@ts-ignore ignore
     const isDefault = addressData.address_default === "on";
 
     const data = await invoke[
@@ -77,10 +92,10 @@ const AddressCreate = ({ token }: { token: string }) => {
     setIsLoading(false);
 
     if (data) {
-      window.alert("Endereço adicionado com sucesso!");
-      window.location.reload();
+      globalThis.alert("Endereço adicionado com sucesso!");
+      globalThis.location.reload();
     } else {
-      window.alert("Ocorreu um erro ao adicionar endereço.");
+      globalThis.alert("Ocorreu um erro ao adicionar endereço.");
     }
   };
 

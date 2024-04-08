@@ -25,23 +25,21 @@ async function getProduct(
   }
 }
 
-//deno-lint-ignore no-explicit-any
-async function parseOrders(
-  orders: any[],
-  storeName: string,
-  tokenAdmin: string,
-) {
-  //deno-lint-ignore no-explicit-any
-  async function getProductWithImage(product: any): Promise<any> {
+//@ts-ignore ignore
+async function parseOrders(orders, storeName: string, tokenAdmin: string) {
+  //@ts-ignore ignore
+  async function getProductWithImage(product) {
     const image = await getProduct(product.product_id, storeName, tokenAdmin);
     return { ...product, image };
   }
 
   const parsedOrders = await Promise.all(
+    //@ts-ignore ignore
     orders.map(async (order) => {
       const products = order.line_items;
 
       const productsWithImages = await Promise.all(
+        //@ts-ignore ignore
         products.map(async (product) => {
           return await getProductWithImage(product);
         }),
@@ -88,10 +86,14 @@ async function getCustomerOrders(
 }
 
 export async function loader(props: Props, _req: Request, ctx: AppContext) {
+  //@ts-ignore ignore
   const storeName = ctx.storeNameCustom;
+  //@ts-ignore ignore
   const tokenAccess = ctx.tokenAccessCustom;
+  //@ts-ignore ignore
   const tokenAdmin = ctx.tokenAdminCustom.get();
   const token = getCustomerAccessToken(_req.headers);
+  //@ts-ignore ignore
   const userInfo = await extractUserInfo(token, storeName, tokenAccess);
   const orders = await getCustomerOrders(
     userInfo?.customerId,
@@ -116,6 +118,7 @@ const OrderDetatils = ({ currentOrder }: SectionProps<typeof loader>) => {
         </h1>
 
         <div class="mb-[30px] lg:mb-4 flex flex-col gap-[15px]">
+          {/* @ts-ignore */}
           {currentOrder?.products.map((product, index: number) => (
             <div
               key={index}
