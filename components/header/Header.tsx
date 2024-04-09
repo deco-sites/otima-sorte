@@ -3,6 +3,7 @@ import Drawers from "$store/islands/Header/Drawers.tsx";
 import { usePlatform } from "$store/sdk/usePlatform.tsx";
 import type { ImageWidget } from "apps/admin/widgets.ts";
 import RichText from "$store/sections/Content/RichText.tsx";
+import type { SectionProps } from "deco/types.ts";
 
 import MenuMobile from "$store/islands/Header/MenuMobile.tsx";
 import MenuDesktop from "$store/islands/Header/MenuDesktop.tsx";
@@ -11,6 +12,7 @@ import { LoginButton, SearchButton } from "$store/islands/Header/Buttons.tsx";
 import CartButtonShopify from "$store/islands/Header/Cart/shopify.tsx";
 import Searchbar from "$store/islands/Header/Searchbar.tsx";
 import Icon from "$store/components/ui/Icon.tsx";
+import { getCustomerAccessToken } from "$store/utils/user.ts";
 
 export interface Logo {
   src: ImageWidget;
@@ -57,11 +59,24 @@ const DEFAULT_PROPS = {
   ],
 };
 
-function Header(props: Props) {
+//@ts-ignore ignore
+export const loader = (props: Props, _req: Request) => {
   const { searchbar, logo, toptext, topbarlinks } = {
     ...DEFAULT_PROPS,
     ...props,
   };
+  const token = getCustomerAccessToken(_req.headers);
+
+  return { searchbar, logo, toptext, topbarlinks, token };
+};
+
+function Header({
+  searchbar,
+  logo,
+  toptext,
+  topbarlinks,
+  token,
+}: SectionProps<ReturnType<typeof loader>>) {
   const platform = usePlatform();
 
   return (
@@ -69,7 +84,7 @@ function Header(props: Props) {
       <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js" />
 
       <div class="fixed w-full z-50">
-        <Drawers platform={platform}>
+        <Drawers platform={platform} token={token}>
           <div></div>
         </Drawers>
 

@@ -11,9 +11,10 @@ const CartNuvemshop = lazy(() => import("./nuvemshop/Cart.tsx"));
 
 export interface Props {
   platform: ReturnType<typeof usePlatform>;
+  token: string | undefined;
 }
 
-function Cart({ platform }: Props) {
+function Cart({ platform, token }: Props) {
   if (platform === "vtex") {
     return <CartVTEX />;
   }
@@ -31,7 +32,7 @@ function Cart({ platform }: Props) {
   }
 
   if (platform === "shopify") {
-    return <CartShopify />;
+    return <CartShopify token={token} />;
   }
 
   if (platform === "nuvemshop") {

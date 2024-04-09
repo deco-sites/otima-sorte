@@ -14,6 +14,7 @@ export interface Props {
    */
   children?: ComponentChildren;
   platform: ReturnType<typeof usePlatform>;
+  token: string | undefined;
 }
 
 const Aside = ({
@@ -35,7 +36,7 @@ const Aside = ({
   </div>
 );
 
-function Drawers({ children, platform }: Props) {
+function Drawers({ children, platform, token }: Props) {
   const { displayCart, displayLogin } = useUI();
 
   return (
@@ -58,7 +59,7 @@ function Drawers({ children, platform }: Props) {
         onClose={() => (displayCart.value = false)}
         aside={
           <Aside>
-            <Cart platform={platform} />
+            <Cart platform={platform} token={token} />
           </Aside>
         }
       >

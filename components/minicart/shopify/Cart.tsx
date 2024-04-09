@@ -1,7 +1,7 @@
 import { itemToAnalyticsItem, useCart } from "apps/shopify/hooks/useCart.ts";
 import BaseCart from "../common/Cart.tsx";
 
-function Cart() {
+function Cart({ token }: { token: string | undefined }) {
   const { cart, loading, updateItems, addCouponsToCart } = useCart();
   const items = cart.value?.lines?.nodes ?? [];
   const coupons = cart.value?.discountCodes;
@@ -42,16 +42,19 @@ function Cart() {
       onAddCoupon={(text) => addCouponsToCart({ discountCodes: [text] })}
       onUpdateQuantity={(quantity, index) =>
         updateItems({
-          lines: [{
-            id: items[index].id,
-            quantity: quantity,
-          }],
+          lines: [
+            {
+              id: items[index].id,
+              quantity: quantity,
+            },
+          ],
         })}
       itemToAnalyticsItem={(index) => {
         const item = items[index];
 
         return item && itemToAnalyticsItem(item, index);
       }}
+      token={token}
     />
   );
 }
