@@ -95,7 +95,7 @@ export default function LoginButton() {
                     Fazer login ou Cadastrar-se
                   </p>
                   <a
-                    href="/"
+                    href="/my-account"
                     class="text-[#2E385F] text-[15px] font-semibold leading-normal hover:underline"
                   >
                     Meus pedidos

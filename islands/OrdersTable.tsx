@@ -1,3 +1,73 @@
+const financialStatus = [
+  {
+    status: "authorized",
+    value: "Autorizado",
+  },
+  {
+    status: "paid",
+    value: "Pago",
+  },
+  {
+    status: "partially_paid",
+    value: "Parcialmente pago",
+  },
+  {
+    status: "partially_refunded",
+    value: "Parcialmente reembolsado",
+  },
+  {
+    status: "pending",
+    value: "Pendente",
+  },
+  {
+    status: "refunded",
+    value: "Reembolsado",
+  },
+  {
+    status: "voided",
+    value: "Anulado",
+  },
+];
+
+const fulfillmentStatus = [
+  {
+    status: "fulfilled",
+    value: "Finalizado",
+  },
+  {
+    status: "in_progress",
+    value: "Em andamento",
+  },
+  {
+    status: "on_hold",
+    value: "Em espera",
+  },
+  {
+    status: "open",
+    value: "Aberto",
+  },
+  {
+    status: "partially_fulfilled",
+    value: "Parcialmente finalizado",
+  },
+  {
+    status: "pending_fulfillment",
+    value: "Finalização pendente",
+  },
+  {
+    status: "restocked",
+    value: "Reabastecido",
+  },
+  {
+    status: "scheduled",
+    value: "Agendado",
+  },
+  {
+    status: "unfulfilled",
+    value: "Não finalizado",
+  },
+];
+
 // deno-lint-ignore no-explicit-any
 const OrdersTable = ({ orders }: { orders: any }) => {
   return (
@@ -63,7 +133,12 @@ const OrdersTable = ({ orders }: { orders: any }) => {
         <div class="flex flex-col gap-5">
           {/* @ts-ignore */}
           {orders?.map((order) => (
-            <div class="pb-5 border-b border-[#E5E5E5]">
+            <div
+              class="pb-5 border-b border-[#E5E5E5]"
+              onClick={() => {
+                location.href = `/my-account/${order.name.substring(1)}`;
+              }}
+            >
               <p class="text-[#2E385F] text-[15px] leading-normal underline mb-5">
                 {order.name}
               </p>
@@ -74,15 +149,19 @@ const OrdersTable = ({ orders }: { orders: any }) => {
                 </p>
                 <p class="text-[#686868] text-sm leading-normal">
                   <span class="font-semibold">Status do pagamento:</span>
-                  {order.financial_status}
+                  {financialStatus.find(
+                    (status) => status.status === order.financial_status,
+                  )?.value || order.financial_status}
                 </p>
                 <p class="text-[#686868] text-sm leading-normal">
                   <span class="font-semibold">Status do pedido:</span>
-                  {order.fulfillment_status}
+                  {fulfillmentStatus.find(
+                    (status) => status.status === order.fulfillment_status,
+                  )?.value || order.fulfillment_status}
                 </p>
                 <p class="text-[#686868] text-sm leading-normal">
                   <span class="font-semibold">Total:</span>
-                  {order.totalPrice}
+                  R$ {order.totalPrice}
                 </p>
               </div>
             </div>
@@ -164,11 +243,19 @@ const OrdersTable = ({ orders }: { orders: any }) => {
                   location.href = `/my-account/${order.name.substring(1)}`;
                 }}
               >
-                <td class="text-[#2E385F]">{order.name}</td>
+                <td class="text-[#2E385F] underline">{order.name}</td>
                 <td>{new Date(order.createdAt).toDateString()}</td>
-                <td>{order.financial_status}</td>
-                <td>{order.fulfillment_status}</td>
-                <td>{order.totalPrice}</td>
+                <td>
+                  {financialStatus.find(
+                    (status) => status.status === order.financial_status,
+                  )?.value || order.financial_status}
+                </td>
+                <td>
+                  {fulfillmentStatus.find(
+                    (status) => status.status === order.fulfillment_status,
+                  )?.value || order.fulfillment_status}
+                </td>
+                <td>R$ {order.totalPrice}</td>
               </tr>
             );
           })}

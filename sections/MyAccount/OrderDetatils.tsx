@@ -146,13 +146,13 @@ const OrderDetatils = ({ currentOrder }: SectionProps<typeof loader>) => {
                 <div class="pl-[85px] flex flex-col gap-2 lg:flex-row lg:justify-between lg:pl-0 lg:w-full lg:max-w-[605px]">
                   <p class="text-[#444] text-base leading-normal">Cód.:</p>
                   <p class="text-[#2E385F] text-[17px]  font-bold leading-normal">
-                    {product.price}
+                    R$ {product.price}
                   </p>
                   <p class="text-[#444] text-base leading-normal">
                     Qtd. {product.quantity}
                   </p>
                   <p class="text-[#2E385F] text-[17px]  font-bold leading-normal">
-                    {product.price * product.quantity}
+                    R$ {product.price * product.quantity}
                   </p>
                 </div>
               </div>
@@ -167,7 +167,7 @@ const OrderDetatils = ({ currentOrder }: SectionProps<typeof loader>) => {
                 Subtotal
               </p>
               <p class="text-[#575757] text-right text-[13px] font-medium leading-normal lg:text-base">
-                {currentOrder.subtotalPrice}
+                R$ {currentOrder.subtotalPrice}
               </p>
             </div>
             <div class="flex justify-between">
@@ -175,7 +175,7 @@ const OrderDetatils = ({ currentOrder }: SectionProps<typeof loader>) => {
                 Descontos
               </p>
               <p class="text-[#7C7C7C] text-right text-[13px] leading-normal lg:text-base">
-                {currentOrder.totalDiscounts}
+                R$ {currentOrder.totalDiscounts}
               </p>
             </div>
             <div class="flex justify-between">
@@ -183,7 +183,7 @@ const OrderDetatils = ({ currentOrder }: SectionProps<typeof loader>) => {
                 Taxas
               </p>
               <p class="text-[#7C7C7C] text-right text-[13px] leading-normal lg:text-base">
-                {currentOrder.totalTax}
+                R$ {currentOrder.totalTax}
               </p>
             </div>
             <div class="flex justify-between border-t border-[#E5E5E5] pt-[15px]">
@@ -191,7 +191,7 @@ const OrderDetatils = ({ currentOrder }: SectionProps<typeof loader>) => {
                 Total
               </p>
               <p class="text-[#2E385F] text-right text-xl font-bold leading-normal text-[22px]">
-                {currentOrder.totalPrice}
+                R$ {currentOrder.totalPrice}
               </p>
             </div>
           </div>

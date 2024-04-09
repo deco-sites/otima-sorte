@@ -45,7 +45,6 @@ function Cart({
 
   return (
     <div class="flex-grow">
-      <h1 class="text-red-500 text-8xl">{token}</h1>
       {isEmtpy && (
         <div class="h-full flex flex-col pb-5">
           <div class="flex justify-between items-center pt-[14px] pl-[27px] pr-[17px]">

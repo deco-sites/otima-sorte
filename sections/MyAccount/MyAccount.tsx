@@ -95,6 +95,8 @@ function MyAccount({
   defaultAddress,
   addresses,
 }: SectionProps<Awaited<ReturnType<typeof loader>>>) {
+  console.log("orders: ", orders);
+
   return (
     <div class="pt-[18px] pb-[140px] lg:pt-[34px] lg:pb-[212px]">
       <h1 class="text-[#1E274A] text-center text-xl font-semibold leading-normal mb-[9px] lg:text-[26px] lg:mb-5">
