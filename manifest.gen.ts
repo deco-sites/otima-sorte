@@ -2,6 +2,17 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
+import * as $$$$$$$$$0 from "./actions/product/getVariants.ts";
+import * as $$$$$$$$$1 from "./actions/product/searchPreview.ts";
+import * as $$$$$$$$$2 from "./actions/user/addressCreate.ts";
+import * as $$$$$$$$$3 from "./actions/user/addressDelete.ts";
+import * as $$$$$$$$$4 from "./actions/user/addressUpdate.ts";
+import * as $$$$$$$$$5 from "./actions/user/createShopify.ts";
+import * as $$$$$$$$$6 from "./actions/user/loginShopify.ts";
+import * as $$$$$$$$$7 from "./actions/user/recoverShopify.ts";
+import * as $$$$$$$$$8 from "./actions/user/subscribeNewsletter.ts";
+import * as $$$$$$$$$$$0 from "./apps/decohub.ts";
+import * as $$$$$$$$$$$1 from "./apps/site.ts";
 import * as $$$0 from "./loaders/Layouts/ProductCard.tsx";
 import * as $$$1 from "./loaders/List/Sections.tsx";
 import * as $$$$$$0 from "./sections/AboutUsPage/GridSection.tsx";
@@ -87,17 +98,6 @@ import * as $$$$$$79 from "./sections/Steps.tsx";
 import * as $$$$$$80 from "./sections/Theme/Theme.tsx";
 import * as $$$$$$81 from "./sections/WinnersPage/CardsGrid.tsx";
 import * as $$$$$$82 from "./sections/WinnersSection.tsx";
-import * as $$$$$$$$$0 from "./actions/product/getVariants.ts";
-import * as $$$$$$$$$1 from "./actions/product/searchPreview.ts";
-import * as $$$$$$$$$2 from "./actions/user/addressCreate.ts";
-import * as $$$$$$$$$3 from "./actions/user/addressDelete.ts";
-import * as $$$$$$$$$4 from "./actions/user/addressUpdate.ts";
-import * as $$$$$$$$$5 from "./actions/user/createShopify.ts";
-import * as $$$$$$$$$6 from "./actions/user/loginShopify.ts";
-import * as $$$$$$$$$7 from "./actions/user/recoverShopify.ts";
-import * as $$$$$$$$$8 from "./actions/user/subscribeNewsletter.ts";
-import * as $$$$$$$$$$$0 from "./apps/decohub.ts";
-import * as $$$$$$$$$$$1 from "./apps/site.ts";
 
 const manifest = {
   "loaders": {

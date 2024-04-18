@@ -1,10 +1,9 @@
 {
   "imports": {
     "deco-sites/otima-sorte/": "./",
-
     "$store/": "./",
-    "deco/": "https://denopkg.com/deco-cx/deco@1.51.1/",
-    "apps/": "https://denopkg.com/deco-cx/apps@0.27.3/",
+    "deco/": "https://denopkg.com/deco-cx/deco@1.61.3/",
+    "apps/": "https://denopkg.com/deco-cx/apps@0.36.9/",
     "$fresh/": "https://deno.land/x/fresh@1.6.1/",
     "preact": "https://esm.sh/preact@10.18.1",
     "preact/": "https://esm.sh/preact@10.18.1/",
@@ -33,10 +32,19 @@
   "githooks": {
     "pre-commit": "check"
   },
-  "exclude": ["node_modules", "static/", "README.md", "_fresh", "**/_fresh/*"],
+  "exclude": [
+    "node_modules",
+    "static/",
+    "README.md",
+    "_fresh",
+    "**/_fresh/*"
+  ],
   "lint": {
     "rules": {
-      "tags": ["fresh", "recommended"]
+      "tags": [
+        "fresh",
+        "recommended"
+      ]
     }
   },
   "nodeModulesDir": true,
