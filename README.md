@@ -8,7 +8,7 @@ in minutes.
     src="https://cdn.discordapp.com/attachments/1043241080679841793/1083140431556116553/image.png" />
 </div>
 
-## Features
+## Features 
 This starter brings:
 
 <ul>
