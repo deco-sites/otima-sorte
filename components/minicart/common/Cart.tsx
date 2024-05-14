@@ -97,7 +97,7 @@ function Cart({
           </p>
         </div>
       )}
-      {!isEmtpy && !token && (
+      {/* {!isEmtpy && !token && (
         <div class="pt-[22px] px-[26px]">
           <div class="flex items-center gap-[9px] mb-[25px]">
             <div class="w-6 h-6">
@@ -175,8 +175,8 @@ function Cart({
             </form>
           </div>
         </div>
-      )}
-      {!isEmtpy && token && (
+      )} */}
+      {!isEmtpy /* && token */ && (
         <div class="flex flex-col h-full">
           <div class="flex justify-between items-center pt-[14px] pl-[27px] pr-[17px]">
             <span class="text-[#2E385F] text-[17px] font-extrabold leading-normal">
