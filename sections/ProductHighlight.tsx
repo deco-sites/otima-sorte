@@ -30,7 +30,7 @@ export async function loader(props: Props, _req: Request, ctx: AppContext) {
   const { product } = await fetch(
     //@ts-ignore ignore
     `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/products/${id}.json`,
-    options,
+    options
   ).then((response) => response.json());
 
   return { product, banner, link };
@@ -57,23 +57,23 @@ export default function DogFacts({
       <div class="flex flex-col items-center lg:flex-row lg:gap-[31px] max-w-[1270px] mx-auto lg:items-start">
         <img src={banner} alt="" class="rounded-2xl mb-[18px] lg:mb-0" />
         <div class="flex flex-col items-center lg:items-start">
-          <div class="border border-[#6DC04B] rounded-[5px] h-[28px] w-fit px-3 mb-[10px] flex items-center justify-center">
+          {/* <div class="border border-[#6DC04B] rounded-[5px] h-[28px] w-fit px-3 mb-[10px] flex items-center justify-center">
             <p class="text-[#6DC04B] text-[13px] font-bold tracking-[0.65px] leading-normal">
               {calculateDiscount(currentPrice, originalPrice)}% OFF
             </p>
-          </div>
-          <p class="text-white text-xl text-center leading-normal mb-[10px]">
+          </div> */}
+          <p class="text-white text-xl text-center leading-normal mb-[10px] lg:text-left">
             <span class="font-semibold">eBook:</span> {product?.title}
           </p>
           <p class="text-white text-[13px] leading-[17px] text-center mb-[18px] lg:text-start">
             {product?.body_html}
           </p>
           <div class="flex items-center gap-[23px] mb-[13px]">
-            <p class="text-white text-[13px] leading-normal line-through">
-              R$ {currentPrice}
-            </p>
-            <p class="text-white text-[17px] font-bold leading-normal">
+            {/* <p class="text-white text-[13px] leading-normal line-through">
               R$ {originalPrice}
+            </p> */}
+            <p class="text-white text-[17px] font-bold leading-normal">
+              R$ {currentPrice}
             </p>
           </div>
           <a

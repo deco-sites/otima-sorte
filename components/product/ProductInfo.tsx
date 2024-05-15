@@ -89,11 +89,11 @@ function ProductInfo({ page, layout }: Props) {
 
           <div class="px-[15px] py-3 lg:px-0 lg:py-0">
             <div class="flex justify-between lg:flex-col">
-              <div class="border border-[#6DC04B] rounded-[5px] h-[28px] w-fit px-3 mb-[10px] flex items-center justify-center">
+              {/* <div class="border border-[#6DC04B] rounded-[5px] h-[28px] w-fit px-3 mb-[10px] flex items-center justify-center">
                 <p class="text-[#6DC04B] text-[13px] font-bold tracking-[0.65px] leading-normal">
                   {calculateDiscount(price, listPrice)}% OFF
                 </p>
-              </div>
+              </div> */}
 
               {/* Prices */}
               <div class="mb-3">
@@ -111,24 +111,24 @@ function ProductInfo({ page, layout }: Props) {
             </div>
 
             {/* Add to Cart and Favorites button */}
-            {availability === "https://schema.org/InStock"
-              ? (
-                <>
-                  {platform === "shopify" && (
-                    <div class="flex lg:flex-col gap-[10px] lg:mb-5">
-                      <AddToCartButtonShopify
-                        eventParams={{ items: [eventItem] }}
-                        productID={productID}
-                      />
-                      <AddToCartButtonShopify
-                        eventParams={{ items: [eventItem] }}
-                        productID={productID}
-                      />
-                    </div>
-                  )}
-                </>
-              )
-              : <OutOfStock productID={productID} />}
+            {availability === "https://schema.org/InStock" ? (
+              <>
+                {platform === "shopify" && (
+                  <div class="flex lg:flex-col gap-[10px] lg:mb-5">
+                    {/* <AddToCartButtonShopify
+                      eventParams={{ items: [eventItem] }}
+                      productID={productID}
+                    /> */}
+                    <AddToCartButtonShopify
+                      eventParams={{ items: [eventItem] }}
+                      productID={productID}
+                    />
+                  </div>
+                )}
+              </>
+            ) : (
+              <OutOfStock productID={productID} />
+            )}
           </div>
         </div>
 

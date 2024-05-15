@@ -12,7 +12,7 @@ import * as $$$$$$$$$6 from "./actions/user/loginShopify.ts";
 import * as $$$$$$$$$7 from "./actions/user/recoverShopify.ts";
 import * as $$$$$$$$$8 from "./actions/user/subscribeNewsletter.ts";
 import * as $$$$$$$$$$$0 from "./apps/decohub.ts";
-import * as $$$$$$$$$$$2 from "./apps/site.ts";
+import * as $$$$$$$$$$$1 from "./apps/site.ts";
 import * as $$$0 from "./loaders/Layouts/ProductCard.tsx";
 import * as $$$1 from "./loaders/List/Sections.tsx";
 import * as $$$$$$0 from "./sections/AboutUsPage/GridSection.tsx";
@@ -207,7 +207,7 @@ const manifest = {
   },
   "apps": {
     "deco-sites/otima-sorte/apps/decohub.ts": $$$$$$$$$$$0,
-    "deco-sites/otima-sorte/apps/site.ts": $$$$$$$$$$$2,
+    "deco-sites/otima-sorte/apps/site.ts": $$$$$$$$$$$1,
   },
   "name": "deco-sites/otima-sorte",
   "baseUrl": import.meta.url,

@@ -45,19 +45,20 @@ function CartItem({
     price: { sale, list },
     quantity,
   } = item;
-  const isGift = sale < 0.01;
+  const isGift = list < 0.01;
   const [loading, setLoading] = useState(false);
 
   const withLoading = useCallback(
-    <A,>(cb: (args: A) => Promise<void>) => async (e: A) => {
-      try {
-        setLoading(true);
-        await cb(e);
-      } finally {
-        setLoading(false);
-      }
-    },
-    [],
+    <A,>(cb: (args: A) => Promise<void>) =>
+      async (e: A) => {
+        try {
+          setLoading(true);
+          await cb(e);
+        } finally {
+          setLoading(false);
+        }
+      },
+    []
   );
 
   return (
@@ -125,11 +126,11 @@ function CartItem({
           </button>
         </div>
         <div class="flex items-center gap-[11px] mb-3">
-          <span class="text-[#686868] text-[13px] leading-normal line-through">
+          {/*           <span class="text-[#686868] text-[13px] leading-normal">
             {formatPrice(list, currency, locale)}
-          </span>
+          </span> */}
           <span class="text-[#2E385F] text-[17px] font-bold leading-normal">
-            {isGift ? "Grátis" : formatPrice(sale, currency, locale)}
+            {isGift ? "Grátis" : formatPrice(list, currency, locale)}
           </span>
         </div>
         <div class="bg-[#F2970E] w-full max-w-[223px] h-[28px] flex items-center justify-center rounded-[5px]">

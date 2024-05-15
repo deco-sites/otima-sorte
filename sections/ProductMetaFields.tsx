@@ -36,7 +36,7 @@ export async function loader(props: Props, _req: Request, ctx: AppContext) {
   const { variant } = await fetch(
     //@ts-ignore ignore
     `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/variants/${maybeSkuId}.json`,
-    options,
+    options
   ).then((response) => response.json());
 
   const metafieldsUrl =
@@ -50,7 +50,7 @@ export async function loader(props: Props, _req: Request, ctx: AppContext) {
 
   const { metafields } = await fetch(
     `${metafieldsUrl}?${queryString}`,
-    options,
+    options
   ).then((response) => response.json());
 
   return { metafields };
@@ -78,7 +78,7 @@ const ProductMetaFields = ({ metafields }: SectionProps<typeof loader>) => {
 
   return (
     <div class="mb-5">
-      {metafields.map((metafield: Metafild, index: number) => (
+      {metafields?.map((metafield: Metafild, index: number) => (
         <p
           key={index}
           class="text-[#444] text-center text-[15px] leading-6 lg:text-left"

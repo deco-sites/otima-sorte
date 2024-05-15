@@ -8,7 +8,7 @@ export interface Props {
 const action = async (
   props: Props,
   _req: Request,
-  ctx: AppContext,
+  ctx: AppContext
 ): Promise<string | undefined> => {
   const options = {
     method: "POST",
@@ -34,6 +34,15 @@ const action = async (
                   }
                 }
               }
+              collections(first: 1) {
+                nodes {
+                  image {
+                    url
+                  }
+                  title
+                  description
+                }
+              }
             }
           }
         }
@@ -44,7 +53,7 @@ const action = async (
   const response = await fetchSafe(
     //@ts-ignore ignore
     `https://${ctx.storeNameCustom}.myshopify.com/admin/api/2024-01/graphql.json`,
-    options,
+    options
   );
 
   const { data } = await response.json();

@@ -28,7 +28,7 @@ const SearchPreview = ({ query }) => {
 
       return data;
     },
-    [],
+    []
   );
 
   //@ts-ignore ignore
@@ -42,7 +42,7 @@ const SearchPreview = ({ query }) => {
     if (products.value.length) {
       activeProducts.value = products.value.filter(
         //@ts-ignore ignore
-        (product) => product.status === "ACTIVE",
+        (product) => product.status === "ACTIVE"
       );
     }
   }, [products.value]);
@@ -73,13 +73,11 @@ const ProductCard = ({ product }) => {
 
   return (
     <div
-      class="flex gap-[18px]"
+      class="flex gap-[18px] items-start h-fit"
       onClick={() => {
-        location.href = `/products/${product.handle}-${
-          extractId(
-            product.variants.nodes[0].id,
-          )
-        }`;
+        location.href = `/products/${product.handle}-${extractId(
+          product.variants.nodes[0].id
+        )}`;
       }}
     >
       <img
@@ -96,7 +94,7 @@ const ProductCard = ({ product }) => {
             {product.variants.nodes[0].compareAtPrice}
           </p>
           <p class="text-[#2E385F] text-[17px] leading-normal font-bold uppercase">
-            {product.variants.nodes[0].price}
+            R$ {product.variants.nodes[0].price}
           </p>
         </div>
       </div>
