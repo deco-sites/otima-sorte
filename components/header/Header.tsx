@@ -42,14 +42,10 @@ const DEFAULT_PROPS = {
     alt: "",
   },
   toptext:
-    '<p class="text-white text-xs leading-normal uppercase">GANHE <span class="text-[#6DC04B]">5% off</span> em sua primeira compra</p>',
+    '<p class="text-white text-xs leading-normal uppercase">QUANTO MAIS <span class="text-[#6DC04B]">EBOOKS</span> COMPRAR MAIS <span class="text-[#6DC04B]">CHANCES TEM DE GANHAR!</span></p>',
   topbarlinks: [
     {
       text: "sobre nós",
-      url: "/",
-    },
-    {
-      text: "depoimentos",
       url: "/",
     },
     {
@@ -113,22 +109,20 @@ function Header({
 
           <a href="/">
             <img
-              src={/* logo.src */ "https://fakeimg.pl/264x66/625afa/ffffff"}
+              src={logo.src}
               alt={logo.alt}
               class="max-w-[154px] lg:max-w-none lg:mr-[60px]"
             />
           </a>
 
           <div class="lg:hidden h-[23px]">
-            {
-              /* <a
+            {/* <a
               class="btn btn-circle btn-sm btn-ghost"
               href="/account"
               aria-label="Account"
             >
               <Icon id="User" size={24} strokeWidth={0.4} />
-            </a> */
-            }
+            </a> */}
             <LoginButton />
           </div>
 
@@ -143,15 +137,13 @@ function Header({
 
             <div class="hidden lg:flex gap-[10px] items-center justify-between w-full max-w-[263px]">
               <SearchButton />
-              {
-                /* <a
+              {/* <a
                 class="btn btn-circle btn-sm btn-ghost"
                 href="/account"
                 aria-label="Account"
               >
                 <Icon id="User" size={24} strokeWidth={0.4} />
-              </a> */
-              }
+              </a> */}
               <LoginButton />
               <CartButtonShopify />
             </div>

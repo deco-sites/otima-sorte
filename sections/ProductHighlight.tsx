@@ -1,20 +1,24 @@
 import type { SectionProps } from "deco/mod.ts";
 import type { ImageWidget } from "apps/admin/widgets.ts";
 import { AppContext } from "apps/shopify/mod.ts";
+import RichText from "$store/sections/Content/RichText.tsx";
 
 export interface Props {
   id: string;
   banner?: ImageWidget;
+  /** @format textarea */
+  text?: string;
   link?: string;
 }
 
 const DEFAULT_PROPS = {
   banner: "https://fakeimg.pl/624x360",
+  text: '<p class="text-white text-[13px] leading-[17px] text-center mb-[18px] lg:text-start">Placeholder</p>',
   link: "/",
 };
 
 export async function loader(props: Props, _req: Request, ctx: AppContext) {
-  const { id, banner, link } = {
+  const { id, banner, text, link } = {
     ...DEFAULT_PROPS,
     ...props,
   };
@@ -33,7 +37,7 @@ export async function loader(props: Props, _req: Request, ctx: AppContext) {
     options
   ).then((response) => response.json());
 
-  return { product, banner, link };
+  return { product, banner, text, link };
 }
 
 function calculateDiscount(currentPrice: number, originalPrice: number) {
@@ -47,6 +51,7 @@ function calculateDiscount(currentPrice: number, originalPrice: number) {
 export default function DogFacts({
   product,
   banner,
+  text,
   link,
 }: SectionProps<typeof loader>) {
   const currentPrice = product?.variants[0].price;
@@ -65,9 +70,6 @@ export default function DogFacts({
           <p class="text-white text-xl text-center leading-normal mb-[10px] lg:text-left">
             <span class="font-semibold">eBook:</span> {product?.title}
           </p>
-          <p class="text-white text-[13px] leading-[17px] text-center mb-[18px] lg:text-start">
-            {product?.body_html}
-          </p>
           <div class="flex items-center gap-[23px] mb-[13px]">
             {/* <p class="text-white text-[13px] leading-normal line-through">
               R$ {originalPrice}
@@ -76,6 +78,7 @@ export default function DogFacts({
               R$ {currentPrice}
             </p>
           </div>
+          <RichText text={text as string} />
           <a
             href={link}
             class="bg-[#6DC04B] h-[45px] w-full max-w-[276px] flex items-center justify-center text-white text-[15px] font-bold leading-normal rounded-lg"

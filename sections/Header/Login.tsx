@@ -1,7 +1,26 @@
 import { useUI } from "$store/sdk/useUI.ts";
 import { useState } from "preact/hooks";
+import { getCustomerAccessToken } from "$store/utils/user.ts";
+import { SectionProps } from "deco/types.ts";
+import { AppContext } from "apps/shopify/mod.ts";
 
-export default function LoginButton() {
+export async function loader(_: any, _req: Request, ctx: AppContext) {
+  //@ts-ignore ignore
+  const storeName = ctx.storeNameCustom;
+  //@ts-ignore ignore
+  const tokenAccess = ctx.tokenAccessCustom;
+  //@ts-ignore ignore
+  const tokenAdmin = ctx.tokenAdminCustom.get();
+  const token = getCustomerAccessToken(_req.headers);
+  //@ts-ignore ignore
+  const userInfo = await extractUserInfo(token, storeName, tokenAccess);
+
+  return { userInfo };
+}
+
+export default function LoginButton({
+  userInfo,
+}: SectionProps<Awaited<ReturnType<typeof loader>>>) {
   const [showModal, setShowModal] = useState(false);
 
   const { displayLogin } = useUI();
@@ -75,9 +94,16 @@ export default function LoginButton() {
               setShowModal(false);
             }}
           >
-            <p class="text-white text-xs font-bold leading-normal underline cursor-pointer">
-              ACESSE AQUI
-            </p>
+            {userInfo ? (
+              <p class="text-white text-xs font-bold leading-normal cursor-pointer">
+                {userInfo?.firstName}
+              </p>
+            ) : (
+              <p class="text-white text-xs font-bold leading-normal underline cursor-pointer">
+                ACESSE AQUI
+              </p>
+            )}
+
             <div
               class={`absolute w-screen max-w-[278px] left-[-107px] rounded-lg pt-[20px] shadow ${
                 showModal ? "block" : "hidden"
@@ -86,20 +112,24 @@ export default function LoginButton() {
               <div class="bg-white w-[48px] h-[48px] rotate-45 absolute left-0 right-0 mx-auto top-[7px] rounded-lg" />
               <div class="bg-white pt-[43px] px-[31px] pb-[31px] rounded-lg">
                 <div class="flex flex-col gap-[23px]">
-                  <p
-                    class="text-[#2E385F] text-[15px] font-semibold leading-normal hover:underline cursor-pointer"
-                    onClick={() => {
-                      displayLogin.value = true;
-                    }}
-                  >
-                    Fazer login ou Cadastrar-se
-                  </p>
-                  <a
-                    href="/my-account"
-                    class="text-[#2E385F] text-[15px] font-semibold leading-normal hover:underline"
-                  >
-                    Meus pedidos
-                  </a>
+                  {!userInfo && (
+                    <p
+                      class="text-[#2E385F] text-[15px] font-semibold leading-normal hover:underline cursor-pointer"
+                      onClick={() => {
+                        displayLogin.value = true;
+                      }}
+                    >
+                      Fazer login ou Cadastrar-se
+                    </p>
+                  )}
+                  {userInfo && (
+                    <a
+                      href="/my-account"
+                      class="text-[#2E385F] text-[15px] font-semibold leading-normal hover:underline"
+                    >
+                      Meus pedidos
+                    </a>
+                  )}
                 </div>
               </div>
             </div>

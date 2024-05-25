@@ -169,7 +169,7 @@ const BannersCarousel = (props: Props) => {
           <swiper-container
             slides-per-view={`${slidesNumber}`}
             slides-per-group={`${slidesNumber}`}
-            loop="true"
+            loop="false"
             navigation="true"
             pagination="true"
             space-between="23"

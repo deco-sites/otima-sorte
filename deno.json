@@ -2,8 +2,8 @@
   "imports": {
     "deco-sites/otima-sorte/": "./",
     "$store/": "./",
-    "deco/": "https://denopkg.com/deco-cx/deco@1.67.9/",
-    "apps/": "https://denopkg.com/deco-cx/apps@0.43.2/",
+    "deco/": "https://denopkg.com/deco-cx/deco@1.68.1/",
+    "apps/": "https://denopkg.com/deco-cx/apps@0.43.3/",
     "$fresh/": "https://deno.land/x/fresh@1.6.8/",
     "preact": "https://esm.sh/preact@10.18.1",
     "preact/": "https://esm.sh/preact@10.18.1/",

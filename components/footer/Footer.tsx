@@ -12,6 +12,7 @@ import Newsletter from "$store/islands/Newsletter.tsx";
 import type { ImageWidget } from "apps/admin/widgets.ts";
 import PoweredByDeco from "apps/website/components/PoweredByDeco.tsx";
 import RichText from "$store/sections/Content/RichText.tsx";
+import NewsletterShopifyForm from "../../islands/NewsletterShopifyForm.tsx";
 
 export type Item = {
   label: string;
@@ -265,63 +266,66 @@ function Footer(props: Props) {
   };
 
   return (
-    <footer>
-      <div class="">
-        <div class="bg-[#2E385F] pt-[17px] pb-5 lg:px-5">
-          <div class="max-w-[1270px] mx-auto flex flex-col px-5 lg:flex-row lg:px-0 lg:mb-11">
-            <div class="lg:mr-[13.07%] flex flex-col items-center gap-[27px] mb-10 lg:mb-0 lg:items-start">
-              <img src={logo?.image} alt={logo?.alt} />
-              <div class="flex gap-5">
-                {socialIcons?.map((icon, index) => (
+    <>
+      <NewsletterShopifyForm />
+      <footer>
+        <div class="">
+          <div class="bg-[#2E385F] pt-[17px] pb-5 lg:px-5">
+            <div class="max-w-[1270px] mx-auto flex flex-col px-5 lg:flex-row lg:px-0 lg:mb-11">
+              <div class="lg:mr-[13.07%] flex flex-col items-center gap-[27px] mb-10 lg:mb-0 lg:items-start">
+                <img src={logo?.image} alt={logo?.alt} />
+                <div class="flex gap-5">
+                  {socialIcons?.map((icon, index) => (
+                    <img src={icon.image} alt={icon.alt} key={index} />
+                  ))}
+                </div>
+              </div>
+              <div>
+                <FooterItems sections={sections} />
+              </div>
+            </div>
+            <div class="max-w-[1270px] mx-auto px-5 mb-5 lg:flex justify-between items-center lg:px-0 lg:mb-[54px]">
+              <div class="lg:flex gap-[95px]">
+                <div class="flex flex-col mb-7 lg:flex-row lg:items-center lg:gap-[25px] lg:mb-0">
+                  <p class="text-white text-center text-[11px] leading-normal uppercase mb-3 lg:mb-0">
+                    {payment?.title}
+                  </p>
+                  <div class="flex justify-center gap-[10px]">
+                    {payment?.icons?.map((icon, index) => (
+                      <img src={icon.image} alt={icon.alt} key={index} />
+                    ))}
+                  </div>
+                </div>
+                <div class="flex flex-col mb-7 lg:flex-row lg:items-center lg:gap-[25px] lg:mb-0">
+                  <p class="text-white text-center text-[11px] leading-normal uppercase mb-3 lg:mb-0">
+                    {security?.title}
+                  </p>
+                  <div class="flex justify-center gap-[10px]">
+                    {security?.icons?.map((icon, index) => (
+                      <img src={icon.image} alt={icon.alt} key={index} />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center justify-center gap-10">
+                {poweredIcons?.map((icon, index) => (
                   <img src={icon.image} alt={icon.alt} key={index} />
                 ))}
               </div>
             </div>
-            <div>
-              <FooterItems sections={sections} />
+            <div class="px-5 flex justify-center lg:px-0">
+              {/* <RichText text={textBottom} /> */}
+              <p class="text-white text-[10px] leading-[18px] lg:text-center">
+                Copyright @ Ótima Ajuda 2023 - Todos os direitos reservados.
+                <br />
+                CNPJ 00.000.000/0000-00 / Endereço Exemplo teste, 1000 - Bairro,
+                Estado - UF 00000-000, Brasil
+              </p>
             </div>
-          </div>
-          <div class="max-w-[1270px] mx-auto px-5 mb-5 lg:flex justify-between items-center lg:px-0 lg:mb-[54px]">
-            <div class="lg:flex gap-[95px]">
-              <div class="flex flex-col mb-7 lg:flex-row lg:items-center lg:gap-[25px] lg:mb-0">
-                <p class="text-white text-center text-[11px] leading-normal uppercase mb-3 lg:mb-0">
-                  {payment?.title}
-                </p>
-                <div class="flex justify-center gap-[10px]">
-                  {payment?.icons?.map((icon, index) => (
-                    <img src={icon.image} alt={icon.alt} key={index} />
-                  ))}
-                </div>
-              </div>
-              <div class="flex flex-col mb-7 lg:flex-row lg:items-center lg:gap-[25px] lg:mb-0">
-                <p class="text-white text-center text-[11px] leading-normal uppercase mb-3 lg:mb-0">
-                  {security?.title}
-                </p>
-                <div class="flex justify-center gap-[10px]">
-                  {security?.icons?.map((icon, index) => (
-                    <img src={icon.image} alt={icon.alt} key={index} />
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div class="flex justify-center gap-10">
-              {poweredIcons?.map((icon, index) => (
-                <img src={icon.image} alt={icon.alt} key={index} />
-              ))}
-            </div>
-          </div>
-          <div class="px-5 flex justify-center lg:px-0">
-            {/* <RichText text={textBottom} /> */}
-            <p class="text-white text-[10px] leading-[18px] lg:text-center">
-              Copyright @ Ótima Ajuda 2023 - Todos os direitos reservados.
-              <br />
-              CNPJ 00.000.000/0000-00 / Endereço Exemplo teste, 1000 - Bairro,
-              Estado - UF 00000-000, Brasil
-            </p>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </>
   );
 }
 

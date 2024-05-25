@@ -1,21 +1,34 @@
-const ContactUs = () => {
+import type { ImageWidget } from "apps/admin/widgets.ts";
+
+export interface ContactUs {
+  banner?: ImageWidget;
+  text?: string;
+  phones?: string[];
+  email?: string;
+}
+
+const DEFAULT_PROPS = {
+  banner: "https://fakeimg.pl/1270x170/00ff40/ffffff",
+  text: "Placeholder",
+  phones: ["telefone 1", "telefone 2"],
+  email: "email",
+};
+
+const ContactUs = (props: ContactUs) => {
+  const { banner, text, phones, email } = { ...DEFAULT_PROPS, ...props };
+
   return (
     <div class="px-[15px] mb-[85px] lg:mb-[190px]">
       <div class="max-w-[1270px] mx-auto">
         <div class="w-full h-[170px] relative mb-[18px] lg:mb-[30px]">
           <img
-            src="https://fakeimg.pl/1270x170"
+            src={banner}
             alt=""
             class="absolute object-cover w-full h-full"
           />
         </div>
         <p class="text-[13px] leading-[20px] text-center lg:text-left lg:leading-[22px] text-[#444444] mb-[21px] lg:mb-[29px]">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur.
+          {text}
         </p>
         <div class="flex flex-col gap-[36px] lg:flex-row lg:justify-between lg:gap-[15px]">
           <div class="w-full max-w-[400px]">
@@ -25,12 +38,11 @@ const ContactUs = () => {
                   TELEFONE:
                 </p>
                 <div>
-                  <p class="text-[#444444] text-[13px] leading-[25px]">
-                    (00) 0000-0000
-                  </p>
-                  <p class="text-[#444444] text-[13px] leading-[25px]">
-                    (00) 0000-0000
-                  </p>
+                  {phones.map((phone) => (
+                    <p class="text-[#444444] text-[13px] leading-[25px]">
+                      {phone}
+                    </p>
+                  ))}
                 </div>
               </div>
               <div class="w-full">
@@ -39,7 +51,7 @@ const ContactUs = () => {
                 </p>
                 <div>
                   <p class="text-[#444444] text-[13px] leading-[25px]">
-                    contato@otimasorte.com
+                    {email}
                   </p>
                 </div>
               </div>
@@ -123,8 +135,7 @@ const ContactUs = () => {
                 placeholder="Escreva aqui sua mensagem"
                 required
                 class="border border-[#D9D9D9] rounded-[5px] min-h-[185px] px-[22px] py-[17px] text-[13px] leading-[15px] font-medium text-[#444444]"
-              >
-              </textarea>
+              ></textarea>
               <input
                 type="submit"
                 value="Enviar"

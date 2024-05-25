@@ -25,7 +25,7 @@ function parseOrders(orders: any[]): UserOrders {
 async function getCustomerOrders(
   customerId: string,
   storeName: string,
-  tokenAdmin: string,
+  tokenAdmin: string
 ) {
   if (!customerId) {
     return null;
@@ -34,7 +34,7 @@ async function getCustomerOrders(
   try {
     const fetcher = mkAdminFetcher(storeName, tokenAdmin);
     const data = await fetcher(
-      `customers/${customerId}/orders.json?status=any`,
+      `customers/${customerId}/orders.json?status=any`
     );
 
     const parsedOrders = parseOrders(data.orders);
@@ -48,7 +48,7 @@ async function getCustomerOrders(
 async function getCustomerAddresses(
   customerId: string,
   storeName: string,
-  tokenAdmin: string,
+  tokenAdmin: string
 ) {
   if (!customerId) {
     return null;
@@ -77,12 +77,12 @@ export async function loader(_: any, _req: Request, ctx: AppContext) {
   const orders = await getCustomerOrders(
     userInfo?.customerId,
     storeName,
-    tokenAdmin,
+    tokenAdmin
   );
   const addresses = await getCustomerAddresses(
     userInfo?.customerId,
     storeName,
-    tokenAdmin,
+    tokenAdmin
   );
   //@ts-ignore ignore
   const defaultAddress = addresses?.find((address) => address.default);
@@ -95,8 +95,6 @@ function MyAccount({
   defaultAddress,
   addresses,
 }: SectionProps<Awaited<ReturnType<typeof loader>>>) {
-  console.log("orders: ", orders);
-
   return (
     <div class="pt-[18px] pb-[140px] lg:pt-[34px] lg:pb-[212px]">
       <h1 class="text-[#1E274A] text-center text-xl font-semibold leading-normal mb-[9px] lg:text-[26px] lg:mb-5">
