@@ -1,8 +1,22 @@
-const Header = () => {
+import type { ImageWidget } from "apps/admin/widgets.ts";
+
+export interface Props {
+  logo?: ImageWidget;
+}
+
+const DEFAULT_PROPS = {
+  log: "https://fakeimg.pl/264x66",
+};
+
+const Header = (props: Props) => {
+  const { logo } = { ...DEFAULT_PROPS, ...props };
+
   return (
     <div class="bg-[#2E385F] pt-[13px] pb-[21px] px-3 lg:px-[32px] lg:py-6">
       <div class="flex items-center justify-between">
-        <img src="https://fakeimg.pl/264x66" alt="" />
+        <a href="/">
+          <img src={logo} alt="" />
+        </a>
         <div class="flex items-center gap-[10px] max-w-[129px] lg:max-w-none">
           <div>
             <svg
