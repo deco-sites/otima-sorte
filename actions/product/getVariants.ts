@@ -32,6 +32,9 @@ const action = async (
                   metafield(namespace: "custom" key: "numeros") {
                     value
                   }
+                  image {
+                    url
+                  }
                 }
               }
               collections(first: 1) {

@@ -13,9 +13,8 @@ const PreCheckot = () => {
   const { cart, loading, updateItems, addItems } = useCart();
   const items = cart.value?.lines?.nodes ?? [];
   const coupons = cart.value?.discountCodes;
-  const coupon = coupons && coupons[0]?.applicable
-    ? coupons[0].code
-    : undefined;
+  const coupon =
+    coupons && coupons[0]?.applicable ? coupons[0].code : undefined;
   const locale = "pt-BR";
   const currency = cart.value?.cost?.totalAmount.currencyCode ?? "BRL";
   const total = cart.value?.cost?.totalAmount.amount ?? 0;
@@ -53,11 +52,11 @@ const PreCheckot = () => {
           //@ts-ignore ignore
           item.sku = productVariant.sku;
           return item;
-        }),
+        })
       );
 
       const indexToRemove = updatedItems.findIndex(
-        (item) => item.id === idToRemove,
+        (item) => item.id === idToRemove
       );
 
       if (
@@ -113,12 +112,17 @@ const PreCheckot = () => {
         <h1 class="mb-[21px] text-xl leading-[23px] text-center font-bold lg:text-[26px] lg:leading-[30px]">
           Sacola de compras
         </h1>
-        {isEmtpy
-          ? <h1>Vazio</h1>
-          : (
-            <div class="flex flex-col gap-[22px] lg:flex-row lg:justify-between">
-              <div class="w-full max-w-[948px] flex flex-col gap-5 lg:gap-[27px]">
-                {products?.map((item, index) => (
+        {isEmtpy ? (
+          <h1>Vazio</h1>
+        ) : (
+          <div class="flex flex-col gap-[22px] lg:flex-row lg:justify-between">
+            <div class="w-full max-w-[948px] flex flex-col gap-5 lg:gap-[27px]">
+              {products?.map((item, index) => {
+                const selectedVariant = item.variants?.find(
+                  (v) => v.id === item.merchandise.id
+                );
+
+                return (
                   <div class="bg-[#F6F6F6] border border-[#E8E8E8] rounded-[15px] pt-[13px] pb-[35px] px-2">
                     <div class="flex items-start justify-between gap-[16px] lg:items-center mb-[14px] lg:justify-start lg:gap-[26px]">
                       <img
@@ -143,7 +147,11 @@ const PreCheckot = () => {
                             Qtd.: {item.quantity}
                           </p>
                           <p class="text-xs leading-[14px] text-[#F2970E] font-semibold mb-[10px]">
-                            GANHE 1 NÚMERO DA SORTE
+                            GANHE {selectedVariant.metafield?.value}{" "}
+                            {selectedVariant.metafield?.value > 1
+                              ? "NÚMEROS"
+                              : "NÚMERO"}{" "}
+                            DA SORTE
                           </p>
                         </div>
                         <div class="flex items-center gap-[10px] lg:flex-col">
@@ -153,7 +161,11 @@ const PreCheckot = () => {
                           </p>
                           <p class="text-[17px] leading-5 font-bold text-[#2E385F]">
                             {/* @ts-ignore ignore */}
-                            {item.cost.amountPerQuantity?.amount}
+                            {formatPrice(
+                              item.cost.amountPerQuantity?.amount,
+                              currency,
+                              locale
+                            )}
                           </p>
                         </div>
                       </div>
@@ -221,7 +233,8 @@ const PreCheckot = () => {
                             //@ts-ignore ignore
                             variant.id === item.merchandise.id
                               ? "border-2 border-[#2E385F]"
-                              : "border-2 border-[#E0E0E0]"}`}
+                              : "border-2 border-[#E0E0E0]"
+                          }`}
                           onClick={() => {
                             //@ts-ignore ignore
                             setIdToRemove(item.id);
@@ -237,7 +250,8 @@ const PreCheckot = () => {
                                     //@ts-ignore ignore
                                     variant.id === item.merchandise.id
                                       ? "block"
-                                      : "hidden"}`}
+                                      : "hidden"
+                                  }`}
                                 />
                               </div>
                               <p class="text-sm leading-4 font-bold text-[#686868]">
@@ -252,7 +266,7 @@ const PreCheckot = () => {
                                 {variant.compareAtPrice}
                               </p>
                               <p class="text-base leading-[19px] font-bold text-[#2E385F]">
-                                {variant.price}
+                                {formatPrice(variant.price, currency, locale)}
                               </p>
                             </div>
                             <p class="text-[10px] leading-3 font-bold text-[#444444]">
@@ -260,15 +274,20 @@ const PreCheckot = () => {
                             </p>
                           </div>
                           <img
-                            src="https://fakeimg.pl/53x62/2E385F/ffffff"
+                            src={
+                              variant.image?.url ||
+                              "https://fakeimg.pl/53x62/2E385F/ffffff"
+                            }
                             alt=""
+                            class="w-[53px]"
                           />
                           <div class="absolute bottom-[-14px] bg-[#F2970E] w-full max-w-[208px] h-[28px] flex items-center justify-center rounded-[5px]">
                             <p class="text-white text-[11px] leading-[13px] font-semibold">
                               GANHE {variant.metafield?.value}{" "}
                               {variant.metafield?.value > 1
                                 ? "NÚMEROS"
-                                : "NÚMERO"} DA SORTE
+                                : "NÚMERO"}{" "}
+                              DA SORTE
                             </p>
                           </div>
                         </button>
@@ -284,89 +303,88 @@ const PreCheckot = () => {
                       O número será enviado diretamente no e-mail.
                     </p>
                   </div>
-                ))}
-              </div>
+                );
+              })}
+            </div>
 
-              <div class="w-full lg:max-w-[300px]">
-                <div class="flex flex-col gap-[22px]">
-                  {/* Subtotal */}
+            <div class="w-full lg:max-w-[300px]">
+              <div class="flex flex-col gap-[22px]">
+                {/* Subtotal */}
+                <div class="w-full flex justify-between">
+                  <span class="text-[#444] text-base leading-normal">
+                    Subtotal:
+                  </span>
+                  <span class="text-[#444] text-right text-[17px] leading-normal">
+                    {formatPrice(subTotal, currency, locale)}
+                  </span>
+                </div>
+
+                {/* Discounts */}
+                {discounts > 0 && (
                   <div class="w-full flex justify-between">
                     <span class="text-[#444] text-base leading-normal">
-                      Subtotal:
+                      Descontos:
                     </span>
                     <span class="text-[#444] text-right text-[17px] leading-normal">
-                      {formatPrice(subTotal, currency, locale)}
+                      {formatPrice(discounts, currency, locale)}
                     </span>
                   </div>
+                )}
 
-                  {/* Discounts */}
-                  {discounts > 0 && (
-                    <div class="w-full flex justify-between">
-                      <span class="text-[#444] text-base leading-normal">
-                        Descontos:
-                      </span>
-                      <span class="text-[#444] text-right text-[17px] leading-normal">
-                        {formatPrice(discounts, currency, locale)}
-                      </span>
-                    </div>
-                  )}
+                {/* Total */}
+                <div class="w-full flex justify-between">
+                  <span class="text-[#444] text-base font-semibold leading-normal">
+                    TOTAL:
+                  </span>
+                  <span class="text-[#2E385F] text-right text-xl font-bold leading-normal">
+                    {formatPrice(total, currency, locale)}
+                  </span>
+                </div>
 
-                  {/* Total */}
-                  <div class="w-full flex justify-between">
-                    <span class="text-[#444] text-base font-semibold leading-normal">
-                      TOTAL:
-                    </span>
-                    <span class="text-[#2E385F] text-right text-xl font-bold leading-normal">
-                      {formatPrice(total, currency, locale)}
-                    </span>
-                  </div>
+                <p class="text-[11px] leading-[13px] text-center text-[#686868]">
+                  Os números da sorte serão gerados de forma aleatória e
+                  enviados gratuitamente para você assim que o seu pedido for
+                  confirmado.
+                </p>
 
-                  <p class="text-[11px] leading-[13px] text-center text-[#686868]">
-                    Os números da sorte serão gerados de forma aleatória e
-                    enviados gratuitamente para você assim que o seu pedido for
-                    confirmado.
-                  </p>
-
-                  <a
-                    class="inline-block w-full fixed left-0 lg:static bottom-0 z-50 lg:z-0"
-                    href={checkoutHref}
-                  >
-                    <Button
-                      data-deco="buy-button"
-                      class="bg-[#6DC04B] w-full h-[45px] flex justify-center items-center text-white text-[15px] font-bold leading-normal lg:rounded-lg border-none"
-                      disabled={loading || isEmtpy}
-                      onClick={() => {
-                        sendEvent({
-                          name: "begin_checkout",
-                          params: {
-                            coupon,
-                            currency,
-                            value: total - discounts,
-                            items: items
-                              .map((_, index) =>
-                                handleItemToAnalyticsItem(index)
-                              )
-                              .filter((x): x is AnalyticsItem => Boolean(x)),
-                          },
-                        });
-                      }}
-                    >
-                      FINALIZAR COMPRA
-                    </Button>
-                  </a>
-
-                  <p
-                    class="text-[#444] text-center text-sm font-semibold leading-normal underline w-fit mx-auto cursor-pointer"
+                <a
+                  class="inline-block w-full fixed left-0 lg:static bottom-0 z-50 lg:z-0"
+                  href={checkoutHref}
+                >
+                  <Button
+                    data-deco="buy-button"
+                    class="bg-[#6DC04B] w-full h-[45px] flex justify-center items-center text-white text-[15px] font-bold leading-normal lg:rounded-lg border-none"
+                    disabled={loading || isEmtpy}
                     onClick={() => {
-                      location.href = "/";
+                      sendEvent({
+                        name: "begin_checkout",
+                        params: {
+                          coupon,
+                          currency,
+                          value: total - discounts,
+                          items: items
+                            .map((_, index) => handleItemToAnalyticsItem(index))
+                            .filter((x): x is AnalyticsItem => Boolean(x)),
+                        },
+                      });
                     }}
                   >
-                    CONTINUAR COMPRANDO
-                  </p>
-                </div>
+                    FINALIZAR COMPRA
+                  </Button>
+                </a>
+
+                <p
+                  class="text-[#444] text-center text-sm font-semibold leading-normal underline w-fit mx-auto cursor-pointer"
+                  onClick={() => {
+                    location.href = "/";
+                  }}
+                >
+                  CONTINUAR COMPRANDO
+                </p>
               </div>
             </div>
-          )}
+          </div>
+        )}
       </div>
     </div>
   );
