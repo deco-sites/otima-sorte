@@ -25,7 +25,7 @@ const PromoCardPDP = ({ id }: { id: string }) => {
 
   return (
     <div class="bg-[#F6F6F6] border-[3px] border-[#F2970E] rounded-lg py-3 px-[15px] flex gap-[15px] items-start mb-4 lg:max-w-[410px]">
-      <img src={collectionInfos?.image.url} alt="" className="w-[48px] h-[60px]"/>
+      <img src={collectionInfos?.image.url} alt="" className="h-[60px]"/>
       <div>
         <h1 class="text-[#444] text-[17px] leading-[22px] mb-1">
           <span class="font-semibold">PROMO:</span> {collectionInfos?.title}
