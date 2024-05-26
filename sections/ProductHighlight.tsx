@@ -68,7 +68,7 @@ export default function DogFacts({
             </p>
           </div> */}
           <p class="text-white text-xl text-center leading-normal mb-[10px] lg:text-left">
-            <span class="font-semibold">eBook:</span> {product?.title}
+            {product?.title}
           </p>
           <div class="flex items-center gap-[23px] mb-[13px]">
             {/* <p class="text-white text-[13px] leading-normal line-through">
