@@ -1,4 +1,5 @@
 import type { ImageWidget } from "apps/admin/widgets.ts";
+import RichText from "$store/sections/Content/RichText.tsx";
 
 interface Image {
   image: ImageWidget;
@@ -97,9 +98,7 @@ const PromoInfos = (props: Props) => {
                 </a>
               </div>
             </div>
-            <p class="text-white text-center text-[13px] leading-5 mb-6 px-[15px] lg:px-0 lg:text-start">
-              {description}
-            </p>
+            <RichText text={description} />
             <p class="text-white text-center text-[10px] leading-normal px-[28px] lg:px-0 lg:text-start lg:mt-auto">
               *Na compra do eBook você ganha 1 número da sorte para concorrer a
               promoção: {promoName}. O número será enviado diretamente no
