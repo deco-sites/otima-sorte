@@ -5,6 +5,8 @@ export interface ContactUs {
   text?: string;
   phones?: string[];
   email?: string;
+  facebook?: string;
+  instagram?: string;
 }
 
 const DEFAULT_PROPS = {
@@ -12,6 +14,8 @@ const DEFAULT_PROPS = {
   text: "Placeholder",
   phones: ["telefone 1", "telefone 2"],
   email: "email",
+  facebook: "/",
+  instagram: "/",
 };
 
 const ContactUs = (props: ContactUs) => {
@@ -57,7 +61,7 @@ const ContactUs = (props: ContactUs) => {
               </div>
             </div>
             <div class="flex gap-[35px]">
-              <a href="">
+              <a href={props.facebook}>
                 <svg
                   width="14"
                   height="28"
@@ -71,7 +75,7 @@ const ContactUs = (props: ContactUs) => {
                   />
                 </svg>
               </a>
-              <a href="">
+              <a href={props.instagram}>
                 <svg
                   width="29"
                   height="28"
@@ -124,10 +128,20 @@ const ContactUs = (props: ContactUs) => {
                 <option value="" disabled selected>
                   Selecione um assunto
                 </option>
-                <option value="Suporte">Suporte</option>
-                <option value="Vendas">Vendas</option>
-                <option value="Feedback">Feedback</option>
-                <option value="Outros">Outros</option>
+                <option value="Tenho um problema com meu pedido">
+                  Tenho um problema com meu pedido
+                </option>
+                <option value="Tenho uma dúvida">Tenho uma dúvida</option>
+                <option value="Não recebi meu número da sorte">
+                  Não recebi meu número da sorte
+                </option>
+                <option value="Não recebi meu e-book">
+                  Não recebi meu e-book
+                </option>
+                <option value="Tenho uma sugestão">Tenho uma sugestão</option>
+                <option value="Tenho uma reclamação">
+                  Tenho uma reclamação
+                </option>
               </select>
               <textarea
                 id="mensagem"

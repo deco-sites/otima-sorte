@@ -16,10 +16,10 @@ const Banners = (props: BannersProps) => {
   return (
     <div class="px-[15px] mb-[60px] lg:mb-[203px]">
       <div class="max-w-[1270px] mx-auto flex flex-col items-center gap-2 lg:flex-row lg:justify-between lg:gap-[22px]">
-        <a href="">
+        <a href="/fale-conosco">
           <img src={left} alt="" class="rounded-2xl" />
         </a>
-        <a href="">
+        <a href="/sobre-nos">
           <img src={right} alt="" class="rounded-2xl" />
         </a>
       </div>

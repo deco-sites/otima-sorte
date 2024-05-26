@@ -10,6 +10,6 @@ export function SearchButton() {
   return <SearchButtonComponent />;
 }
 
-export function LoginButton() {
-  return <LoginButtonComponent />;
+export function LoginButton(userName: string) {
+  return <LoginButtonComponent userName={userName} />;
 }

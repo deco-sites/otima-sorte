@@ -1,25 +1,20 @@
 import { useUI } from "$store/sdk/useUI.ts";
 import { useState } from "preact/hooks";
-import { getCustomerAccessToken } from "$store/utils/user.ts";
 import { SectionProps } from "deco/types.ts";
 import { AppContext } from "apps/shopify/mod.ts";
 
-export async function loader(_: any, _req: Request, ctx: AppContext) {
-  //@ts-ignore ignore
-  const storeName = ctx.storeNameCustom;
-  //@ts-ignore ignore
-  const tokenAccess = ctx.tokenAccessCustom;
-  //@ts-ignore ignore
-  const tokenAdmin = ctx.tokenAdminCustom.get();
-  const token = getCustomerAccessToken(_req.headers);
-  //@ts-ignore ignore
-  const userInfo = await extractUserInfo(token, storeName, tokenAccess);
+export interface Props {
+  userName: string;
+}
 
-  return { userInfo };
+export async function loader(props: Props, _req: Request, ctx: AppContext) {
+  const userName = props.userName;
+
+  return { userName };
 }
 
 export default function LoginButton({
-  userInfo,
+  userName,
 }: SectionProps<Awaited<ReturnType<typeof loader>>>) {
   const [showModal, setShowModal] = useState(false);
 
@@ -94,9 +89,9 @@ export default function LoginButton({
               setShowModal(false);
             }}
           >
-            {userInfo ? (
+            {userName?.userName ? (
               <p class="text-white text-xs font-bold leading-normal cursor-pointer">
-                {userInfo?.firstName}
+                {userName?.userName}
               </p>
             ) : (
               <p class="text-white text-xs font-bold leading-normal underline cursor-pointer">
@@ -112,7 +107,7 @@ export default function LoginButton({
               <div class="bg-white w-[48px] h-[48px] rotate-45 absolute left-0 right-0 mx-auto top-[7px] rounded-lg" />
               <div class="bg-white pt-[43px] px-[31px] pb-[31px] rounded-lg">
                 <div class="flex flex-col gap-[23px]">
-                  {!userInfo && (
+                  {!userName?.userName && (
                     <p
                       class="text-[#2E385F] text-[15px] font-semibold leading-normal hover:underline cursor-pointer"
                       onClick={() => {
@@ -122,7 +117,7 @@ export default function LoginButton({
                       Fazer login ou Cadastrar-se
                     </p>
                   )}
-                  {userInfo && (
+                  {userName?.userName && (
                     <a
                       href="/my-account"
                       class="text-[#2E385F] text-[15px] font-semibold leading-normal hover:underline"

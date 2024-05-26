@@ -14,6 +14,8 @@ import Searchbar from "$store/islands/Header/Searchbar.tsx";
 import Icon from "$store/components/ui/Icon.tsx";
 import { getCustomerAccessToken } from "$store/utils/user.ts";
 
+import { extractUserInfo } from "$store/utils/shopifyUserInfo.ts";
+
 export interface Logo {
   src: ImageWidget;
   alt: string;
@@ -56,14 +58,17 @@ const DEFAULT_PROPS = {
 };
 
 //@ts-ignore ignore
-export const loader = (props: Props, _req: Request) => {
+export const loader = async (props: Props, _req: Request, ctx: AppContext) => {
   const { searchbar, logo, toptext, topbarlinks } = {
     ...DEFAULT_PROPS,
     ...props,
   };
   const token = getCustomerAccessToken(_req.headers);
+  const tokenAccess = ctx.tokenAccessCustom;
+  const storeName = ctx.storeNameCustom;
+  const userInfo = await extractUserInfo(token, storeName, tokenAccess);
 
-  return { searchbar, logo, toptext, topbarlinks, token };
+  return { searchbar, logo, toptext, topbarlinks, token, userInfo };
 };
 
 function Header({
@@ -72,6 +77,7 @@ function Header({
   toptext,
   topbarlinks,
   token,
+  userInfo,
 }: SectionProps<ReturnType<typeof loader>>) {
   const platform = usePlatform();
 
@@ -123,7 +129,7 @@ function Header({
             >
               <Icon id="User" size={24} strokeWidth={0.4} />
             </a> */}
-            <LoginButton />
+            <LoginButton userName={userInfo?.firstName} />
           </div>
 
           <div class="lg:hidden h-[27px]">
@@ -144,7 +150,7 @@ function Header({
               >
                 <Icon id="User" size={24} strokeWidth={0.4} />
               </a> */}
-              <LoginButton />
+              <LoginButton userName={userInfo?.firstName} />
               <CartButtonShopify />
             </div>
           </div>

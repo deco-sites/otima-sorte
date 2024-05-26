@@ -27,7 +27,7 @@ const LoginForm = () => {
         setHasError(true);
       }
     },
-    [],
+    []
   );
 
   const createCustomer = useCallback(
@@ -58,12 +58,12 @@ const LoginForm = () => {
 
       /* TODO: ERROR HANDLE*/
       if (data?.customerCreate) {
-        console.log(data?.customerCreate);
+        doLogin({ email, password });
       } else {
         setHasError(true);
       }
     },
-    [],
+    []
   );
 
   const recoverPassword = useCallback(async ({ email }: { email: string }) => {
@@ -80,11 +80,11 @@ const LoginForm = () => {
 
     if (data) {
       globalThis.alert(
-        "Você receberá um e-mail com um link para atualizar a senha.",
+        "Você receberá um e-mail com um link para atualizar a senha."
       );
     } else {
       globalThis.alert(
-        "Ocorreu um erro na sua solicitação de recuperação de senha.",
+        "Ocorreu um erro na sua solicitação de recuperação de senha."
       );
     }
   }, []);
