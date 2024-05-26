@@ -61,7 +61,7 @@ const PromoInfos = (props: Props) => {
         <h1 class="text-white text-[26px] leading-[22px] text-center mb-[32px] lg:text-left">
           <span class="text-[#F2970E] font-semibold">PROMO :</span> {promoName}
         </h1>
-        <div class="lg:flex lg:justify-between">
+        <div class="lg:flex lg:justify-between lg:items-center">
           <div class="px-[27px] mb-10 lg:px-0 lg:mb-0">
             <img src={prizeImage.image} alt={prizeImage.alt} />
           </div>
